@@ -1,5 +1,5 @@
-{
-  "installation": "Installation",
+export default {
+  installation: "Installation",
   "quick-start": "Quick Start",
   "first-program": "Your First Program"
 }

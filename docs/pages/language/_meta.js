@@ -1,10 +1,10 @@
-{
+export default {
   "syntax-overview": "Syntax Overview",
   "header-modes": "Header Modes",
   "data-types": "Data Types",
-  "variables": "Variables",
-  "functions": "Functions",
+  variables: "Variables",
+  functions: "Functions",
   "control-flow": "Control Flow",
-  "operators": "Operators"
+  operators: "Operators"
 }
 
