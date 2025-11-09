@@ -8,8 +8,9 @@ use std::fs;
 use std::path::PathBuf;
 
 #[derive(ClapParser)]
-#[command(name = "joelc")]
-#[command(about = "JOEL Language Compiler & Runtime", long_about = None)]
+#[command(name = "joel")]
+#[command(about = "JOEL Language - A polymodal programming language", long_about = None)]
+#[command(version = "0.1.0")]
 struct Cli {
     #[command(subcommand)]
     command: Commands,
@@ -30,6 +31,8 @@ enum Commands {
         #[arg(short, long, default_value = "native")]
         target: String,
     },
+    /// Show version information
+    Version,
 }
 
 fn main() {
@@ -42,12 +45,14 @@ fn main() {
         Commands::Build { file, target } => {
             build_file(&file, &target);
         },
+        Commands::Version => {
+            println!("JOEL Language v0.1.0");
+            println!("A polymodal programming language");
+        },
     }
 }
 
 fn run_file(file: &PathBuf) {
-    println!("📖 Reading: {}\n", file.display());
-    
     let source = match fs::read_to_string(file) {
         Ok(content) => content,
         Err(e) => {
@@ -56,18 +61,27 @@ fn run_file(file: &PathBuf) {
         },
     };
     
-    // Tokenize
-    let mut lexer = lexer::Lexer::new(&source);
-    let tokens = lexer.tokenize();
-    
-    // Parse
-    let mut parser = parser::Parser::new(tokens);
-    let program = parser.parse();
-    
-    // Interpret
-    let mut vm = vm::VM::new();
-    if let Err(e) = vm.interpret(&program) {
-        eprintln!("❌ Runtime error: {}", e);
+    // Check for header
+    if source.trim_start().starts_with("[Interpreted]") {
+        // Tokenize
+        let mut lexer = lexer::Lexer::new(&source);
+        let tokens = lexer.tokenize();
+        
+        // Parse
+        let mut parser = parser::Parser::new(tokens);
+        let program = parser.parse();
+        
+        // Interpret
+        let mut vm = vm::VM::new();
+        if let Err(e) = vm.interpret(&program) {
+            eprintln!("❌ Runtime error: {}", e);
+        }
+    } else if source.trim_start().starts_with("[Compiled]") {
+        println!("⚙️  Compiling (AOT) ...");
+        println!("⚠️  Compiled mode not yet implemented - use [Interpreted] for now");
+    } else {
+        eprintln!("❌ Error: missing [Compiled] or [Interpreted] header");
+        eprintln!("   Add [Interpreted] or [Compiled] at the top of your file");
     }
 }
 

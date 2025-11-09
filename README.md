@@ -6,15 +6,46 @@
 
 ### Installation
 
+**Option 1: Quick Install (Recommended)**
+
+```bash
+# Run the install script
+chmod +x install.sh
+./install.sh
+```
+
+**Option 2: Manual Install**
+
 ```bash
 # Build the compiler
 cargo build --release
 
-# Run a JOEL file
-cargo run -- run examples/hello.joel
+# Install globally
+sudo cp target/release/joel /usr/local/bin/joel
+sudo chmod +x /usr/local/bin/joel
+```
 
-# Or use the binary directly
-./target/release/joelc run examples/hello.joel
+**Option 3: Local Install (No sudo)**
+
+```bash
+cargo build --release
+export PATH="$PATH:$(pwd)/target/release"
+```
+
+See [INSTALL.md](INSTALL.md) for detailed instructions.
+
+### Verify Installation
+
+```bash
+joel version
+# Should output: JOEL Language v0.1.0
+```
+
+### Run a JOEL File
+
+```bash
+# Now you can use joel from anywhere!
+joel run examples/hello.joel
 ```
 
 ### Example
@@ -133,12 +164,15 @@ contract Vault {
 
 ```bash
 # Run in interpreted mode
-joelc run <file.joel>
+joel run <file.joel>
 
 # Build for a target (not yet implemented)
-joelc build <file.joel> --target native
-joelc build <file.joel> --target wasm32
-joelc build <file.joel> --target evm
+joel build <file.joel> --target native
+joel build <file.joel> --target wasm32
+joel build <file.joel> --target evm
+
+# Show version
+joel version
 ```
 
 ## 🗺️ Roadmap

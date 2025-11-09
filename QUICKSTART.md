@@ -12,26 +12,39 @@ rustc --version
 cargo --version
 ```
 
-### Build JOEL
+### Build and Install JOEL
+
+**Quick Install:**
 
 ```bash
-# Clone or navigate to the JOEL directory
+# Navigate to the JOEL directory
 cd /Users/Shared/JOEL
 
+# Run the install script
+chmod +x install.sh
+./install.sh
+```
+
+**Manual Install:**
+
+```bash
 # Build the compiler
 cargo build --release
 
-# The binary will be at: target/release/joelc
+# Install globally
+sudo cp target/release/joel /usr/local/bin/joel
+sudo chmod +x /usr/local/bin/joel
 ```
 
-### Add to PATH (Optional)
+### Verify Installation
 
 ```bash
-# Add to your shell profile (~/.zshrc, ~/.bashrc, etc.)
-export PATH="$PATH:/Users/Shared/JOEL/target/release"
+# Check version
+joel version
 
-# Now you can use `joelc` from anywhere
-joelc --help
+# Should output:
+# JOEL Language v0.1.0
+# A polymodal programming language
 ```
 
 ## Your First JOEL Program
@@ -52,9 +65,7 @@ main()
 Run it:
 
 ```bash
-cargo run -- run hello.joel
-# or
-./target/release/joelc run hello.joel
+joel run hello.joel
 ```
 
 Expected output:
@@ -145,7 +156,7 @@ cargo run -- run examples/contract.joel
 ### Run (Interpreted Mode)
 
 ```bash
-joelc run <file.joel>
+joel run <file.joel>
 ```
 
 Executes the file in interpreted mode using the JOEL VM.
@@ -153,12 +164,20 @@ Executes the file in interpreted mode using the JOEL VM.
 ### Build (Compiled Mode - Coming Soon)
 
 ```bash
-joelc build <file.joel> --target native
-joelc build <file.joel> --target wasm32
-joelc build <file.joel> --target evm
+joel build <file.joel> --target native
+joel build <file.joel> --target wasm32
+joel build <file.joel> --target evm
 ```
 
 Currently shows a placeholder message. Full compilation will be available in Phase 2.
+
+### Version
+
+```bash
+joel version
+```
+
+Shows the current JOEL version.
 
 ## Language Modes
 
