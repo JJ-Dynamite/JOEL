@@ -1,0 +1,44 @@
+[Interpreted]
+
+module math
+
+fn add(a: i32, b: i32) -> i32 {
+  return a + b
+}
+
+fn subtract(a: i32, b: i32) -> i32 {
+  return a - b
+}
+
+fn multiply(a: i32, b: i32) -> i32 {
+  return a * b
+}
+
+fn divide(a: i32, b: i32) -> f64 {
+  return a as f64 / b as f64
+}
+
+fn main() {
+  print("=== Arithmetic Operations ===")
+  
+  let x = 15
+  let y = 3
+  
+  print("x =", x)
+  print("y =", y)
+  print()
+  print("x + y =", add(x, y))
+  print("x - y =", subtract(x, y))
+  print("x * y =", multiply(x, y))
+  print("x / y =", divide(x, y))
+  print()
+  
+  # Comparison
+  print("x > y:", x > y)
+  print("x < y:", x < y)
+  print("x == y:", x == y)
+  print("x != y:", x != y)
+}
+
+main()
+

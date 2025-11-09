@@ -1,0 +1,27 @@
+[Interpreted]
+
+module hello
+
+fn greet(name: str) -> str {
+  return "Hello " + name
+}
+
+fn main() {
+  print(greet("JOEL"))
+  print("2 + 3 =", 2 + 3)
+  
+  let x = 10
+  let y = 20
+  print("x + y =", x + y)
+  
+  if x > 5 {
+    print("x is greater than 5")
+  }
+  
+  for i in range(0, 5) {
+    print("i =", i)
+  }
+}
+
+main()
+

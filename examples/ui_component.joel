@@ -1,0 +1,20 @@
+[Compiled]
+[target wasm32]
+
+import ui
+
+component Counter() {
+  signal count = 0
+  
+  view (
+    <Panel>
+      <H1>Counter: {count}</H1>
+      <Button onClick={() => count++}>Increment</Button>
+      <Button onClick={() => count--}>Decrement</Button>
+      <Button onClick={() => count = 0}>Reset</Button>
+    </Panel>
+  )
+}
+
+export default Counter
+

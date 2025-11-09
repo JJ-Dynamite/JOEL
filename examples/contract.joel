@@ -1,0 +1,24 @@
+[Compiled]
+[target evm]
+
+contract Vault {
+  state let owner: address
+  state let balance: uint256 = 0
+  
+  fn constructor() {
+    owner = tx.sender
+  }
+  
+  #[payable]
+  fn deposit() {
+    balance += tx.value
+  }
+  
+  fn withdraw(amount: uint256) {
+    require(tx.sender == owner)
+    require(amount <= balance)
+    send(owner, amount)
+    balance -= amount
+  }
+}
+

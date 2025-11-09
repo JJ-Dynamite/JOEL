@@ -1,0 +1,11 @@
+[Interpreted]
+
+flow ProcessImage {
+  node fetch(url: str) -> bytes = http.get(url)
+  node classify(data: bytes) -> label = ai.classify(data, model:"clip")
+  node store(label: str) = dstore.ipfs.put(label)
+  wire fetch -> classify -> store
+}
+
+ProcessImage.run({ url: "https://example.com/cat.jpg" })
+

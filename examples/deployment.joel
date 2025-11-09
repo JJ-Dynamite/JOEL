@@ -1,0 +1,28 @@
+[Compiled]
+
+import ops
+
+deployment "inference-api" {
+  image "ghcr.io/you/serve:1.2.3"
+  ports 8080
+  env {
+    MODEL = "resnet50.onnx"
+    BATCH_SIZE = "32"
+  }
+  autoscale {
+    min = 1
+    max = 10
+    cpu = 70%
+  }
+  volume "models" {
+    from = ipfs:QmHash123456789
+  }
+}
+
+cluster "prod-ap-south" {
+  provider "k8s" {
+    context = "prod-apsouth1"
+  }
+  apply deployment:"inference-api"
+}
+

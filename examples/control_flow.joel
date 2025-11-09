@@ -1,0 +1,42 @@
+[Interpreted]
+
+module control
+
+fn main() {
+  print("=== If/Else ===")
+  let score = 85
+  
+  if score >= 90 {
+    print("Grade: A")
+  } elif score >= 80 {
+    print("Grade: B")
+  } elif score >= 70 {
+    print("Grade: C")
+  } else {
+    print("Grade: F")
+  }
+  
+  print()
+  print("=== While Loop ===")
+  let count = 0
+  while count < 5 {
+    print("Count:", count)
+    count += 1
+  }
+  
+  print()
+  print("=== For Loop ===")
+  for i in range(0, 5) {
+    print("i =", i)
+  }
+  
+  print()
+  print("=== List Iteration ===")
+  let numbers = [10, 20, 30, 40, 50]
+  for num in numbers {
+    print("Number:", num)
+  }
+}
+
+main()
+
