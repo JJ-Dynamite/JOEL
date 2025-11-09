@@ -9,7 +9,7 @@
 **Quick Install (Recommended)**
 
 ```bash
-curl -fsSL https://joel.sh/install | bash
+curl -fsSL https://joel.val-x.com/install | bash
 ```
 
 **Manual Install**
