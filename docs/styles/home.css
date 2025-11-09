@@ -73,10 +73,10 @@ body {
 }
 
 .hero-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: clamp(2rem, 4vw, 4rem);
-  align-items: start;
+  align-items: stretch;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
@@ -91,6 +91,7 @@ body {
 
   .hero-content {
     gap: clamp(2rem, 3.5vw, 3rem);
+    flex-direction: column;
   }
 
   .hero h1 {
@@ -106,6 +107,7 @@ body {
 
   .hero-content {
     gap: clamp(2.5rem, 3.5vw, 3.5rem);
+    flex-direction: column;
   }
 }
 
@@ -118,19 +120,21 @@ body {
 
   .hero-content {
     gap: clamp(2.5rem, 4vw, 4rem);
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    flex-direction: column;
   }
 
   .hero-left {
     max-width: 100%;
     overflow: hidden;
     min-width: 0;
+    width: 100%;
   }
 
   .hero-right {
     max-width: 100%;
     overflow: hidden;
     min-width: 0;
+    width: 100%;
   }
 }
 
@@ -143,6 +147,7 @@ body {
 
   .hero-content {
     gap: clamp(3.5rem, 4.5vw, 4.5rem);
+    flex-direction: column;
   }
 }
 
@@ -155,12 +160,12 @@ body {
 
 @media (max-width: 1024px) {
   .hero-content {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     gap: clamp(2rem, 4vw, 3rem);
   }
 
   .hero-right {
-    order: -1; /* Show benchmarks first on tablet */
+    order: 0; /* Keep natural order */
   }
 
   .benchmark-item {
@@ -194,6 +199,8 @@ body {
   gap: clamp(1.25rem, 2.5vw, 2rem);
   min-width: 0; /* Prevent flex overflow */
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .version-pill {
@@ -448,6 +455,8 @@ body {
   gap: clamp(1.25rem, 2.5vw, 2rem);
   min-width: 0; /* Prevent flex overflow */
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .benchmark-tabs {
@@ -597,6 +606,9 @@ body {
   z-index: 1;
   width: 100%;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 @media (min-width: 1025px) {
@@ -692,6 +704,9 @@ body {
   z-index: 1;
   width: 100%;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 @media (min-width: 1025px) {
@@ -796,6 +811,7 @@ body {
 
   .hero-content {
     gap: clamp(1.75rem, 3vw, 2rem);
+    flex-direction: column;
   }
 
   .platform-tabs {
@@ -814,6 +830,7 @@ body {
 
   .hero-content {
     gap: clamp(1.5rem, 3vw, 2rem);
+    flex-direction: column;
   }
 
   .benchmark-item {
