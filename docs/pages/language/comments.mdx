@@ -1,0 +1,136 @@
+# Comments
+
+Comments help document your code and explain complex logic.
+
+## Single-Line Comments
+
+### Hash Comments
+
+```joel
+# This is a comment
+let x = 10  # Inline comment
+```
+
+### Double Slash Comments
+
+```joel
+// This is also a comment
+let y = 20  // Inline comment
+```
+
+## Multi-Line Comments
+
+```joel
+/*
+  This is a multi-line comment.
+  It can span multiple lines.
+  Useful for longer explanations.
+*/
+
+let z = 30
+```
+
+## Documentation Comments
+
+### Function Documentation
+
+```joel
+# Calculates the sum of two numbers
+# 
+# Args:
+#   a: First number
+#   b: Second number
+# 
+# Returns:
+#   Sum of a and b
+fn add(a: i32, b: i32) -> i32 {
+  return a + b
+}
+```
+
+### Module Documentation
+
+```joel
+# Math Module
+# 
+# Provides basic arithmetic operations:
+# - Addition
+# - Subtraction
+# - Multiplication
+# - Division
+
+module math
+```
+
+## Comment Best Practices
+
+### Good Comments
+
+```joel
+# Calculate factorial using recursion
+# Base case: n <= 1 returns 1
+fn factorial(n: i32) -> i32 {
+  if n <= 1 {
+    return 1  # Base case
+  }
+  return n * factorial(n - 1)  # Recursive case
+}
+```
+
+### Avoid Obvious Comments
+
+```joel
+# Bad: Obvious comment
+let x = 10  # Set x to 10
+
+# Good: Explains why
+let timeout = 30  # 30 seconds - enough for slow networks
+```
+
+## Commented Code
+
+```joel
+# Temporarily disabled for debugging
+# let result = expensive_calculation()
+
+# Use this instead
+let result = quick_calculation()
+```
+
+## TODO Comments
+
+```joel
+# TODO: Add error handling
+# TODO: Optimize this function
+# FIXME: Handle edge case when x is negative
+# NOTE: This works but could be improved
+```
+
+## Examples
+
+### Well-Documented Function
+
+```joel
+# Validates user input and returns sanitized value
+# 
+# This function:
+# - Trims whitespace
+# - Removes special characters
+# - Converts to lowercase
+# 
+# Args:
+#   input: Raw user input string
+# 
+# Returns:
+#   Sanitized string ready for processing
+fn sanitize(input: str) -> str {
+  # Implementation coming soon
+  return input
+}
+```
+
+## Next Steps
+
+- [Syntax Overview](syntax-overview.md)
+- [Functions](functions.md)
+

@@ -1,0 +1,44 @@
+# Chain Module
+
+The chain module provides blockchain and Web3 functionality.
+
+## Wallet Operations
+
+```joel
+# Coming soon
+import chain
+
+let wallet = chain.create_wallet()
+let address = wallet.address
+let balance = wallet.get_balance()
+```
+
+## Contract Interaction
+
+```joel
+# Coming soon
+import chain
+
+let provider = chain.connect("https://eth.mainnet.com")
+let contract = provider.get_contract("0x...", abi)
+let result = contract.call("transfer", ["0x...", 100])
+```
+
+## Transaction Handling
+
+```joel
+# Coming soon
+let tx = chain.create_transaction({
+  to: "0x...",
+  value: 1000000000000000000,
+  gas: 21000
+})
+
+let receipt = await chain.send_transaction(tx)
+```
+
+## Next Steps
+
+- [AI Module](ai.md)
+- [Storage Module](storage.md)
+

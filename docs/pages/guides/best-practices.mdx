@@ -1,0 +1,143 @@
+# Best Practices
+
+Guidelines for writing clean, maintainable JOEL code.
+
+## Code Organization
+
+### File Structure
+
+```joel
+# Good: Clear module organization
+module calculator
+
+# Public API
+fn add(a: i32, b: i32) -> i32 { ... }
+fn subtract(a: i32, b: i32) -> i32 { ... }
+
+# Private helpers
+private fn validate(x: i32) -> bool { ... }
+```
+
+### Naming Conventions
+
+```joel
+# Variables: snake_case
+let user_name = "Alice"
+let item_count = 10
+
+# Functions: snake_case
+fn calculate_total() { ... }
+fn get_user_data() { ... }
+
+# Constants: UPPER_SNAKE_CASE
+const MAX_SIZE = 100
+const API_URL = "https://api.example.com"
+
+# Types: PascalCase (coming soon)
+type User = { name: str, age: i32 }
+```
+
+## Error Handling
+
+### Use Result Types
+
+```joel
+# Good: Explicit error handling
+fn read_file(path: str) -> Result<str, Error> {
+  # Handle errors explicitly
+}
+
+# Bad: Silent failures
+fn read_file(path: str) -> str {
+  # May fail silently
+}
+```
+
+### Validate Inputs
+
+```joel
+fn divide(a: f64, b: f64) -> Result<f64, str> {
+  if b == 0.0 {
+    return Err("Division by zero")
+  }
+  return Ok(a / b)
+}
+```
+
+## Performance
+
+### Use Compiled Mode for Production
+
+```joel
+# Development
+[Interpreted]
+
+# Production
+[Compiled]
+```
+
+### Avoid Unnecessary Allocations
+
+```joel
+# Good: Reuse variables
+let result = 0
+for i in range(0, 1000) {
+  result += i
+}
+
+# Bad: Create new objects in loop
+for i in range(0, 1000) {
+  let result = 0  # Creates new variable each iteration
+  result += i
+}
+```
+
+## Documentation
+
+### Document Public APIs
+
+```joel
+# Calculates the factorial of a number
+# 
+# Args:
+#   n: Non-negative integer
+# 
+# Returns:
+#   Factorial of n
+fn factorial(n: i32) -> i32 {
+  # Implementation
+}
+```
+
+## Security
+
+### Validate All Inputs
+
+```joel
+fn process_user_input(input: str) -> Result<str, Error> {
+  if input.length() > 1000 {
+    return Err("Input too long")
+  }
+  # Process input
+}
+```
+
+### Use Type Annotations
+
+```joel
+# Good: Explicit types
+fn add(a: i32, b: i32) -> i32 {
+  return a + b
+}
+
+# Less clear: Inferred types
+fn add(a, b) {
+  return a + b
+}
+```
+
+## Next Steps
+
+- [Error Handling](error-handling.md)
+- [Performance Tips](performance.md)
+

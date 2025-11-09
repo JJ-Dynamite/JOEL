@@ -1,0 +1,42 @@
+# UI Module
+
+The UI module provides components and utilities for building interfaces.
+
+## Components
+
+```joel
+import ui
+
+component Button(text: str, onClick: Function) {
+  view (
+    <button onClick={onClick}>{text}</button>
+  )
+}
+```
+
+## Routing
+
+```joel
+# Coming soon
+import ui
+
+router {
+  "/" => Home,
+  "/about" => About,
+  "/contact" => Contact
+}
+```
+
+## State Management
+
+```joel
+# Signals for reactive state
+signal count = 0
+signal user = None
+```
+
+## Next Steps
+
+- [Chain Module](chain.md)
+- [Flow Module](flow.md)
+

@@ -1,0 +1,45 @@
+# Debugging
+
+Tips and tools for debugging JOEL programs.
+
+## Print Debugging
+
+```joel
+fn complex_function(x: i32) -> i32 {
+  print("Input:", x)  # Debug output
+  let result = x * 2
+  print("Result:", result)  # Debug output
+  return result
+}
+```
+
+## Assertions
+
+```joel
+# Coming soon
+fn divide(a: f64, b: f64) -> f64 {
+  assert(b != 0.0, "Division by zero")
+  return a / b
+}
+```
+
+## Error Messages
+
+```joel
+# Provide helpful error messages
+fn validate_age(age: i32) -> Result<i32, str> {
+  if age < 0 {
+    return Err("Age cannot be negative")
+  }
+  if age > 150 {
+    return Err("Age seems unrealistic")
+  }
+  return Ok(age)
+}
+```
+
+## Next Steps
+
+- [Performance Tips](performance.md)
+- [Best Practices](best-practices.md)
+

@@ -1,0 +1,119 @@
+# Built-in Functions
+
+JOEL provides built-in functions for common operations.
+
+## Print Functions
+
+### print
+
+Print values to standard output.
+
+```joel
+print("Hello")              # Hello
+print("x =", 10)            # x = 10
+print("Sum:", 5 + 3)        # Sum: 8
+```
+
+## Range Functions
+
+### range
+
+Generate a range of numbers.
+
+```joel
+# Single argument: 0 to n-1
+for i in range(5) {
+  print(i)  # 0, 1, 2, 3, 4
+}
+
+# Two arguments: start to end-1
+for i in range(2, 6) {
+  print(i)  # 2, 3, 4, 5
+}
+```
+
+## String Functions
+
+### Coming Soon
+
+```joel
+# String manipulation (coming soon)
+let text = "Hello, JOEL"
+let upper = text.upper()        # "HELLO, JOEL"
+let lower = text.lower()        # "hello, joel"
+let length = text.length()       # 12
+let split = text.split(",")     # ["Hello", " JOEL"]
+```
+
+## Math Functions
+
+### Coming Soon
+
+```joel
+# Math operations (coming soon)
+let max_val = math.max(10, 20)      # 20
+let min_val = math.min(10, 20)      # 10
+let abs_val = math.abs(-5)         # 5
+let sqrt_val = math.sqrt(16)       # 4.0
+```
+
+## List Functions
+
+### Coming Soon
+
+```joel
+let list = [1, 2, 3]
+
+list.append(4)        # [1, 2, 3, 4]
+list.prepend(0)       # [0, 1, 2, 3, 4]
+let len = list.length()  # 4
+let first = list.first() # 1
+let last = list.last()   # 4
+```
+
+## Map Functions
+
+### Coming Soon
+
+```joel
+let map = {"a": 1, "b": 2}
+
+map.has("a")          # true
+map.keys()            # ["a", "b"]
+map.values()          # [1, 2]
+map.size()            # 2
+```
+
+## Examples
+
+### Using Built-ins
+
+```joel
+[Interpreted]
+
+fn main() {
+  # Print
+  print("Counting:")
+  
+  # Range
+  for i in range(0, 5) {
+    print("  ", i)
+  }
+  
+  # Output:
+  # Counting:
+  #   0
+  #   1
+  #   2
+  #   3
+  #   4
+}
+
+main()
+```
+
+## Next Steps
+
+- [Core Module](core.md)
+- [AI Module](ai.md)
+

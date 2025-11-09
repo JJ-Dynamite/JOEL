@@ -1,0 +1,165 @@
+# Deployments
+
+JOEL provides declarative infrastructure as code for containers and clusters.
+
+## Deployment Declaration
+
+```joel
+[Compiled]
+
+import ops
+
+deployment "api-server" {
+  image "ghcr.io/you/api:v1.0.0"
+  ports 8080
+  env {
+    DATABASE_URL = "postgres://..."
+    API_KEY = env.API_KEY
+  }
+  autoscale {
+    min = 2
+    max = 10
+    cpu = 70%
+  }
+}
+```
+
+## Container Configuration
+
+```joel
+deployment "web-app" {
+  image "nginx:latest"
+  ports 80, 443
+  env {
+    NODE_ENV = "production"
+  }
+  resources {
+    cpu = "500m"
+    memory = "512Mi"
+  }
+  health_check {
+    path = "/health"
+    interval = 30s
+  }
+}
+```
+
+## Volumes
+
+```joel
+deployment "app" {
+  image "myapp:latest"
+  
+  volume "data" {
+    size = "10Gi"
+    type = "persistent"
+  }
+  
+  volume "cache" {
+    from = ipfs:QmHash123
+    type = "readonly"
+  }
+}
+```
+
+## Autoscaling
+
+```joel
+deployment "api" {
+  image "api:latest"
+  
+  autoscale {
+    min = 1
+    max = 20
+    cpu = 70%
+    memory = 80%
+    requests_per_second = 1000
+  }
+}
+```
+
+## Clusters
+
+```joel
+cluster "production" {
+  provider "k8s" {
+    context = "prod-cluster"
+    namespace = "production"
+  }
+  
+  apply deployment:"api-server"
+  apply deployment:"web-app"
+  apply deployment:"worker"
+}
+```
+
+## Examples
+
+### Full Stack Deployment
+
+```joel
+[Compiled]
+
+import ops
+
+# API Server
+deployment "api" {
+  image "ghcr.io/you/api:1.2.3"
+  ports 8080
+  env {
+    DATABASE_URL = env.DATABASE_URL
+    REDIS_URL = env.REDIS_URL
+  }
+  autoscale { min=2, max=10, cpu=70% }
+}
+
+# Web Frontend
+deployment "web" {
+  image "ghcr.io/you/web:1.2.3"
+  ports 80, 443
+  env {
+    API_URL = "http://api:8080"
+  }
+}
+
+# Worker
+deployment "worker" {
+  image "ghcr.io/you/worker:1.2.3"
+  env {
+    QUEUE_URL = env.REDIS_URL
+  }
+  replicas = 3
+}
+
+# Cluster
+cluster "prod" {
+  provider "k8s" {
+    context = "production"
+  }
+  apply deployment:"api"
+  apply deployment:"web"
+  apply deployment:"worker"
+}
+```
+
+## Deployment Commands
+
+```bash
+# Apply deployment
+joel ctl apply -f deploy.joel
+
+# Check status
+joel ctl status deployment:api
+
+# Scale deployment
+joel ctl scale deployment:api --replicas=5
+
+# View logs
+joel ctl logs deployment:api
+```
+
+## Next Steps
+
+- [Storage](storage.md)
+- [Toolchain](../toolchain/cli.md)
+

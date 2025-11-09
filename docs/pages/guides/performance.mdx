@@ -1,0 +1,59 @@
+# Performance Tips
+
+Optimize your JOEL code for better performance.
+
+## Use Compiled Mode
+
+```joel
+# For production code
+[Compiled]
+
+# Provides:
+# - Static type checking
+# - Zero-cost abstractions
+# - Optimized compilation
+```
+
+## Choose Right Data Structures
+
+```joel
+# Lists: Good for ordered data
+let items = [1, 2, 3]
+
+# Maps: Good for keyed lookups
+let lookup = {"key": "value"}
+```
+
+## Avoid Unnecessary Copies
+
+```joel
+# Good: Pass by reference (coming soon)
+fn process(data: &[i32]) {
+  # Doesn't copy data
+}
+
+# Less efficient: May copy
+fn process(data: list[i32]) {
+  # May copy entire list
+}
+```
+
+## Optimize Loops
+
+```joel
+# Good: Direct iteration
+for item in items {
+  process(item)
+}
+
+# Less efficient: Index access
+for i in range(0, items.length()) {
+  process(items[i])
+}
+```
+
+## Next Steps
+
+- [Error Handling](error-handling.md)
+- [Debugging](debugging.md)
+

@@ -1,0 +1,160 @@
+# Advanced Examples
+
+Complex examples demonstrating advanced JOEL features.
+
+## Actor Example
+
+```joel
+[Interpreted]
+
+actor BankAccount {
+  state let balance: f64 = 0.0
+  state let owner: str
+  
+  fn constructor(owner_name: str) {
+    self.owner = owner_name
+  }
+  
+  fn deposit(amount: f64) {
+    self.balance += amount
+  }
+  
+  fn withdraw(amount: f64) -> Result<f64, Error> {
+    if amount > self.balance {
+      return Err("Insufficient funds")
+    }
+    self.balance -= amount
+    return Ok(self.balance)
+  }
+  
+  fn get_balance() -> f64 {
+    return self.balance
+  }
+}
+
+fn main() {
+  let account = BankAccount{owner: "Alice"}
+  account.deposit(100.0)
+  print("Balance:", account.get_balance())
+  
+  match account.withdraw(50.0) {
+    Ok(balance) => print("New balance:", balance),
+    Err(msg) => print("Error:", msg)
+  }
+}
+
+main()
+```
+
+## Contract Example
+
+```joel
+[Compiled]
+[target evm]
+
+contract Token {
+  state let total_supply: uint256 = 1000000
+  state let balances: map[address, uint256]
+  state let owner: address
+  
+  fn constructor() {
+    owner = tx.sender
+    balances[owner] = total_supply
+  }
+  
+  fn transfer(to: address, amount: uint256) {
+    require(balances[tx.sender] >= amount)
+    balances[tx.sender] -= amount
+    balances[to] += amount
+  }
+  
+  fn balance_of(addr: address) -> uint256 {
+    return balances[addr]
+  }
+}
+```
+
+## UI Component Example
+
+```joel
+[Compiled]
+[target wasm32]
+
+import ui
+
+component TodoApp() {
+  signal todos = []
+  signal new_todo = ""
+  
+  fn add_todo() {
+    if new_todo != "" {
+      todos = todos + [new_todo]
+      new_todo = ""
+    }
+  }
+  
+  view (
+    <Panel>
+      <H1>Todo List</H1>
+      <Input 
+        value={new_todo}
+        onChange={(e) => new_todo = e.value}
+        placeholder="Add todo..."
+      />
+      <Button onClick={add_todo}>Add</Button>
+      <List>
+        {for todo in todos {
+          <ListItem>{todo}</ListItem>
+        }}
+      </List>
+    </Panel>
+  )
+}
+
+export default TodoApp
+```
+
+## Workflow Example
+
+```joel
+[Interpreted]
+
+flow ProcessData {
+  node fetch(url: str) -> bytes = http.get(url)
+  node parse(data: bytes) -> json = json.parse(data)
+  node validate(parsed: json) -> bool = check_valid(parsed)
+  node save(valid: json) = database.save(valid)
+  node notify(saved: json) = email.send("Saved", saved)
+  
+  wire fetch -> parse -> validate -> save -> notify
+}
+
+ProcessData.run({ url: "https://api.example.com/data" })
+```
+
+## Storage Example
+
+```joel
+[Interpreted]
+
+import dstore
+
+fn store_and_retrieve() {
+  # Store data
+  let data = bytes("Hello, Decentralized World!")
+  let cid = dstore.ipfs.put(data)
+  print("Stored with CID:", cid)
+  
+  # Retrieve data
+  let retrieved = dstore.ipfs.get(cid)
+  print("Retrieved:", retrieved.to_string())
+}
+
+store_and_retrieve()
+```
+
+## Next Steps
+
+- [Basic Examples](basic.md)
+- [Web3 Examples](web3.md)
+

@@ -1,0 +1,32 @@
+# Flow Module
+
+The flow module provides workflow automation capabilities.
+
+## Node Types
+
+### HTTP Nodes
+
+```joel
+node fetch(url: str) -> bytes = http.get(url)
+node post(url: str, data: bytes) -> response = http.post(url, data)
+```
+
+### AI Nodes
+
+```joel
+node classify(data: bytes) -> label = ai.classify(data)
+node generate(prompt: str) -> text = ai.generate(prompt)
+```
+
+### Storage Nodes
+
+```joel
+node save(data: bytes) = dstore.ipfs.put(data)
+node load(cid: str) -> bytes = dstore.ipfs.get(cid)
+```
+
+## Next Steps
+
+- [UI Module](ui.md)
+- [Ops Module](ops.md)
+

@@ -1,0 +1,60 @@
+# Grammar Reference
+
+Formal grammar specification for JOEL.
+
+## EBNF Grammar
+
+```
+Program = Header? Statement*
+
+Header = "[Compiled]" | "[Interpreted]"
+       | "[target" Identifier "]"
+
+Statement = LetDecl | FnDecl | IfStmt | WhileStmt | ForStmt
+          | ReturnStmt | ExprStmt | Block
+
+LetDecl = "let" Identifier (":" Type)? "=" Expr
+
+FnDecl = "fn" Identifier "(" Params? ")" ("->" Type)? Block
+
+Params = Param ("," Param)*
+Param = Identifier (":" Type)?
+
+Expr = BinaryExpr | UnaryExpr | CallExpr | PrimaryExpr
+
+BinaryExpr = Expr BinaryOp Expr
+BinaryOp = "+" | "-" | "*" | "/" | "%"
+          | "==" | "!=" | "<" | ">" | "<=" | ">="
+          | "&&" | "||"
+
+UnaryExpr = UnaryOp Expr
+UnaryOp = "!" | "-"
+
+CallExpr = Identifier "(" Args? ")"
+Args = Expr ("," Expr)*
+
+PrimaryExpr = Number | String | Boolean | Identifier
+            | "(" Expr ")" | List | Map
+
+Type = "i32" | "i64" | "f32" | "f64" | "str" | "bool"
+     | "list" "[" Type "]"
+     | "map" "[" Type "," Type "]"
+```
+
+## Operator Precedence
+
+1. Parentheses `()`
+2. Member access `.`, `[]`
+3. Unary `!`, `-`
+4. Multiplicative `*`, `/`, `%`
+5. Additive `+`, `-`
+6. Comparison `==`, `!=`, `<`, `>`, `<=`, `>=`
+7. Logical AND `&&`
+8. Logical OR `||`
+9. Assignment `=`, `+=`, `-=`, etc.
+
+## Next Steps
+
+- [Keywords](keywords.md)
+- [Target Platforms](targets.md)
+

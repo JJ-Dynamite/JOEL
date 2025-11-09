@@ -1,0 +1,30 @@
+# Ops Module
+
+The ops module provides container and cluster management.
+
+## Deployment
+
+```joel
+import ops
+
+deployment "app" {
+  image "myapp:latest"
+  ports 8080
+  autoscale { min=1, max=10 }
+}
+```
+
+## Cluster Management
+
+```joel
+cluster "prod" {
+  provider "k8s" { context="prod" }
+  apply deployment:"app"
+}
+```
+
+## Next Steps
+
+- [Flow Module](flow.md)
+- [Storage Module](storage.md)
+

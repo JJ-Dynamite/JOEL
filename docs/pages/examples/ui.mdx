@@ -1,0 +1,152 @@
+# UI Examples
+
+Examples for building user interfaces with JOEL.
+
+## Counter Component
+
+```joel
+[Compiled]
+[target wasm32]
+
+import ui
+
+component Counter() {
+  signal count = 0
+  
+  view (
+    <Panel>
+      <H1>{count}</H1>
+      <Button onClick={() => count++}>Increment</Button>
+      <Button onClick={() => count--}>Decrement</Button>
+      <Button onClick={() => count = 0}>Reset</Button>
+    </Panel>
+  )
+}
+
+export default Counter
+```
+
+## Todo List
+
+```joel
+component TodoList() {
+  signal todos = []
+  signal new_todo = ""
+  
+  fn add_todo() {
+    if new_todo != "" {
+      todos = todos + [new_todo]
+      new_todo = ""
+    }
+  }
+  
+  fn remove_todo(index: i32) {
+    # Remove todo at index (coming soon)
+  }
+  
+  view (
+    <div>
+      <h1>Todo List</h1>
+      <div>
+        <Input 
+          value={new_todo}
+          onChange={(e) => new_todo = e.value}
+          placeholder="Add todo..."
+        />
+        <Button onClick={add_todo}>Add</Button>
+      </div>
+      <ul>
+        {for todo in todos {
+          <li>{todo}</li>
+        }}
+      </ul>
+    </div>
+  )
+}
+```
+
+## Form Component
+
+```joel
+component ContactForm() {
+  signal name = ""
+  signal email = ""
+  signal message = ""
+  signal submitted = false
+  
+  fn handle_submit() {
+    if name != "" && email != "" {
+      # Submit form
+      submitted = true
+    }
+  }
+  
+  view (
+    <Form onSubmit={handle_submit}>
+      {if submitted {
+        <div>Thank you for your message!</div>
+      } else {
+        <div>
+          <Input
+            value={name}
+            onChange={(e) => name = e.value}
+            placeholder="Name"
+            required
+          />
+          <Input
+            type="email"
+            value={email}
+            onChange={(e) => email = e.value}
+            placeholder="Email"
+            required
+          />
+          <Textarea
+            value={message}
+            onChange={(e) => message = e.value}
+            placeholder="Message"
+          />
+          <Button type="submit">Send</Button>
+        </div>
+      }}
+    </Form>
+  )
+}
+```
+
+## Data Fetching
+
+```joel
+component UserProfile(user_id: str) {
+  signal user = None
+  signal loading = true
+  
+  async fn load_user() {
+    loading = true
+    let data = await http.get("/api/users/" + user_id)
+    user = Some(json.decode(data))
+    loading = false
+  }
+  
+  view (
+    <div>
+      {if loading {
+        <div>Loading...</div>
+      } else {
+        match user {
+          Some(u) => <div>
+            <h1>{u.name}</h1>
+            <p>{u.email}</p>
+          </div>,
+          None => <div>User not found</div>
+        }
+      }}
+    </div>
+  )
+}
+```
+
+## Next Steps
+
+- [UI Components](../advanced/ui-components.md)
+- [Basic Examples](basic.md)
+

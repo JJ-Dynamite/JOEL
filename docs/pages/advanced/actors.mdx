@@ -1,0 +1,175 @@
+# Actors
+
+Actors provide a model for concurrent programming with message-passing.
+
+## Actor Declaration
+
+```joel
+actor Counter {
+  state let count: i64 = 0
+  
+  fn increment() {
+    self.count += 1
+  }
+  
+  fn get() -> i64 {
+    return self.count
+  }
+}
+```
+
+## Actor State
+
+Actors maintain isolated state:
+
+```joel
+actor BankAccount {
+  state let balance: f64 = 0.0
+  state let owner: str
+  
+  fn deposit(amount: f64) {
+    self.balance += amount
+  }
+  
+  fn withdraw(amount: f64) -> Result<f64, Error> {
+    if amount > self.balance {
+      return Err("Insufficient funds")
+    }
+    self.balance -= amount
+    return Ok(self.balance)
+  }
+}
+```
+
+## Creating Actors
+
+```joel
+let counter = Counter{}
+let account = BankAccount{owner: "Alice"}
+```
+
+## Actor Methods
+
+### Instance Methods
+
+```joel
+actor Counter {
+  state let n: i64 = 0
+  
+  fn inc() {
+    self.n += 1
+  }
+  
+  fn get() -> i64 {
+    return self.n
+  }
+}
+
+fn main() {
+  let c = Counter{}
+  c.inc()
+  print(c.get())  # 1
+}
+
+main()
+```
+
+## Async Actor Communication
+
+```joel
+# Coming soon
+actor Worker {
+  fn process(data: bytes) -> Result<str, Error> {
+    # Process data
+    return Ok("Done")
+  }
+}
+
+fn main() {
+  let worker = Worker{}
+  let result = await worker.process(data)
+}
+```
+
+## Actor Isolation
+
+Each actor instance has isolated state:
+
+```joel
+let counter1 = Counter{}
+let counter2 = Counter{}
+
+counter1.inc()
+counter2.inc()
+counter2.inc()
+
+print(counter1.get())  # 1
+print(counter2.get())  # 2
+```
+
+## Examples
+
+### Simple Counter
+
+```joel
+actor Counter {
+  state let n: i64 = 0
+  
+  fn increment() {
+    self.n += 1
+  }
+  
+  fn decrement() {
+    self.n -= 1
+  }
+  
+  fn get() -> i64 {
+    return self.n
+  }
+  
+  fn reset() {
+    self.n = 0
+  }
+}
+```
+
+### Bank Account
+
+```joel
+actor BankAccount {
+  state let balance: f64 = 0.0
+  state let owner: str
+  
+  fn constructor(owner_name: str) {
+    self.owner = owner_name
+  }
+  
+  fn deposit(amount: f64) {
+    self.balance += amount
+  }
+  
+  fn withdraw(amount: f64) {
+    if amount <= self.balance {
+      self.balance -= amount
+    }
+  }
+  
+  fn get_balance() -> f64 {
+    return self.balance
+  }
+}
+```
+
+## Best Practices
+
+1. **Keep actors focused**: Single responsibility
+2. **Immutable messages**: Pass data, not references
+3. **Handle errors**: Return Results for failures
+4. **Document state**: Comment on actor state variables
+5. **Test isolation**: Verify actors don't interfere
+
+## Next Steps
+
+- [Smart Contracts](contracts.md)
+- [Async Programming](../language/control-flow.md)
+

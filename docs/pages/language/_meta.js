@@ -5,6 +5,9 @@ export default {
   variables: "Variables",
   functions: "Functions",
   "control-flow": "Control Flow",
-  operators: "Operators"
+  operators: "Operators",
+  collections: "Collections",
+  modules: "Modules",
+  comments: "Comments"
 }
 

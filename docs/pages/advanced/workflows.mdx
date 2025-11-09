@@ -1,0 +1,130 @@
+# Workflows
+
+Workflows provide low-code automation similar to n8n.
+
+## Flow Declaration
+
+```joel
+[Interpreted]
+
+flow ProcessImage {
+  node fetch(url: str) -> bytes = http.get(url)
+  node classify(data: bytes) -> label = ai.classify(data, model:"clip")
+  node store(label: str) = dstore.ipfs.put(label)
+  
+  wire fetch -> classify -> store
+}
+```
+
+## Nodes
+
+### HTTP Node
+
+```joel
+node fetch(url: str) -> bytes = http.get(url)
+node post(url: str, data: bytes) -> response = http.post(url, data)
+```
+
+### AI Node
+
+```joel
+node classify(image: bytes) -> label = ai.classify(image, model:"clip")
+node generate(prompt: str) -> text = ai.generate(prompt, model:"gpt-4")
+```
+
+### Storage Node
+
+```joel
+node save(data: bytes) = dstore.ipfs.put(data)
+node load(cid: str) -> bytes = dstore.ipfs.get(cid)
+```
+
+## Wiring Nodes
+
+```joel
+flow DataPipeline {
+  node fetch(url) = http.get(url)
+  node parse(data) = json.parse(data)
+  node transform(parsed) = process(parsed)
+  node save(result) = dstore.ipfs.put(result)
+  
+  wire fetch -> parse -> transform -> save
+}
+```
+
+## Conditional Flows
+
+```joel
+flow ConditionalFlow {
+  node check(condition) -> bool = validate(condition)
+  node if_true(data) = process_a(data)
+  node if_false(data) = process_b(data)
+  
+  wire check -> if_true (when: true)
+  wire check -> if_false (when: false)
+}
+```
+
+## Running Flows
+
+```joel
+flow ProcessImage {
+  # ... node definitions ...
+}
+
+# Run with input
+ProcessImage.run({ url: "https://example.com/image.jpg" })
+```
+
+## Examples
+
+### Image Processing Flow
+
+```joel
+[Interpreted]
+
+flow ProcessImage {
+  node fetch(url: str) -> bytes = http.get(url)
+  node resize(image: bytes) -> bytes = image.resize(800, 600)
+  node classify(image: bytes) -> label = ai.classify(image)
+  node store(image: bytes, label: str) = dstore.ipfs.put({
+    "image": image,
+    "label": label
+  })
+  
+  wire fetch -> resize -> classify
+  wire resize -> store
+  wire classify -> store
+}
+
+ProcessImage.run({ url: "https://example.com/cat.jpg" })
+```
+
+### Data Pipeline
+
+```joel
+flow DataPipeline {
+  node fetch(url) = http.get(url)
+  node parse(data) = json.parse(data)
+  node validate(parsed) -> bool = check_valid(parsed)
+  node save(valid_data) = database.save(valid_data)
+  node notify(saved) = email.send("Data saved", saved)
+  
+  wire fetch -> parse -> validate -> save -> notify
+}
+```
+
+## Visual Editor
+
+Workflows can be edited visually (coming soon):
+
+- Drag-and-drop nodes
+- Connect nodes with wires
+- Configure node parameters
+- Test workflows interactively
+
+## Next Steps
+
+- [Deployments](deployments.md)
+- [Storage](storage.md)
+

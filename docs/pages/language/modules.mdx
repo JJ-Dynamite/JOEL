@@ -1,0 +1,191 @@
+# Modules
+
+Modules help organize code into reusable units.
+
+## Module Declaration
+
+```joel
+module my_module
+
+# Module code here
+```
+
+## Importing Modules
+
+### Basic Import
+
+```joel
+import std
+import math
+```
+
+### Import with Alias
+
+```joel
+import ai as ml
+import chain as web3
+```
+
+### Import Specific Items
+
+```joel
+# Coming soon
+import { add, subtract } from math
+```
+
+## Module Structure
+
+```joel
+module calculator
+
+fn add(a: i32, b: i32) -> i32 {
+  return a + b
+}
+
+fn subtract(a: i32, b: i32) -> i32 {
+  return a - b
+}
+
+fn multiply(a: i32, b: i32) -> i32 {
+  return a * b
+}
+```
+
+## Using Imported Modules
+
+```joel
+import calculator
+
+fn main() {
+  let result = calculator.add(5, 3)
+  print(result)  # 8
+}
+
+main()
+```
+
+## Standard Library Modules
+
+### Core Module
+
+```joel
+import core
+
+# Core utilities (coming soon)
+let result = core.format("Hello, {}", "JOEL")
+```
+
+### AI Module
+
+```joel
+import ai
+
+let tensor = ai.tensor([[1, 2], [3, 4]])
+let result = ai.matmul(tensor, tensor)
+```
+
+### Chain Module
+
+```joel
+import chain
+
+# Web3 utilities (coming soon)
+let wallet = chain.create_wallet()
+```
+
+### UI Module
+
+```joel
+import ui
+
+component App() {
+  # UI components
+}
+```
+
+## Module Paths
+
+### Local Modules
+
+```joel
+# Import from same directory
+import ./utils
+import ./helpers
+```
+
+### Relative Imports
+
+```joel
+# Import from parent directory
+import ../shared
+import ../common
+```
+
+### Absolute Imports
+
+```joel
+# Import from project root
+import /lib/math
+import /utils/helpers
+```
+
+## Module Exports
+
+```joel
+module calculator
+
+# Public functions (exported by default)
+fn add(a: i32, b: i32) -> i32 {
+  return a + b
+}
+
+# Private function (coming soon)
+private fn internal_helper() {
+  # Not accessible outside module
+}
+```
+
+## Examples
+
+### Creating a Module
+
+```joel
+# math.joel
+module math
+
+fn add(a: i32, b: i32) -> i32 {
+  return a + b
+}
+
+fn subtract(a: i32, b: i32) -> i32 {
+  return a - b
+}
+```
+
+### Using a Module
+
+```joel
+# main.joel
+import math
+
+fn main() {
+  print(math.add(10, 5))      # 15
+  print(math.subtract(10, 5)) # 5
+}
+
+main()
+```
+
+## Best Practices
+
+1. **One module per file**: Keep modules focused
+2. **Clear naming**: Use descriptive module names
+3. **Organize by feature**: Group related functionality
+4. **Avoid circular imports**: Keep dependencies acyclic
+5. **Document exports**: Comment public APIs
+
+## Next Steps
+
+- [Functions](functions.md)
+- [Syntax Overview](syntax-overview.md)
+

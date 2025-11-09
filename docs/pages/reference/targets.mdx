@@ -1,0 +1,96 @@
+# Target Platforms
+
+JOEL can compile to multiple target platforms.
+
+## Native
+
+Compile to native machine code.
+
+```joel
+[Compiled]
+[target native]
+
+# Compiles to:
+# - Linux: ELF binary
+# - macOS: Mach-O binary
+# - Windows: PE binary
+```
+
+**Use Cases:**
+- System utilities
+- CLI tools
+- High-performance applications
+
+## WebAssembly (WASM)
+
+Compile to WebAssembly for web and mobile.
+
+```joel
+[Compiled]
+[target wasm32]
+
+# Compiles to .wasm file
+# Can run in browsers, Node.js, mobile apps
+```
+
+**Use Cases:**
+- Web applications
+- Mobile apps (via WASM)
+- Cross-platform libraries
+
+## Ethereum (EVM)
+
+Compile to Ethereum Virtual Machine bytecode.
+
+```joel
+[Compiled]
+[target evm]
+
+contract Token {
+  # Smart contract code
+}
+```
+
+**Use Cases:**
+- Smart contracts
+- DeFi applications
+- NFTs
+
+## Solana
+
+Compile to Solana WASM programs.
+
+```joel
+[Compiled]
+[target wasm-solana]
+
+contract Counter {
+  # Solana program
+}
+```
+
+**Use Cases:**
+- Solana programs
+- High-throughput dApps
+
+## Compilation Commands
+
+```bash
+# Native
+joel build app.joel --target native
+
+# WASM
+joel build app.joel --target wasm32
+
+# EVM
+joel build contract.joel --target evm
+
+# Solana
+joel build program.joel --target wasm-solana
+```
+
+## Next Steps
+
+- [Keywords](keywords.md)
+- [FAQ](faq.md)
+

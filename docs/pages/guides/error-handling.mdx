@@ -1,0 +1,90 @@
+# Error Handling
+
+JOEL provides robust error handling mechanisms.
+
+## Result Type
+
+### Basic Usage
+
+```joel
+# Coming soon
+fn divide(a: f64, b: f64) -> Result<f64, str> {
+  if b == 0.0 {
+    return Err("Division by zero")
+  }
+  return Ok(a / b)
+}
+
+# Handle result
+match divide(10.0, 2.0) {
+  Ok(result) => print("Result:", result),
+  Err(error) => print("Error:", error)
+}
+```
+
+### Chaining Results
+
+```joel
+# Coming soon
+fn process_file(path: str) -> Result<str, Error> {
+  let file = File.open(path)?  # ? operator propagates errors
+  defer file.close()
+  return Ok(file.read_all())
+}
+```
+
+## Option Type
+
+### Handling Optional Values
+
+```joel
+# Coming soon
+fn find_user(id: i32) -> Option<User> {
+  # May or may not find user
+  if user_exists(id) {
+    return Some(get_user(id))
+  }
+  return None
+}
+
+match find_user(123) {
+  Some(user) => print("Found:", user.name),
+  None => print("User not found")
+}
+```
+
+## Error Propagation
+
+### Using ? Operator
+
+```joel
+# Coming soon
+fn read_config() -> Result<Config, Error> {
+  let file = File.open("config.json")?  # Propagates error
+  let content = file.read_all()?
+  return Ok(json.parse(content)?)
+}
+```
+
+## Examples
+
+### File Operations
+
+```joel
+fn safe_read_file(path: str) -> Result<str, Error> {
+  let file = File.open(path)?
+  defer file.close()
+  return Ok(file.read_all())
+}
+
+match safe_read_file("data.txt") {
+  Ok(content) => print("Content:", content),
+  Err(e) => print("Error reading file:", e)
+}
+```
+
+## Next Steps
+
+- [Best Practices](best-practices.md)
+- [Performance Tips](performance.md)
+

@@ -1,0 +1,213 @@
+# Smart Contracts
+
+JOEL supports smart contract development for blockchain platforms.
+
+## Contract Declaration
+
+### Ethereum (EVM)
+
+```joel
+[Compiled]
+[target evm]
+
+contract Vault {
+  state let owner: address
+  state let balance: uint256 = 0
+  
+  fn constructor() {
+    owner = tx.sender
+  }
+  
+  #[payable]
+  fn deposit() {
+    balance += tx.value
+  }
+  
+  fn withdraw(amount: uint256) {
+    require(tx.sender == owner)
+    require(amount <= balance)
+    send(owner, amount)
+    balance -= amount
+  }
+}
+```
+
+### Solana (WASM)
+
+```joel
+[Compiled]
+[target wasm-solana]
+
+contract Counter {
+  state let count: u64 = 0
+  
+  fn increment() {
+    count += 1
+  }
+  
+  fn get() -> u64 {
+    return count
+  }
+}
+```
+
+## Contract State
+
+```joel
+contract Token {
+  state let total_supply: uint256
+  state let balances: map[address, uint256]
+  state let owner: address
+}
+```
+
+## Contract Functions
+
+### Public Functions
+
+```joel
+contract Token {
+  fn transfer(to: address, amount: uint256) {
+    # Public function - anyone can call
+  }
+}
+```
+
+### Private Functions
+
+```joel
+contract Token {
+  private fn _mint(to: address, amount: uint256) {
+    # Internal function
+  }
+}
+```
+
+### Payable Functions
+
+```joel
+contract Vault {
+  #[payable]
+  fn deposit() {
+    # Can receive native tokens
+    balance += tx.value
+  }
+}
+```
+
+## Access Control
+
+```joel
+contract Ownable {
+  state let owner: address
+  
+  fn only_owner() {
+    require(tx.sender == owner)
+  }
+  
+  fn transfer_ownership(new_owner: address) {
+    only_owner()
+    owner = new_owner
+  }
+}
+```
+
+## Events
+
+```joel
+# Coming soon
+contract Token {
+  event Transfer(from: address, to: address, amount: uint256)
+  
+  fn transfer(to: address, amount: uint256) {
+    # Transfer logic
+    emit Transfer(tx.sender, to, amount)
+  }
+}
+```
+
+## Examples
+
+### Simple Token
+
+```joel
+[Compiled]
+[target evm]
+
+contract SimpleToken {
+  state let total_supply: uint256 = 1000000
+  state let balances: map[address, uint256]
+  state let owner: address
+  
+  fn constructor() {
+    owner = tx.sender
+    balances[owner] = total_supply
+  }
+  
+  fn transfer(to: address, amount: uint256) {
+    require(balances[tx.sender] >= amount)
+    balances[tx.sender] -= amount
+    balances[to] += amount
+  }
+  
+  fn balance_of(addr: address) -> uint256 {
+    return balances[addr]
+  }
+}
+```
+
+### Vault Contract
+
+```joel
+[Compiled]
+[target evm]
+
+contract Vault {
+  state let owner: address
+  state let balance: uint256 = 0
+  
+  fn constructor() {
+    owner = tx.sender
+  }
+  
+  #[payable]
+  fn deposit() {
+    balance += tx.value
+  }
+  
+  fn withdraw(amount: uint256) {
+    require(tx.sender == owner)
+    require(amount <= balance)
+    send(owner, amount)
+    balance -= amount
+  }
+  
+  fn get_balance() -> uint256 {
+    return balance
+  }
+}
+```
+
+## Security Best Practices
+
+1. **Check access**: Always verify permissions
+2. **Validate inputs**: Check all parameters
+3. **Handle overflow**: Use safe math operations
+4. **Avoid reentrancy**: Use checks-effects-interactions
+5. **Test thoroughly**: Write comprehensive tests
+
+## Compilation
+
+```bash
+# Compile for EVM
+joel build contract.joel --target evm
+
+# Compile for Solana
+joel build contract.joel --target wasm-solana
+```
+
+## Next Steps
+
+- [UI Components](ui-components.md)
+- [Deployments](deployments.md)
+

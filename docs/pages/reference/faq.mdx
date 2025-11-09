@@ -1,0 +1,69 @@
+# FAQ
+
+Frequently asked questions about JOEL.
+
+## General
+
+### What is JOEL?
+
+JOEL is a polymodal programming language that can be compiled or interpreted, designed to work across systems, AI, Web3, UI, and more.
+
+### Why create JOEL?
+
+To eliminate context switching between different languages and tools. Write everything in one language.
+
+### Is JOEL production-ready?
+
+JOEL is currently in Phase 1 MVP (v0.1.0). Core features work, but many advanced features are still in development.
+
+## Language
+
+### What's the difference between [Compiled] and [Interpreted]?
+
+- **Interpreted**: Fast development, dynamic types, VM execution
+- **Compiled**: High performance, static types, native/WASM/EVM output
+
+### Does JOEL have garbage collection?
+
+In interpreted mode, yes. In compiled mode, it uses ownership semantics (Rust-like) to avoid GC.
+
+### Can I use JOEL with existing libraries?
+
+Yes, via FFI (Foreign Function Interface):
+- `ffi c` - C libraries
+- `ffi python` - Python libraries
+- `ffi node` - Node.js modules
+
+## Development
+
+### How do I install JOEL?
+
+See the [Installation Guide](/getting-started/installation).
+
+### How do I contribute?
+
+JOEL is open source. Contributions welcome! Check the GitHub repository.
+
+### What IDE should I use?
+
+Any editor works. Syntax highlighting and LSP support coming soon.
+
+## Deployment
+
+### Can I deploy JOEL apps?
+
+Yes! JOEL can compile to:
+- Native binaries
+- WebAssembly
+- Smart contracts
+- Container images
+
+### How do I deploy to production?
+
+See the [Deployment Guide](/toolchain/cli).
+
+## Next Steps
+
+- [Getting Started](/getting-started/installation)
+- [Language Reference](/language/syntax-overview)
+

@@ -1,0 +1,63 @@
+# Core Module
+
+The core module provides essential utilities and types.
+
+## Types
+
+### Result Type
+
+```joel
+# Coming soon
+fn divide(a: f64, b: f64) -> Result<f64, str> {
+  if b == 0.0 {
+    return Err("Division by zero")
+  }
+  return Ok(a / b)
+}
+
+match divide(10.0, 2.0) {
+  Ok(result) => print("Result:", result),
+  Err(error) => print("Error:", error)
+}
+```
+
+### Option Type
+
+```joel
+# Coming soon
+fn find_item(items: list[str], target: str) -> Option[str> {
+  for item in items {
+    if item == target {
+      return Some(item)
+    }
+  }
+  return None
+}
+```
+
+## Utilities
+
+### File Operations
+
+```joel
+# Coming soon
+import core
+
+let content = core.read_file("data.txt")
+core.write_file("output.txt", content)
+```
+
+### Time Operations
+
+```joel
+# Coming soon
+let now = core.time.now()
+let timestamp = core.time.unix_timestamp()
+let formatted = core.time.format(now, "YYYY-MM-DD")
+```
+
+## Next Steps
+
+- [Built-in Functions](builtins.md)
+- [AI Module](ai.md)
+

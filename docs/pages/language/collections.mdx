@@ -1,0 +1,198 @@
+# Collections
+
+JOEL provides powerful collection types for working with data.
+
+## Lists
+
+Lists are ordered collections of values.
+
+### Creating Lists
+
+```joel
+let numbers = [1, 2, 3, 4, 5]
+let names = ["Alice", "Bob", "Charlie"]
+let mixed = [1, "hello", true]  # Type inferred
+```
+
+### List Operations
+
+```joel
+let items = [1, 2, 3]
+
+# Access by index
+let first = items[0]      # 1
+let last = items[2]       # 3
+
+# Length (coming soon)
+let len = items.length()  # 3
+
+# Iteration
+for item in items {
+  print(item)
+}
+```
+
+### List Methods
+
+```joel
+# Coming soon
+let list = [1, 2, 3]
+list.append(4)        # [1, 2, 3, 4]
+list.prepend(0)      # [0, 1, 2, 3, 4]
+list.remove(2)      # Remove value 2
+list.pop()           # Remove and return last
+```
+
+## Maps (Dictionaries)
+
+Maps store key-value pairs.
+
+### Creating Maps
+
+```joel
+let person = {
+  "name": "JOEL",
+  "age": 24,
+  "active": true
+}
+
+let scores = {
+  "Alice": 95,
+  "Bob": 87,
+  "Charlie": 92
+}
+```
+
+### Map Operations
+
+```joel
+let person = {"name": "JOEL", "age": 24}
+
+# Access values
+let name = person["name"]  # "JOEL"
+
+# Add/Update
+person["city"] = "NYC"
+person["age"] = 25
+
+# Check if key exists (coming soon)
+if person.has("name") {
+  print("Has name")
+}
+```
+
+### Map Iteration
+
+```joel
+let person = {"name": "JOEL", "age": 24}
+
+# Coming soon
+for key, value in person {
+  print(key, "=", value)
+}
+```
+
+## Nested Collections
+
+### Lists of Lists
+
+```joel
+let matrix = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9]
+]
+
+let first_row = matrix[0]  # [1, 2, 3]
+let value = matrix[0][1]  # 2
+```
+
+### Maps with Lists
+
+```joel
+let user = {
+  "name": "Alice",
+  "tags": ["developer", "rust", "ai"]
+}
+
+let tags = user["tags"]  # ["developer", "rust", "ai"]
+let first_tag = tags[0]  # "developer"
+```
+
+### Lists of Maps
+
+```joel
+let users = [
+  {"name": "Alice", "age": 25},
+  {"name": "Bob", "age": 30},
+  {"name": "Charlie", "age": 28}
+]
+
+let first_user = users[0]  # {"name": "Alice", "age": 25}
+let name = first_user["name"]  # "Alice"
+```
+
+## Collection Comprehensions
+
+```joel
+# Coming soon
+let squares = [x * x for x in range(1, 6)]  # [1, 4, 9, 16, 25]
+
+let evens = [x for x in range(0, 10) if x % 2 == 0]  # [0, 2, 4, 6, 8]
+```
+
+## Examples
+
+### Working with Lists
+
+```joel
+fn sum_list(numbers: list[i32]) -> i32 {
+  let total = 0
+  for num in numbers {
+    total = total + num
+  }
+  return total
+}
+
+fn main() {
+  let nums = [10, 20, 30, 40, 50]
+  print("Sum:", sum_list(nums))  # 150
+}
+
+main()
+```
+
+### Working with Maps
+
+```joel
+fn get_user_info(user: map[str, str]) -> str {
+  let name = user["name"]
+  let email = user["email"]
+  return name + " <" + email + ">"
+}
+
+fn main() {
+  let user = {
+    "name": "JOEL",
+    "email": "joel@example.com"
+  }
+  print(get_user_info(user))
+}
+
+main()
+```
+
+## Best Practices
+
+1. **Use lists for ordered data**: Sequences, arrays, stacks
+2. **Use maps for keyed data**: Objects, dictionaries, records
+3. **Type annotations**: Specify types in compiled mode
+4. **Avoid deep nesting**: Keep structures simple
+5. **Prefer iteration**: Use `for` loops over manual indexing
+
+## Next Steps
+
+- [Data Types](data-types.md)
+- [Control Flow](control-flow.md)
+- [Functions](functions.md)
+

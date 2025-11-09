@@ -1,0 +1,174 @@
+# Web3 Examples
+
+Examples for blockchain and Web3 development with JOEL.
+
+## Simple Token Contract
+
+```joel
+[Compiled]
+[target evm]
+
+contract SimpleToken {
+  state let total_supply: uint256 = 1000000
+  state let balances: map[address, uint256]
+  state let owner: address
+  
+  fn constructor() {
+    owner = tx.sender
+    balances[owner] = total_supply
+  }
+  
+  fn transfer(to: address, amount: uint256) {
+    require(balances[tx.sender] >= amount)
+    balances[tx.sender] -= amount
+    balances[to] += amount
+  }
+  
+  fn balance_of(addr: address) -> uint256 {
+    return balances[addr]
+  }
+}
+```
+
+## Vault Contract
+
+```joel
+[Compiled]
+[target evm]
+
+contract Vault {
+  state let owner: address
+  state let balance: uint256 = 0
+  
+  fn constructor() {
+    owner = tx.sender
+  }
+  
+  #[payable]
+  fn deposit() {
+    balance += tx.value
+  }
+  
+  fn withdraw(amount: uint256) {
+    require(tx.sender == owner)
+    require(amount <= balance)
+    send(owner, amount)
+    balance -= amount
+  }
+  
+  fn get_balance() -> uint256 {
+    return balance
+  }
+}
+```
+
+## NFT Contract
+
+```joel
+[Compiled]
+[target evm]
+
+contract NFT {
+  state let token_count: uint256 = 0
+  state let tokens: map[uint256, address]
+  state let owners: map[address, list[uint256]]
+  
+  fn mint(to: address) -> uint256 {
+    token_count += 1
+    tokens[token_count] = to
+    owners[to] = owners[to] + [token_count]
+    return token_count
+  }
+  
+  fn owner_of(token_id: uint256) -> address {
+    return tokens[token_id]
+  }
+  
+  fn transfer(to: address, token_id: uint256) {
+    require(tokens[token_id] == tx.sender)
+    tokens[token_id] = to
+  }
+}
+```
+
+## Solana Program
+
+```joel
+[Compiled]
+[target wasm-solana]
+
+contract Counter {
+  state let count: u64 = 0
+  
+  fn increment() {
+    count += 1
+  }
+  
+  fn decrement() {
+    if count > 0 {
+      count -= 1
+    }
+  }
+  
+  fn get() -> u64 {
+    return count
+  }
+}
+```
+
+## Interacting with Contracts
+
+```joel
+[Interpreted]
+
+import chain
+
+fn main() {
+  # Connect to network
+  let provider = chain.connect("https://eth.mainnet.com")
+  
+  # Deploy contract
+  let contract = provider.deploy("Token.joel")
+  
+  # Call contract function
+  contract.transfer("0x...", 100)
+  
+  # Read contract state
+  let balance = contract.balance_of("0x...")
+  print("Balance:", balance)
+}
+
+main()
+```
+
+## IPFS Integration
+
+```joel
+[Interpreted]
+
+import dstore, chain
+
+fn store_metadata_on_ipfs(metadata: map[str, str]) -> str {
+  let json_data = json.encode(metadata)
+  let cid = dstore.ipfs.put(bytes(json_data))
+  return cid
+}
+
+fn create_nft_with_ipfs_metadata(name: str, description: str) {
+  let metadata = {
+    "name": name,
+    "description": description,
+    "image": "ipfs://..."
+  }
+  let cid = store_metadata_on_ipfs(metadata)
+  
+  # Use CID in NFT contract
+  # nft.mint(cid)
+}
+```
+
+## Next Steps
+
+- [Smart Contracts](../advanced/contracts.md)
+- [Storage](../advanced/storage.md)
+

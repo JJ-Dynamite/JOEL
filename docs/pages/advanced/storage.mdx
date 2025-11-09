@@ -1,0 +1,132 @@
+# Decentralized Storage
+
+JOEL provides first-class support for decentralized storage systems.
+
+## IPFS Storage
+
+### Uploading Data
+
+```joel
+[Interpreted]
+
+import dstore
+
+let data = bytes("Hello, Web3!")
+let cid = dstore.ipfs.put(data)
+print("CID:", cid)  # QmHash...
+```
+
+### Retrieving Data
+
+```joel
+let cid = "QmHash123..."
+let data = dstore.ipfs.get(cid)
+print("Data:", data.to_string())
+```
+
+### Uploading Files
+
+```joel
+let file_data = File.read("document.pdf")
+let cid = dstore.ipfs.put(file_data)
+print("File CID:", cid)
+```
+
+## Filecoin Storage
+
+```joel
+# Store with Filecoin (coming soon)
+let cid = dstore.filecoin.put(data, duration:365)
+let deal = dstore.filecoin.get_deal(cid)
+```
+
+## Arweave Storage
+
+```joel
+# Permanent storage (coming soon)
+let tx_id = dstore.arweave.put(data)
+let stored = dstore.arweave.get(tx_id)
+```
+
+## S3-Compatible Storage
+
+```joel
+# Traditional cloud storage
+let s3 = dstore.s3.connect({
+  endpoint: "s3.amazonaws.com",
+  bucket: "my-bucket"
+})
+
+let key = s3.put("path/to/file.txt", data)
+let retrieved = s3.get(key)
+```
+
+## Examples
+
+### Storing User Data
+
+```joel
+[Interpreted]
+
+import dstore
+
+fn store_user_data(user: map[str, str]) -> str {
+  let json_data = json.encode(user)
+  let cid = dstore.ipfs.put(bytes(json_data))
+  return cid
+}
+
+fn retrieve_user_data(cid: str) -> map[str, str] {
+  let data = dstore.ipfs.get(cid)
+  let user = json.decode(data.to_string())
+  return user
+}
+
+fn main() {
+  let user = {"name": "JOEL", "age": "24"}
+  let cid = store_user_data(user)
+  print("Stored at:", cid)
+  
+  let retrieved = retrieve_user_data(cid)
+  print("Retrieved:", retrieved)
+}
+
+main()
+```
+
+### Image Storage
+
+```joel
+fn store_image(url: str) -> str {
+  let image_data = http.get(url)
+  let cid = dstore.ipfs.put(image_data)
+  return cid
+}
+
+fn get_image_url(cid: str) -> str {
+  return "https://ipfs.io/ipfs/" + cid
+}
+```
+
+## Storage Providers
+
+JOEL supports multiple storage backends:
+
+- **IPFS**: Distributed file system
+- **Filecoin**: Decentralized storage marketplace
+- **Arweave**: Permanent storage
+- **S3**: Traditional cloud storage
+
+## Best Practices
+
+1. **Hash verification**: Always verify CID matches data
+2. **Error handling**: Handle network failures gracefully
+3. **Pinning**: Pin important data to prevent garbage collection
+4. **Redundancy**: Store critical data in multiple locations
+5. **Encryption**: Encrypt sensitive data before storage
+
+## Next Steps
+
+- [Workflows](workflows.md)
+- [Examples](../examples/basic.md)
+

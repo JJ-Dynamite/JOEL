@@ -1,0 +1,32 @@
+# Storage Module
+
+The storage module provides decentralized storage access.
+
+## IPFS
+
+```joel
+import dstore
+
+let cid = dstore.ipfs.put(bytes("Hello"))
+let data = dstore.ipfs.get(cid)
+```
+
+## Filecoin
+
+```joel
+# Coming soon
+let cid = dstore.filecoin.put(data, duration:365)
+```
+
+## Arweave
+
+```joel
+# Coming soon
+let tx_id = dstore.arweave.put(data)
+```
+
+## Next Steps
+
+- [Ops Module](ops.md)
+- [Built-in Functions](builtins.md)
+

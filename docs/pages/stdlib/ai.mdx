@@ -1,0 +1,82 @@
+# AI Module
+
+The AI module provides machine learning and AI capabilities.
+
+## Tensor Operations
+
+```joel
+[Interpreted]
+
+import ai
+
+# Create tensors
+let t1 = ai.tensor([[1, 2], [3, 4]], dtype:"f32")
+let t2 = ai.tensor([[5, 6], [7, 8]], dtype:"f32")
+
+# Operations
+let result = ai.matmul(t1, t2)
+let sum = ai.sum(t1)
+let mean = ai.mean(t1)
+```
+
+## Model Loading
+
+```joel
+# Load ONNX model (coming soon)
+let model = ai.load_model("resnet50.onnx")
+let output = model.predict(input_tensor)
+```
+
+## Image Classification
+
+```joel
+# Classify images (coming soon)
+let image = ai.load_image("cat.jpg")
+let label = ai.classify(image, model:"clip")
+print("Label:", label)
+```
+
+## Text Generation
+
+```joel
+# Generate text (coming soon)
+let prompt = "Write a story about"
+let text = ai.generate(prompt, model:"gpt-4")
+print(text)
+```
+
+## Python FFI
+
+```joel
+# Use Python libraries via FFI
+ffi python {
+  import numpy as np
+  import torch
+}
+
+let arr = np.array([[1, 2], [3, 4]])
+let mean = np.mean(arr)
+print("Mean:", mean)
+```
+
+## Examples
+
+### Basic Tensor Operations
+
+```joel
+[Interpreted]
+
+import ai
+
+let x = ai.tensor([[1, 2], [3, 4]], dtype:"f32")
+let y = ai.tensor([[5, 6], [7, 8]], dtype:"f32")
+
+let z = ai.matmul(x, y)
+print("Result:", z)
+```
+
+## Next Steps
+
+- [Core Module](core.md)
+- [Chain Module](chain.md)
+
