@@ -839,7 +839,6 @@ body {
     order: 3;
     margin-top: 0.5rem;
   }
-}
 
   .hero h1 {
     font-size: clamp(1.5rem, 4vw, 1.75rem);
@@ -962,12 +961,6 @@ body {
 
   .benchmark-list {
     gap: 1.25rem;
-  }
-
-  .benchmark-item {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.5rem;
   }
 
   .benchmark-label {
