@@ -18,6 +18,12 @@ Quick setup guide for deploying JOEL documentation to Coolify.
 
 ### Step 3: Configure Build Settings
 
+**Option A: Using Dockerfile (Recommended)**
+- **Dockerfile Location**: Root directory (automatically detected)
+- **Port**: `3000`
+- No need to set build/start commands (handled by Dockerfile)
+
+**Option B: Using Build Pack**
 ```
 Root Directory: docs
 Build Command: npm install && npm run build

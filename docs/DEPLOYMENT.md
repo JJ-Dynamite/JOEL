@@ -20,6 +20,13 @@ This guide explains how to deploy the JOEL documentation to Coolify at `joel.val
    - Set branch to: `main` (or `develop`)
 
 2. **Configure Build Settings:**
+
+   **Option A: Using Dockerfile (Recommended)**
+   - **Dockerfile**: Automatically detected in root directory
+   - **Port**: `3000`
+   - Build and start commands are handled by Dockerfile
+
+   **Option B: Using Build Pack**
    - **Build Pack**: Node.js
    - **Build Command**: `cd docs && npm install && npm run build`
    - **Start Command**: `cd docs && npm start`
