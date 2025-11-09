@@ -1,101 +1,163 @@
-# JOEL Programming Language
+import CopyButton from '../components/CopyButton'
 
-**JOEL** (Just-Objects-Events Language) is a **polymodal programming language** that can be **compiled** or **interpreted** based on a simple file header.
+export const metadata = {
+  title: 'JOEL - A polymodal programming language',
+  description: 'One language for systems, AI, Web3, UI, workflows, and more',
+}
+
+<div className="hero">
+  <h1>JOEL is a polymodal<br />programming language</h1>
+  <p>One language for systems, AI, Web3, UI, workflows, and more</p>
+  
+  <div className="install-box">
+    <p style={{ margin: '0 0 1rem 0', fontSize: '1rem', opacity: 0.9 }}>Install JOEL</p>
+    <div className="install-command">
+      <code>curl -fsSL https://joel.sh/install | bash</code>
+      <CopyButton text="curl -fsSL https://joel.sh/install | bash" />
+    </div>
+    <p style={{ margin: '1rem 0 0 0', fontSize: '0.9rem', opacity: 0.8 }}>
+      Linux & macOS
+    </p>
+  </div>
+</div>
 
 ## What is JOEL?
 
-JOEL is designed to be a unified language that works across multiple domains:
+**JOEL** (Just-Objects-Events Language) is a **polymodal programming language** that can be **compiled** or **interpreted** based on a simple file header. Write once, run anywhere — from systems programming to AI, blockchain to UI.
 
-- 🦀 **Systems Programming** - Rust-like performance with zero-cost abstractions
-- 🐍 **AI/ML Development** - Python-like ergonomics for data science
-- ⛓️ **Blockchain** - Solidity-like smart contract development
-- 🎨 **UI Development** - React/Next.js-like component system
-- 🔄 **Workflows** - n8n-like low-code automation
-- 🐳 **DevOps** - Docker/K8s-like container orchestration
-- ☁️ **Decentralized Storage** - IPFS/Arweave integration
+<div className="features-grid">
+  <div className="feature-card">
+    <div className="feature-icon">⚡</div>
+    <h3>Polymodal Execution</h3>
+    <p>Choose <code>[Interpreted]</code> for fast development or <code>[Compiled]</code> for maximum performance — all from a file header.</p>
+  </div>
+  
+  <div className="feature-card">
+    <div className="feature-icon">🌐</div>
+    <h3>Cross-Platform</h3>
+    <p>Compile to native binaries, WASM, EVM, or Solana. One codebase, multiple targets.</p>
+  </div>
+  
+  <div className="feature-card">
+    <div className="feature-icon">📦</div>
+    <h3>Gradual Types</h3>
+    <p>Start with dynamic types, add static types as needed. Type inference throughout.</p>
+  </div>
+  
+  <div className="feature-card">
+    <div className="feature-icon">🔒</div>
+    <h3>Ownership-Lite</h3>
+    <p>Rust-inspired memory safety without the complexity. Automatic memory management with zero-cost abstractions.</p>
+  </div>
+  
+  <div className="feature-card">
+    <div className="feature-icon">🚀</div>
+    <h3>Async/Actor Model</h3>
+    <p>Built-in concurrency with actors and async/await. Perfect for distributed systems and Web3.</p>
+  </div>
+  
+  <div className="feature-card">
+    <div className="feature-icon">💻</div>
+    <h3>Modern Syntax</h3>
+    <p>Clean, readable syntax inspired by Rust, Python, and JavaScript. Pattern matching, modules, and more.</p>
+  </div>
+</div>
 
-## Key Features
+## Quick Examples
 
-### Polymodal Execution
-
-JOEL can run in two modes, selected by a simple header:
-
-```joel
-[Interpreted]  # Fast development, dynamic types
-```
-
-or
-
-```joel
-[Compiled]     # High performance, static types
-```
-
-### Cross-Platform
-
-Compile to multiple targets:
-
-- **Native** - x86_64, ARM64 binaries
-- **WASM** - Web and mobile applications
-- **EVM** - Ethereum smart contracts
-- **Solana** - Solana programs
-
-### Modern Syntax
-
-Clean, readable syntax inspired by Rust, Python, and JavaScript:
+### Hello World
 
 ```joel
 [Interpreted]
 
-fn greet(name: str) -> str {
-  return "Hello, " + name
+fn main() {
+  print("Hello, JOEL!")
+}
+```
+
+### Systems Programming
+
+```joel
+[Compiled]
+
+fn fibonacci(n: int) -> int {
+  if n <= 1 {
+    return n
+  }
+  return fibonacci(n - 1) + fibonacci(n - 2)
 }
 
 fn main() {
-  print(greet("JOEL"))
+  print(fibonacci(10))  // 55
 }
 ```
 
-## Quick Start
+### Smart Contracts
 
-```bash
-# Install JOEL
-git clone https://github.com/JJ-Dynamite/JOEL.git
-cd JOEL
-./install.sh
+```joel
+[Compiled]
+#target: EVM
 
-# Run your first program
-joel run examples/hello.joel
+actor Wallet {
+  balance: int = 0
+  
+  fn deposit(amount: int) {
+    self.balance += amount
+  }
+  
+  fn withdraw(amount: int) {
+    if amount <= self.balance {
+      self.balance -= amount
+    }
+  }
+}
 ```
 
-## Design Philosophy
+### UI Components
 
-> **One Language, All Layers**
+```joel
+[Compiled]
+#target: WASM
 
-JOEL aims to eliminate context switching between different languages and tools. Write system code, AI models, smart contracts, UIs, and workflows all in the same language.
+component Button {
+  label: str
+  onClick: fn()
+  
+  fn render() -> Element {
+    return <button onClick={self.onClick}>
+      {self.label}
+    </button>
+  }
+}
+```
 
-## Current Status
+## Why JOEL?
 
-**Version 0.1.0** - Phase 1 MVP
+<div className="stats-grid">
+  <div className="stat-item">
+    <p className="stat-value">1</p>
+    <p className="stat-label">Language</p>
+  </div>
+  <div className="stat-item">
+    <p className="stat-value">7+</p>
+    <p className="stat-label">Domains</p>
+  </div>
+  <div className="stat-item">
+    <p className="stat-value">4</p>
+    <p className="stat-label">Targets</p>
+  </div>
+  <div className="stat-item">
+    <p className="stat-value">∞</p>
+    <p className="stat-label">Possibilities</p>
+  </div>
+</div>
 
-✅ **Implemented:**
-- Lexer and Parser
-- VM/Interpreter for `[Interpreted]` mode
-- Basic syntax (variables, functions, control flow)
-- Built-in functions
+## Get Started
 
-🚧 **In Progress:**
-- Compilation backends (LLVM, WASM, EVM)
-- Type system
-- Ownership system
-- Standard library modules
-
-## Next Steps
-
-- [Installation Guide](/getting-started/installation)
-- [Quick Start](/getting-started/quick-start)
-- [Your First Program](/getting-started/first-program)
+1. **Install JOEL** — One command to get started
+2. **Write your first program** — See [Quick Start](/getting-started/quick-start)
+3. **Explore the docs** — Learn about [syntax](/language/syntax-overview), [features](/language), and [examples](/examples)
 
 ---
 
-**JOEL** - One Language, All Layers 🚀
-
+**JOEL** — One Language, All Layers 🚀

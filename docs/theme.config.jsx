@@ -1,7 +1,7 @@
 import { useConfig } from 'nextra-theme-docs'
 
 const config = {
-  logo: <span><strong>JOEL</strong> Documentation</span>,
+  logo: <span><strong>JOEL</strong></span>,
   project: {
     link: 'https://github.com/JJ-Dynamite/JOEL',
   },
@@ -10,7 +10,7 @@ const config = {
   },
   docsRepositoryBase: 'https://github.com/JJ-Dynamite/JOEL/tree/main/docs',
   footer: {
-    text: 'JOEL Language Documentation © 2025',
+    text: 'JOEL Language © 2025',
   },
   useNextSeoProps() {
     return {
@@ -20,8 +20,8 @@ const config = {
   head: (
     <>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta property="og:title" content="JOEL Programming Language" />
-      <meta property="og:description" content="A polymodal programming language for systems, AI, Web3, UI, and more" />
+      <meta property="og:title" content="JOEL - A polymodal programming language" />
+      <meta property="og:description" content="One language for systems, AI, Web3, UI, workflows, and more" />
     </>
   ),
   sidebar: {
@@ -40,6 +40,7 @@ const config = {
   toc: {
     backToTop: true,
   },
+  primaryHue: 250,
 }
 
 export default config

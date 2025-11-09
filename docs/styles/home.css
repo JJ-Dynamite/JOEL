@@ -1,0 +1,156 @@
+.hero {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  margin: -2rem -2rem 4rem -2rem;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  font-weight: 800;
+  margin: 0 0 1rem 0;
+  line-height: 1.1;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  margin: 0 0 2rem 0;
+  opacity: 0.9;
+}
+
+.install-box {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 2rem auto;
+  max-width: 600px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.install-command {
+  background: #1a1a1a;
+  color: #00ff88;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+  font-size: 1.1rem;
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  overflow-x: auto;
+}
+
+.install-command code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+  border: none;
+}
+
+.copy-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.copy-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 4rem 0;
+}
+
+.feature-card {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid #e9ecef;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 1rem;
+  color: #667eea;
+}
+
+.feature-card h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+}
+
+.feature-card p {
+  margin: 0;
+  color: #666;
+  line-height: 1.6;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin: 4rem 0;
+  text-align: center;
+}
+
+.stat-item {
+  padding: 1.5rem;
+}
+
+.stat-value {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #667eea;
+  margin: 0;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: #666;
+  margin: 0.5rem 0 0 0;
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .install-command {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .copy-btn {
+    width: 100%;
+  }
+}
+
