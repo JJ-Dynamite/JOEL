@@ -9,7 +9,7 @@
 **Quick Install (Recommended)**
 
 ```bash
-curl -fsSL https://joel.val-x.com/install | bash
+curl -fsSL https://joel.val-x.com/api/install | bash
 ```
 
 **Manual Install**
@@ -237,30 +237,48 @@ See [TESTING.md](TESTING.md) for detailed test information.
 
 ## 🗺️ Roadmap
 
-### Phase 1 (Current) ✅
-- [x] Lexer
-- [x] Parser
-- [x] VM/Interpreter
-- [x] Basic syntax support
-- [x] Documentation site
+### Phase 1: Core Language (Current) ✅
+- [x] Lexer - Tokenizes JOEL source code
+- [x] Parser - Builds AST from tokens
+- [x] VM/Interpreter - Executes `[Interpreted]` mode
+- [x] Basic syntax support (variables, functions, control flow)
+- [x] Built-in functions (`print`, `range`)
+- [x] Documentation site with Nextra
+- [x] CLI tool (`joel` command)
+- [x] Example programs
 
-### Phase 2 (Next)
+### Phase 2: Compilation & Types (Next)
 - [ ] LLVM backend for `[Compiled]` mode
 - [ ] WASM target compilation
-- [ ] Ownership system
-- [ ] Type checking
+- [ ] Static type checking
+- [ ] Type inference improvements
+- [ ] Ownership system (Rust-like borrow checker)
+- [ ] Error messages and diagnostics
+- [ ] Standard library core modules
 
-### Phase 3
-- [ ] EVM bytecode generation
+### Phase 3: Specialized Targets
+- [ ] EVM bytecode generation for smart contracts
 - [ ] Solana WASM target
-- [ ] UI compiler (`joelui`)
-- [ ] Container ops (`joelctl`)
+- [ ] Native binary optimization
+- [ ] Cross-compilation support
+- [ ] Debug symbols and source maps
 
-### Phase 4
-- [ ] Decentralized storage (`dstore`)
-- [ ] AI/ML module (`ai`)
-- [ ] Flow runtime (`flow`)
+### Phase 4: Advanced Features
+- [ ] UI compiler (`joelui`) - React/React Native output
+- [ ] Container ops (`joelctl`) - Docker/K8s integration
+- [ ] Flow runtime (`flow`) - Workflow execution
+- [ ] Actor system implementation
+- [ ] Async/await runtime
+- [ ] Pattern matching improvements
+
+### Phase 5: Ecosystem
 - [ ] Package manager (`joelpkg`)
+- [ ] Decentralized storage (`dstore`) - IPFS/Arweave
+- [ ] AI/ML module (`ai`) - Tensor operations
+- [ ] Language Server Protocol (LSP)
+- [ ] IDE plugins (VSCode, etc.)
+- [ ] Debugger and profiler
+- [ ] Testing framework
 
 ## 📚 Additional Resources
 

@@ -5,7 +5,7 @@
 Install JOEL with a single command:
 
 ```bash
-curl -fsSL https://joel.val-x.com/install | bash
+curl -fsSL https://joel.val-x.com/api/install | bash
 ```
 
 This will:
