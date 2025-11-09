@@ -1,0 +1,38 @@
+[Interpreted]
+
+# Basic functionality test - no advanced features
+
+fn main() {
+  print("=== Basic Test ===")
+  
+  # Variables
+  let x = 10
+  let y = 20
+  print("x =", x)
+  print("y =", y)
+  print("x + y =", x + y)
+  
+  # Strings
+  let msg = "Hello"
+  print(msg, "JOEL")
+  
+  # Conditionals
+  if x < y {
+    print("x is less than y")
+  }
+  
+  # For loop
+  print("Counting:")
+  for i in range(0, 3) {
+    print("  ", i)
+  }
+  
+  # Lists
+  let nums = [1, 2, 3]
+  print("List:", nums)
+  
+  print("✅ Basic test complete!")
+}
+
+main()
+

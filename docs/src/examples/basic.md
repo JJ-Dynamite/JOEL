@@ -1,0 +1,200 @@
+# Basic Examples
+
+Simple examples to get started with JOEL.
+
+## Hello World
+
+```joel
+[Interpreted]
+
+fn main() {
+  print("Hello, World!")
+}
+
+main()
+```
+
+## Variables
+
+```joel
+[Interpreted]
+
+fn main() {
+  let name = "JOEL"
+  let age = 24
+  let active = true
+  
+  print("Name:", name)
+  print("Age:", age)
+  print("Active:", active)
+}
+
+main()
+```
+
+## Functions
+
+```joel
+[Interpreted]
+
+fn greet(name: str) -> str {
+  return "Hello, " + name
+}
+
+fn main() {
+  print(greet("JOEL"))
+  print(greet("World"))
+}
+
+main()
+```
+
+## Arithmetic
+
+```joel
+[Interpreted]
+
+fn main() {
+  let a = 10
+  let b = 5
+  
+  print("a =", a)
+  print("b =", b)
+  print("a + b =", a + b)
+  print("a - b =", a - b)
+  print("a * b =", a * b)
+  print("a / b =", a / b)
+}
+
+main()
+```
+
+## Conditionals
+
+```joel
+[Interpreted]
+
+fn main() {
+  let score = 85
+  
+  if score >= 90 {
+    print("Grade: A")
+  } elif score >= 80 {
+    print("Grade: B")
+  } elif score >= 70 {
+    print("Grade: C")
+  } else {
+    print("Grade: F")
+  }
+}
+
+main()
+```
+
+## Loops
+
+```joel
+[Interpreted]
+
+fn main() {
+  # For loop
+  print("For loop:")
+  for i in range(0, 5) {
+    print("  i =", i)
+  }
+  
+  # List iteration
+  print("List iteration:")
+  let numbers = [10, 20, 30]
+  for num in numbers {
+    print("  Number:", num)
+  }
+}
+
+main()
+```
+
+## Lists
+
+```joel
+[Interpreted]
+
+fn main() {
+  let numbers = [1, 2, 3, 4, 5]
+  let sum = 0
+  
+  for num in numbers {
+    sum = sum + num
+  }
+  
+  print("Numbers:", numbers)
+  print("Sum:", sum)
+}
+
+main()
+```
+
+## Calculator
+
+```joel
+[Interpreted]
+
+fn add(a: i32, b: i32) -> i32 {
+  return a + b
+}
+
+fn subtract(a: i32, b: i32) -> i32 {
+  return a - b
+}
+
+fn multiply(a: i32, b: i32) -> i32 {
+  return a * b
+}
+
+fn divide(a: i32, b: i32) -> f64 {
+  return a as f64 / b as f64
+}
+
+fn main() {
+  let x = 15
+  let y = 3
+  
+  print("x =", x)
+  print("y =", y)
+  print()
+  print("x + y =", add(x, y))
+  print("x - y =", subtract(x, y))
+  print("x * y =", multiply(x, y))
+  print("x / y =", divide(x, y))
+}
+
+main()
+```
+
+## Factorial
+
+```joel
+[Interpreted]
+
+fn factorial(n: i32) -> i32 {
+  if n <= 1 {
+    return 1
+  }
+  return n * factorial(n - 1)
+}
+
+fn main() {
+  for i in range(1, 6) {
+    print("factorial(", i, ") =", factorial(i))
+  }
+}
+
+main()
+```
+
+## Next Steps
+
+- [Advanced Examples](advanced.md)
+- [Web3 Examples](web3.md)
+- [UI Examples](ui.md)
+

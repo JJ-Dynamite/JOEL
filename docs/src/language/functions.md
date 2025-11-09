@@ -1,0 +1,190 @@
+# Functions
+
+Functions are the building blocks of JOEL programs.
+
+## Function Declaration
+
+### Basic Function
+
+```joel
+fn greet() {
+  print("Hello")
+}
+```
+
+### Function with Parameters
+
+```joel
+fn greet(name: str) {
+  print("Hello,", name)
+}
+```
+
+### Function with Return Type
+
+```joel
+fn add(a: i32, b: i32) -> i32 {
+  return a + b
+}
+```
+
+### Function with Type Annotations
+
+```joel
+fn calculate(x: i32, y: f64) -> f64 {
+  return x as f64 + y
+}
+```
+
+## Function Calls
+
+```joel
+greet()                    # No arguments
+greet("JOEL")             # One argument
+let result = add(5, 3)    # With return value
+```
+
+## Multiple Parameters
+
+```joel
+fn create_user(name: str, age: i32, active: bool) {
+  print("User:", name, age, active)
+}
+
+create_user("Alice", 25, true)
+```
+
+## Return Values
+
+### Explicit Return
+
+```joel
+fn multiply(a: i32, b: i32) -> i32 {
+  return a * b
+}
+```
+
+### Implicit Return
+
+```joel
+fn add(a: i32, b: i32) -> i32 {
+  a + b  # Last expression is returned
+}
+```
+
+### No Return Value
+
+```joel
+fn print_hello() {
+  print("Hello")
+  # Returns None implicitly
+}
+```
+
+## Higher-Order Functions
+
+Functions as values (coming soon):
+
+```joel
+fn apply(func: Function, x: i32) -> i32 {
+  return func(x)
+}
+```
+
+## Recursion
+
+```joel
+fn factorial(n: i32) -> i32 {
+  if n <= 1 {
+    return 1
+  }
+  return n * factorial(n - 1)
+}
+```
+
+## Default Parameters
+
+```joel
+# Coming soon
+fn greet(name: str = "World") {
+  print("Hello,", name)
+}
+```
+
+## Variadic Functions
+
+```joel
+# Coming soon
+fn sum(...numbers: list[i32]) -> i32 {
+  # Sum all numbers
+}
+```
+
+## Function Overloading
+
+```joel
+# Coming soon - multiple functions with same name, different signatures
+fn add(a: i32, b: i32) -> i32 { a + b }
+fn add(a: f64, b: f64) -> f64 { a + b }
+```
+
+## Closures
+
+```joel
+# Coming soon
+let add = |x, y| x + y
+let result = add(5, 3)
+```
+
+## Examples
+
+### Calculator Functions
+
+```joel
+fn add(a: i32, b: i32) -> i32 {
+  return a + b
+}
+
+fn subtract(a: i32, b: i32) -> i32 {
+  return a - b
+}
+
+fn multiply(a: i32, b: i32) -> i32 {
+  return a * b
+}
+
+fn divide(a: i32, b: i32) -> f64 {
+  if b == 0 {
+    return 0.0
+  }
+  return a as f64 / b as f64
+}
+```
+
+### String Utilities
+
+```joel
+fn capitalize(text: str) -> str {
+  # Implementation coming soon
+  return text
+}
+
+fn reverse(text: str) -> str {
+  # Implementation coming soon
+  return text
+}
+```
+
+## Best Practices
+
+1. **Use descriptive names**: `calculate_total` not `calc`
+2. **Keep functions small**: Single responsibility
+3. **Use type annotations**: Especially in compiled mode
+4. **Document complex functions**: Add comments for clarity
+
+## Next Steps
+
+- [Control Flow](control-flow.md)
+- [Modules](modules.md)
+- [Examples](../examples/basic.md)
+

@@ -1,0 +1,25 @@
+🧪 JOEL Examples Test Summary
+=============================
+
+Ready to Test (Fully Working):
+  ✅ hello.joel - Basic syntax demo
+  ✅ arithmetic.joel - Math operations  
+  ✅ test_basic.joel - Minimal test
+  ✅ simple_test.joel - Comprehensive test
+
+Partially Working:
+  ⚠️  control_flow.joel - While loop with += not yet supported
+
+Syntax Only (Not Executed):
+  📝 actor.joel - Actor syntax
+  📝 contract.joel - Smart contract
+  📝 ui_component.joel - UI component
+  📝 flow.joel - Workflow
+  📝 deployment.joel - Container deployment
+
+To test:
+  1. Build: cargo build --release
+  2. Run: ./target/release/joel run examples/hello.joel
+  3. Or use: ./test_examples.sh
+
+See TESTING.md for detailed information.

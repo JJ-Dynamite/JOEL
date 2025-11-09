@@ -1,0 +1,60 @@
+[Interpreted]
+
+# Simple test to verify basic functionality
+
+fn main() {
+  print("🧪 JOEL Test Suite")
+  print("==================")
+  print()
+  
+  # Test 1: Variables
+  print("Test 1: Variables")
+  let a = 10
+  let b = 20
+  print("a =", a, "b =", b)
+  print("a + b =", a + b)
+  print()
+  
+  # Test 2: Strings
+  print("Test 2: Strings")
+  let name = "JOEL"
+  let greeting = "Hello " + name
+  print(greeting)
+  print()
+  
+  # Test 3: Conditionals
+  print("Test 3: Conditionals")
+  let x = 15
+  if x > 10 {
+    print("x is greater than 10")
+  } else {
+    print("x is not greater than 10")
+  }
+  print()
+  
+  # Test 4: Loops
+  print("Test 4: For Loop")
+  for i in range(0, 3) {
+    print("  Loop iteration:", i)
+  }
+  print()
+  
+  # Test 5: Lists
+  print("Test 5: Lists")
+  let items = [1, 2, 3]
+  print("List:", items)
+  print()
+  
+  # Test 6: Functions
+  print("Test 6: Functions")
+  fn square(n: i32) -> i32 {
+    return n * n
+  }
+  print("square(5) =", square(5))
+  print()
+  
+  print("✅ All tests passed!")
+}
+
+main()
+

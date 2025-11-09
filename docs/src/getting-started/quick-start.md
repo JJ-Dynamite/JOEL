@@ -1,0 +1,119 @@
+# Quick Start
+
+Get up and running with JOEL in 5 minutes!
+
+## Installation
+
+First, install JOEL:
+
+```bash
+git clone https://github.com/JJ-Dynamite/JOEL.git
+cd JOEL
+./install.sh
+```
+
+See the [Installation Guide](installation.md) for detailed instructions.
+
+## Your First Program
+
+Create a file called `hello.joel`:
+
+```joel
+[Interpreted]
+
+fn main() {
+  print("Hello, JOEL!")
+}
+```
+
+Run it:
+
+```bash
+joel run hello.joel
+```
+
+Output:
+
+```
+🚀 JOEL Runtime - Mode: Interpreted
+
+Hello, JOEL!
+```
+
+## Basic Syntax
+
+### Variables
+
+```joel
+[Interpreted]
+
+let name = "JOEL"
+let age = 24
+let active = true
+```
+
+### Functions
+
+```joel
+[Interpreted]
+
+fn greet(name: str) -> str {
+  return "Hello, " + name
+}
+
+fn main() {
+  print(greet("World"))
+}
+```
+
+### Control Flow
+
+```joel
+[Interpreted]
+
+let x = 10
+
+if x > 5 {
+  print("x is greater than 5")
+} else {
+  print("x is not greater than 5")
+}
+```
+
+### Loops
+
+```joel
+[Interpreted]
+
+# For loop
+for i in range(0, 5) {
+  print("Count:", i)
+}
+
+# While loop
+let count = 0
+while count < 5 {
+  print("Count:", count)
+  count = count + 1
+}
+```
+
+## Common Commands
+
+```bash
+# Run a JOEL file
+joel run program.joel
+
+# Build for a target (coming soon)
+joel build program.joel --target native
+
+# Show version
+joel version
+```
+
+## Next Steps
+
+- [Your First Program](first-program.md) - Detailed walkthrough
+- [Syntax Overview](../language/syntax-overview.md) - Complete syntax reference
+- [Examples](../examples/basic.md) - More examples
+

@@ -1,0 +1,151 @@
+# Header Modes
+
+JOEL uses file headers to determine execution mode and target platform.
+
+## Execution Modes
+
+### Interpreted Mode
+
+```joel
+[Interpreted]
+
+# Fast development, dynamic types
+let x = 10
+let name = "JOEL"
+```
+
+**Characteristics:**
+- Fast development cycle
+- Dynamic type checking
+- Hot-reload support (coming soon)
+- Great for prototyping and AI/ML
+
+### Compiled Mode
+
+```joel
+[Compiled]
+
+# High performance, static types
+let x: i32 = 10
+let name: str = "JOEL"
+```
+
+**Characteristics:**
+- Static type checking
+- Zero-cost abstractions
+- Optimized performance
+- Production-ready code
+
+## Target Platforms
+
+Specify the target platform with `[target ...]`:
+
+### Native
+
+```joel
+[Compiled]
+[target native]
+
+# Compiles to native binary (x86_64, ARM64)
+```
+
+### WebAssembly
+
+```joel
+[Compiled]
+[target wasm32]
+
+# Compiles to WebAssembly for web/mobile
+```
+
+### Ethereum (EVM)
+
+```joel
+[Compiled]
+[target evm]
+
+contract Vault {
+  # Smart contract code
+}
+```
+
+### Solana
+
+```joel
+[Compiled]
+[target wasm-solana]
+
+contract Counter {
+  # Solana program
+}
+```
+
+## Examples
+
+### Development Script
+
+```joel
+[Interpreted]
+
+# Quick script for development
+fn main() {
+  print("Development mode")
+}
+```
+
+### Production Binary
+
+```joel
+[Compiled]
+[target native]
+
+# Production application
+fn main() {
+  # Optimized code
+}
+```
+
+### Smart Contract
+
+```joel
+[Compiled]
+[target evm]
+
+contract Token {
+  state let total_supply: uint256
+}
+```
+
+### Web Application
+
+```joel
+[Compiled]
+[target wasm32]
+
+component App() {
+  # UI component
+}
+```
+
+## Mode Selection Guide
+
+**Use `[Interpreted]` when:**
+- Prototyping
+- AI/ML development
+- Quick scripts
+- Learning JOEL
+- Workflows
+
+**Use `[Compiled]` when:**
+- Production systems
+- Performance-critical code
+- Smart contracts
+- Native applications
+- Deploying to production
+
+## Next Steps
+
+- [Syntax Overview](syntax-overview.md)
+- [Data Types](data-types.md)
+- [Functions](functions.md)
+

@@ -201,6 +201,29 @@ joel version
 - [ ] Flow runtime (`flow`)
 - [ ] Package manager (`joelpkg`)
 
+## 📖 Documentation
+
+Complete documentation is available:
+
+- **Online**: [View Documentation](https://jj-dynamite.github.io/JOEL) (when deployed)
+- **Local**: Build with `mdbook` (see [docs/README_DOCS.md](docs/README_DOCS.md))
+
+### Quick Start with Documentation
+
+```bash
+# Install mdbook
+cargo install mdbook
+
+# Build documentation
+cd docs
+mdbook build
+
+# Serve locally
+mdbook serve
+```
+
+Then open http://localhost:3000 in your browser.
+
 ## 📖 Examples
 
 See the `examples/` directory for:

@@ -1,0 +1,194 @@
+# Installation
+
+This guide will help you install JOEL on your system.
+
+## Prerequisites
+
+JOEL is written in Rust, so you'll need:
+
+- **Rust 1.70+** - Install from [rustup.rs](https://rustup.rs/)
+- **Cargo** - Comes with Rust installation
+
+### Verify Installation
+
+```bash
+rustc --version
+cargo --version
+```
+
+## Installation Methods
+
+### Option 1: Quick Install (Recommended)
+
+Use the provided installation script:
+
+```bash
+# Clone the repository
+git clone https://github.com/JJ-Dynamite/JOEL.git
+cd JOEL
+
+# Run the install script
+chmod +x install.sh
+./install.sh
+```
+
+This will:
+1. Build the `joel` binary in release mode
+2. Install it to `/usr/local/bin/joel`
+3. Make it available globally
+
+### Option 2: Manual Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/JJ-Dynamite/JOEL.git
+cd JOEL
+
+# Build the release binary
+cargo build --release
+
+# Install globally (requires sudo)
+sudo cp target/release/joel /usr/local/bin/joel
+sudo chmod +x /usr/local/bin/joel
+```
+
+### Option 3: Local Installation (No sudo)
+
+If you don't have sudo access:
+
+```bash
+# Build the release binary
+cargo build --release
+
+# Add to your PATH (add to ~/.zshrc or ~/.bashrc)
+export PATH="$PATH:$(pwd)/target/release"
+
+# Reload your shell
+source ~/.zshrc  # or source ~/.bashrc
+```
+
+## Verify Installation
+
+After installation, verify that `joel` is available:
+
+```bash
+joel version
+```
+
+You should see:
+
+```
+JOEL Language v0.1.0
+A polymodal programming language
+```
+
+## Platform-Specific Instructions
+
+### macOS
+
+```bash
+# Install Rust (if not already installed)
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Install JOEL
+git clone https://github.com/JJ-Dynamite/JOEL.git
+cd JOEL
+./install.sh
+```
+
+### Linux
+
+```bash
+# Install Rust (if not already installed)
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Install JOEL
+git clone https://github.com/JJ-Dynamite/JOEL.git
+cd JOEL
+./install.sh
+```
+
+### Windows
+
+```powershell
+# Install Rust (if not already installed)
+# Download and run rustup-init.exe from https://rustup.rs/
+
+# Install JOEL
+git clone https://github.com/JJ-Dynamite/JOEL.git
+cd JOEL
+cargo build --release
+
+# Add to PATH manually or use:
+# Copy target\release\joel.exe to a directory in your PATH
+```
+
+## Building from Source
+
+If you want to build from source:
+
+```bash
+# Clone the repository
+git clone https://github.com/JJ-Dynamite/JOEL.git
+cd JOEL
+
+# Build in debug mode (faster compilation)
+cargo build
+
+# Build in release mode (optimized)
+cargo build --release
+
+# The binary will be at:
+# Debug: target/debug/joel
+# Release: target/release/joel
+```
+
+## Troubleshooting
+
+### "command not found: cargo"
+
+Install Rust from [rustup.rs](https://rustup.rs/):
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+### "Permission denied" during installation
+
+Use `sudo` for system-wide installation, or use Option 3 (local installation).
+
+### "joel: command not found" after installation
+
+Make sure `/usr/local/bin` is in your PATH:
+
+```bash
+echo $PATH | grep /usr/local/bin
+```
+
+If not, add it:
+
+```bash
+export PATH="$PATH:/usr/local/bin"
+```
+
+### Build errors
+
+Make sure you have the latest Rust version:
+
+```bash
+rustup update
+```
+
+## Uninstallation
+
+To remove JOEL:
+
+```bash
+sudo rm /usr/local/bin/joel
+```
+
+## Next Steps
+
+- [Quick Start Guide](quick-start.md)
+- [Your First Program](first-program.md)
+
