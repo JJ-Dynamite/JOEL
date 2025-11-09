@@ -1,31 +1,31 @@
 # 🧠 JOEL Programming Language
 
-**JOEL** (Just-Objects-Events Language) is a polymodal programming language that can be **compiled** or **interpreted** based on a simple file header.
+**JOEL** (Just-Objects-Events Language) is a **polymodal programming language** that can be **compiled** or **interpreted** based on a simple file header. Write once, run anywhere — from systems programming to AI, blockchain to UI.
 
 ## 🚀 Quick Start
 
 ### Installation
 
-**Option 1: Quick Install (Recommended)**
+**Quick Install (Recommended)**
 
 ```bash
-# Run the install script
-chmod +x install.sh
-./install.sh
+curl -fsSL https://joel.sh/install | bash
 ```
 
-**Option 2: Manual Install**
+**Manual Install**
 
 ```bash
-# Build the compiler
-cargo build --release
+# Clone the repository
+git clone https://github.com/JJ-Dynamite/JOEL.git
+cd JOEL
 
-# Install globally
+# Build and install
+cargo build --release
 sudo cp target/release/joel /usr/local/bin/joel
 sudo chmod +x /usr/local/bin/joel
 ```
 
-**Option 3: Local Install (No sudo)**
+**Local Install (No sudo)**
 
 ```bash
 cargo build --release
@@ -41,10 +41,9 @@ joel version
 # Should output: JOEL Language v0.1.0
 ```
 
-### Run a JOEL File
+### Run Your First Program
 
 ```bash
-# Now you can use joel from anywhere!
 joel run examples/hello.joel
 ```
 
@@ -70,36 +69,43 @@ main()
 Run it:
 
 ```bash
-cargo run -- run hello.joel
+joel run hello.joel
 ```
 
-## 📋 Features (Phase 1 - MVP)
+## ✨ Features
 
-✅ **Lexer** - Tokenizes JOEL source code  
-✅ **Parser** - Parses tokens into an AST  
-✅ **VM/Interpreter** - Executes `[Interpreted]` mode  
-✅ **Header Detection** - Supports `[Compiled]` and `[Interpreted]` modes  
-✅ **Target Hints** - Supports `[target native]`, `[target wasm32]`, `[target evm]`, etc.  
-✅ **Basic Types** - Numbers, strings, booleans, lists, maps  
-✅ **Control Flow** - if/else, while, for loops  
-✅ **Functions** - Function definitions and calls  
-✅ **Actors** - Actor-based concurrency (syntax support)  
-✅ **Contracts** - Smart contract syntax (syntax support)  
-✅ **Components** - UI component syntax (syntax support)  
-✅ **Flows** - Workflow syntax (syntax support)  
+### Phase 1 - MVP ✅
+
+- ✅ **Lexer** - Tokenizes JOEL source code  
+- ✅ **Parser** - Parses tokens into an AST  
+- ✅ **VM/Interpreter** - Executes `[Interpreted]` mode  
+- ✅ **Header Detection** - Supports `[Compiled]` and `[Interpreted]` modes  
+- ✅ **Target Hints** - Supports `[target native]`, `[target wasm32]`, `[target evm]`, etc.  
+- ✅ **Basic Types** - Numbers, strings, booleans, lists, maps  
+- ✅ **Control Flow** - if/else, while, for loops  
+- ✅ **Functions** - Function definitions and calls  
+- ✅ **Actors** - Actor-based concurrency (syntax support)  
+- ✅ **Contracts** - Smart contract syntax (syntax support)  
+- ✅ **Components** - UI component syntax (syntax support)  
+- ✅ **Flows** - Workflow syntax (syntax support)  
 
 ## 🏗️ Project Structure
 
 ```
-joel-lang/
-├── src/
-│   ├── main.rs      # CLI entry point
-│   ├── lexer.rs     # Tokenizer
-│   ├── parser.rs    # Parser
-│   ├── ast.rs       # Abstract Syntax Tree
-│   └── vm.rs        # Virtual Machine / Interpreter
-├── examples/        # Example JOEL files
-└── Cargo.toml       # Rust project config
+JOEL/
+├── src/              # Rust source code
+│   ├── main.rs       # CLI entry point
+│   ├── lexer.rs      # Tokenizer
+│   ├── parser.rs     # Parser
+│   ├── ast.rs        # Abstract Syntax Tree
+│   └── vm.rs         # Virtual Machine / Interpreter
+├── examples/         # Example JOEL files
+├── docs/             # Nextra documentation site
+│   ├── pages/        # Documentation pages (MDX)
+│   ├── components/   # React components
+│   └── styles/       # Custom styles
+├── Cargo.toml        # Rust project config
+└── Dockerfile        # Docker build for docs
 ```
 
 ## 📚 Language Syntax
@@ -166,7 +172,7 @@ contract Vault {
 # Run in interpreted mode
 joel run <file.joel>
 
-# Build for a target (not yet implemented)
+# Build for a target (coming soon)
 joel build <file.joel> --target native
 joel build <file.joel> --target wasm32
 joel build <file.joel> --target evm
@@ -175,6 +181,60 @@ joel build <file.joel> --target evm
 joel version
 ```
 
+## 📖 Documentation
+
+Complete documentation is available online:
+
+🌐 **Live Documentation**: [https://joel.val-x.com](https://joel.val-x.com)
+
+The documentation is built with **Nextra** (the same framework used for Next.js documentation) and features:
+
+- ✨ Beautiful UI matching Next.js docs
+- 🔍 Built-in search functionality
+- 🌙 Dark mode support
+- 📱 Mobile responsive
+- ⚡ Fast page loads
+- 📝 Markdown/MDX support
+- 🎨 Syntax highlighting
+
+### Local Development
+
+To run the documentation locally:
+
+```bash
+# Navigate to docs directory
+cd docs
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+Then open http://localhost:3000 in your browser.
+
+## 📖 Examples
+
+The `examples/` directory contains several example files:
+
+- `hello.joel` - Basic syntax and functions
+- `arithmetic.joel` - Math operations
+- `control_flow.joel` - Control structures
+- `actor.joel` - Actor-based concurrency
+- `contract.joel` - Smart contract example
+- `ui_component.joel` - UI component example
+- `flow.joel` - Workflow example
+- `deployment.joel` - Container deployment
+
+Run any example:
+
+```bash
+joel run examples/hello.joel
+```
+
+See [TESTING.md](TESTING.md) for detailed test information.
+
 ## 🗺️ Roadmap
 
 ### Phase 1 (Current) ✅
@@ -182,6 +242,7 @@ joel version
 - [x] Parser
 - [x] VM/Interpreter
 - [x] Basic syntax support
+- [x] Documentation site
 
 ### Phase 2 (Next)
 - [ ] LLVM backend for `[Compiled]` mode
@@ -201,41 +262,22 @@ joel version
 - [ ] Flow runtime (`flow`)
 - [ ] Package manager (`joelpkg`)
 
-## 📖 Documentation
+## 📚 Additional Resources
 
-Complete documentation built with **Nextra** (same framework as Next.js docs):
-
-- **Local Development**: Run `npm install && npm run dev` in the `docs/` directory
-- **Online**: [View Documentation](https://jj-dynamite.github.io/JOEL) (when deployed)
-
-### Quick Start with Documentation
-
-```bash
-# Navigate to docs directory
-cd docs
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-```
-
-Then open http://localhost:3000 in your browser.
-
-The documentation uses Nextra with a UI matching Next.js documentation style.
-
-## 📖 Examples
-
-See the `examples/` directory for:
-- `hello.joel` - Basic syntax
-- `actor.joel` - Actor example
-- `contract.joel` - Smart contract example
-- `flow.joel` - Workflow example
+- [Installation Guide](INSTALL.md) - Detailed installation instructions
+- [Quick Start Guide](QUICKSTART.md) - Get started quickly
+- [Architecture](ARCHITECTURE.md) - Technical architecture details
+- [Testing Guide](TESTING.md) - Testing information
 
 ## 🤝 Contributing
 
 This is an early-stage project. Contributions welcome!
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## 📄 License
 
@@ -244,4 +286,3 @@ MIT License
 ---
 
 **JOEL** - One Language, All Layers 🚀
-
