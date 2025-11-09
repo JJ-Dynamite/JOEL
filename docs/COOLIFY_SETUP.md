@@ -13,7 +13,7 @@ Quick setup guide for deploying JOEL documentation to Coolify.
 ### Step 2: Connect Repository
 
 - **Repository URL**: `https://github.com/JJ-Dynamite/JOEL.git`
-- **Branch**: `develop` (or `main`)
+- **Branch**: `main` (or `develop`)
 - **Build Pack**: `Node.js`
 
 ### Step 3: Configure Build Settings

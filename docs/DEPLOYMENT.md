@@ -17,7 +17,7 @@ This guide explains how to deploy the JOEL documentation to Coolify at `joel.val
    - Click "New Resource" → "Application"
    - Select "Git Repository"
    - Connect to: `https://github.com/JJ-Dynamite/JOEL.git`
-   - Set branch to: `develop` or `main`
+   - Set branch to: `main` (or `develop`)
 
 2. **Configure Build Settings:**
    - **Build Pack**: Node.js
