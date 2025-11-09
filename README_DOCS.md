@@ -95,4 +95,3 @@ The generated HTML in `docs/book/` can be deployed to any static hosting service
 ## Contributing
 
 See the main [README](../README.md) for contribution guidelines.
-

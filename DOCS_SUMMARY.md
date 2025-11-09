@@ -162,4 +162,3 @@ The generated HTML in `docs/book/` can be deployed to:
 ---
 
 **Documentation is ready!** Build and serve to view locally, or deploy to make it public. 🚀
-

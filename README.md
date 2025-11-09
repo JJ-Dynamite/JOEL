@@ -203,26 +203,27 @@ joel version
 
 ## 📖 Documentation
 
-Complete documentation is available:
+Complete documentation built with **Nextra** (same framework as Next.js docs):
 
+- **Local Development**: Run `npm install && npm run dev` in the `docs/` directory
 - **Online**: [View Documentation](https://jj-dynamite.github.io/JOEL) (when deployed)
-- **Local**: Build with `mdbook` (see [docs/README_DOCS.md](docs/README_DOCS.md))
 
 ### Quick Start with Documentation
 
 ```bash
-# Install mdbook
-cargo install mdbook
-
-# Build documentation
+# Navigate to docs directory
 cd docs
-mdbook build
 
-# Serve locally
-mdbook serve
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
 ```
 
 Then open http://localhost:3000 in your browser.
+
+The documentation uses Nextra with a UI matching Next.js documentation style.
 
 ## 📖 Examples
 
