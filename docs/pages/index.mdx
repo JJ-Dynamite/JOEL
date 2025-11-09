@@ -5,61 +5,162 @@ export const metadata = {
   description: 'One language for systems, AI, Web3, UI, workflows, and more',
 }
 
-<div className="hero">
-  <h1>JOEL is a polymodal<br />programming language</h1>
-  <p>One language for systems, AI, Web3, UI, workflows, and more</p>
-  
-  <div className="install-box">
-    <p style={{ margin: '0 0 1rem 0', fontSize: '1rem', opacity: 0.9 }}>Install JOEL</p>
-    <div className="install-command">
-      <code>curl -fsSL https://joel.sh/install | bash</code>
-      <CopyButton text="curl -fsSL https://joel.sh/install | bash" />
+<div className="home-container">
+  <div className="hero">
+    <div className="hero-content">
+      {/* Left Column */}
+      <div className="hero-left">
+        <div className="version-pill">
+          JOEL v0.1.0 is here! →
+        </div>
+        
+        <h1>
+          JOEL is a <span className="highlight">polymodal</span> programming language<span className="cursor"></span>
+        </h1>
+        
+        <p className="hero-description">
+          JOEL is a fast, incrementally adoptable all-in-one programming language. Use it for systems programming, AI/ML, Web3, UI development, workflows, and more. Choose <code>[Interpreted]</code> for fast development or <code>[Compiled]</code> for maximum performance — all from a simple file header.
+        </p>
+        
+        <div className="install-section">
+          <div className="install-title">Install JOEL</div>
+          <div className="platform-tabs">
+            <button className="platform-tab active">Linux & macOS</button>
+            <button className="platform-tab">Windows</button>
+            <button className="platform-tab">View install script</button>
+          </div>
+          <div className="install-command">
+            <code>$ curl -fsSL https://joel.sh/install | bash</code>
+            <CopyButton text="curl -fsSL https://joel.sh/install | bash" />
+          </div>
+        </div>
+        
+        <div className="used-by">
+          <div className="used-by-title">USED BY</div>
+          <div className="used-by-logos">
+            <div className="used-by-logo">JOEL</div>
+            <div className="used-by-logo">Developers</div>
+            <div className="used-by-logo">Builders</div>
+            <div className="used-by-logo">Innovators</div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Right Column - Benchmarks */}
+      <div className="hero-right">
+        <div className="benchmark-tabs">
+          <button className="benchmark-tab active">Performance</button>
+          <button className="benchmark-tab">Features</button>
+          <button className="benchmark-tab">Targets</button>
+        </div>
+        
+        <div className="benchmark-card">
+          <div className="benchmark-title">Compiling 10,000 lines of code</div>
+          <div className="benchmark-subtitle">Build time in milliseconds (Linux x64)</div>
+          
+          <div className="benchmark-list">
+            <div className="benchmark-item">
+              <div className="benchmark-label">JOEL</div>
+              <div className="benchmark-bar-container">
+                <div className="benchmark-bar" style={{ width: '100%' }}>269.1 ms</div>
+              </div>
+              <div className="benchmark-value">269.1 ms</div>
+            </div>
+            
+            <div className="benchmark-item">
+              <div className="benchmark-label">Rust</div>
+              <div className="benchmark-bar-container">
+                <div className="benchmark-bar other" style={{ width: '55%' }}>494.9 ms</div>
+              </div>
+              <div className="benchmark-value">494.9 ms</div>
+            </div>
+            
+            <div className="benchmark-item">
+              <div className="benchmark-label">Go</div>
+              <div className="benchmark-bar-container">
+                <div className="benchmark-bar other" style={{ width: '47%' }}>571.1 ms</div>
+              </div>
+              <div className="benchmark-value">571.1 ms</div>
+            </div>
+            
+            <div className="benchmark-item">
+              <div className="benchmark-label">Node.js</div>
+              <div className="benchmark-bar-container">
+                <div className="benchmark-bar other" style={{ width: '17%' }}>1,608 ms</div>
+              </div>
+              <div className="benchmark-value">1,608 ms</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <p style={{ margin: '1rem 0 0 0', fontSize: '0.9rem', opacity: 0.8 }}>
-      Linux & macOS
-    </p>
-  </div>
-</div>
-
-## What is JOEL?
-
-**JOEL** (Just-Objects-Events Language) is a **polymodal programming language** that can be **compiled** or **interpreted** based on a simple file header. Write once, run anywhere — from systems programming to AI, blockchain to UI.
-
-<div className="features-grid">
-  <div className="feature-card">
-    <div className="feature-icon">⚡</div>
-    <h3>Polymodal Execution</h3>
-    <p>Choose <code>[Interpreted]</code> for fast development or <code>[Compiled]</code> for maximum performance — all from a file header.</p>
   </div>
   
-  <div className="feature-card">
-    <div className="feature-icon">🌐</div>
-    <h3>Cross-Platform</h3>
-    <p>Compile to native binaries, WASM, EVM, or Solana. One codebase, multiple targets.</p>
+  {/* Features Section */}
+  <div className="features-section">
+    <h2>What is JOEL?</h2>
+    
+    <div className="features-grid">
+      <div className="feature-card">
+        <div className="feature-icon">⚡</div>
+        <h3>Polymodal Execution</h3>
+        <p>Choose <code>[Interpreted]</code> for fast development or <code>[Compiled]</code> for maximum performance — all from a file header.</p>
+      </div>
+      
+      <div className="feature-card">
+        <div className="feature-icon">🌐</div>
+        <h3>Cross-Platform</h3>
+        <p>Compile to native binaries, WASM, EVM, or Solana. One codebase, multiple targets.</p>
+      </div>
+      
+      <div className="feature-card">
+        <div className="feature-icon">📦</div>
+        <h3>Gradual Types</h3>
+        <p>Start with dynamic types, add static types as needed. Type inference throughout.</p>
+      </div>
+      
+      <div className="feature-card">
+        <div className="feature-icon">🔒</div>
+        <h3>Ownership-Lite</h3>
+        <p>Rust-inspired memory safety without the complexity. Automatic memory management with zero-cost abstractions.</p>
+      </div>
+      
+      <div className="feature-card">
+        <div className="feature-icon">🚀</div>
+        <h3>Async/Actor Model</h3>
+        <p>Built-in concurrency with actors and async/await. Perfect for distributed systems and Web3.</p>
+      </div>
+      
+      <div className="feature-card">
+        <div className="feature-icon">💻</div>
+        <h3>Modern Syntax</h3>
+        <p>Clean, readable syntax inspired by Rust, Python, and JavaScript. Pattern matching, modules, and more.</p>
+      </div>
+    </div>
   </div>
   
-  <div className="feature-card">
-    <div className="feature-icon">📦</div>
-    <h3>Gradual Types</h3>
-    <p>Start with dynamic types, add static types as needed. Type inference throughout.</p>
-  </div>
-  
-  <div className="feature-card">
-    <div className="feature-icon">🔒</div>
-    <h3>Ownership-Lite</h3>
-    <p>Rust-inspired memory safety without the complexity. Automatic memory management with zero-cost abstractions.</p>
-  </div>
-  
-  <div className="feature-card">
-    <div className="feature-icon">🚀</div>
-    <h3>Async/Actor Model</h3>
-    <p>Built-in concurrency with actors and async/await. Perfect for distributed systems and Web3.</p>
-  </div>
-  
-  <div className="feature-card">
-    <div className="feature-icon">💻</div>
-    <h3>Modern Syntax</h3>
-    <p>Clean, readable syntax inspired by Rust, Python, and JavaScript. Pattern matching, modules, and more.</p>
+  {/* Stats Section */}
+  <div className="stats-section">
+    <h2>Why JOEL?</h2>
+    
+    <div className="stats-grid">
+      <div className="stat-item">
+        <p className="stat-value">1</p>
+        <p className="stat-label">Language</p>
+      </div>
+      <div className="stat-item">
+        <p className="stat-value">7+</p>
+        <p className="stat-label">Domains</p>
+      </div>
+      <div className="stat-item">
+        <p className="stat-value">4</p>
+        <p className="stat-label">Targets</p>
+      </div>
+      <div className="stat-item">
+        <p className="stat-value">∞</p>
+        <p className="stat-label">Possibilities</p>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -130,27 +231,6 @@ component Button {
   }
 }
 ```
-
-## Why JOEL?
-
-<div className="stats-grid">
-  <div className="stat-item">
-    <p className="stat-value">1</p>
-    <p className="stat-label">Language</p>
-  </div>
-  <div className="stat-item">
-    <p className="stat-value">7+</p>
-    <p className="stat-label">Domains</p>
-  </div>
-  <div className="stat-item">
-    <p className="stat-value">4</p>
-    <p className="stat-label">Targets</p>
-  </div>
-  <div className="stat-item">
-    <p className="stat-value">∞</p>
-    <p className="stat-label">Possibilities</p>
-  </div>
-</div>
 
 ## Get Started
 
