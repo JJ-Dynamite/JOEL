@@ -1,0 +1,21 @@
+# Coolify deployment configuration for JOEL Documentation
+# Domain: joel.val-x.com
+
+version: '3.8'
+
+services:
+  joel-docs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+    restart: unless-stopped
+    labels:
+      - "coolify.managed=true"
+      - "coolify.domain=joel.val-x.com"
+      - "coolify.ssl=true"
+

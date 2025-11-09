@@ -11,7 +11,7 @@ const withNextra = nextra({
 
 export default withNextra({
   reactStrictMode: true,
-  basePath: process.env.NODE_ENV === 'production' ? '/JOEL' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/JOEL' : '',
+  output: 'standalone',
+  // Remove basePath and assetPrefix for custom domain
 })
 
