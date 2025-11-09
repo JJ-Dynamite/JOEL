@@ -1,44 +1,47 @@
 # 📦 Installing JOEL Language
 
-## Quick Install
+## Quick Install (Recommended)
 
-### Option 1: Using the Install Script (Recommended)
+Install JOEL with a single command:
 
 ```bash
-# Make script executable
-chmod +x install.sh
-
-# Run installation
-./install.sh
+curl -fsSL https://joel.val-x.com/install | bash
 ```
 
 This will:
-1. Build the `joel` binary in release mode
-2. Install it to `/usr/local/bin/joel`
-3. Make it available globally
+1. Check for Rust (install if needed)
+2. Clone the JOEL repository
+3. Build the `joel` binary from source
+4. Install it to `/usr/local/bin/joel`
+5. Make it available globally
 
-### Option 2: Manual Installation
+## Manual Installation
+
+If you prefer to build from source:
 
 ```bash
-# 1. Build the release binary
-cargo build --release
+# Clone the repository
+git clone https://github.com/JJ-Dynamite/JOEL.git
+cd JOEL
 
-# 2. Install to system PATH
+# Build and install
+cargo build --release
 sudo cp target/release/joel /usr/local/bin/joel
 sudo chmod +x /usr/local/bin/joel
 ```
 
-### Option 3: Local Installation (No sudo)
+## Local Installation (No sudo)
+
+If you don't have sudo access:
 
 ```bash
-# 1. Build the release binary
+# Clone and build
+git clone https://github.com/JJ-Dynamite/JOEL.git
+cd JOEL
 cargo build --release
 
-# 2. Add to your PATH (add to ~/.zshrc or ~/.bashrc)
+# Add to your PATH (add to ~/.zshrc or ~/.bashrc)
 export PATH="$PATH:$(pwd)/target/release"
-
-# 3. Reload shell
-source ~/.zshrc  # or source ~/.bashrc
 ```
 
 ## Verify Installation
@@ -59,11 +62,14 @@ joel version
 joel run examples/hello.joel
 ```
 
-## Uninstall
+## Prerequisites
 
-```bash
-sudo rm /usr/local/bin/joel
-```
+JOEL is written in Rust, so you'll need:
+
+- **Rust 1.70+** - Install from [rustup.rs](https://rustup.rs/)
+- **Cargo** - Comes with Rust installation
+
+The quick install script will automatically install Rust if it's not found.
 
 ## Troubleshooting
 
@@ -75,11 +81,7 @@ Install Rust from [rustup.rs](https://rustup.rs/):
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-### "Permission denied"
-
-Use `sudo` for system-wide installation, or install locally (Option 3).
-
-### "joel: command not found"
+### "joel: command not found" after installation
 
 Make sure `/usr/local/bin` is in your PATH:
 
@@ -93,7 +95,26 @@ If not, add it:
 export PATH="$PATH:/usr/local/bin"
 ```
 
+### Build errors
+
+Make sure you have the latest Rust version:
+
+```bash
+rustup update
+```
+
+## Uninstall
+
+To remove JOEL:
+
+```bash
+sudo rm /usr/local/bin/joel
+```
+
+## More Information
+
+For detailed installation instructions, see the [Installation Guide](https://joel.val-x.com/getting-started/installation) in the documentation.
+
 ---
 
 **That's it!** You now have `joel` installed as a system command. 🎉
-
