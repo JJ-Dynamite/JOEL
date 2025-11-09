@@ -12,6 +12,7 @@
 body {
   background: var(--joel-dark);
   color: var(--joel-text);
+  overflow-x: hidden;
 }
 
 /* Override Nextra theme for home page */
@@ -24,7 +25,9 @@ body {
   color: var(--joel-text);
   min-height: 100vh;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Starry background effect */
@@ -61,6 +64,8 @@ body {
   max-width: 1400px;
   margin: 0 auto;
   z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .hero-content {
@@ -68,12 +73,39 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Desktop optimizations */
+@media (min-width: 1025px) {
+  .hero {
+    padding: 6rem 4rem 4rem;
+  }
+
+  .hero-content {
+    gap: 5rem;
+  }
+
+  .hero-left {
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .hero-right {
+    max-width: 100%;
+    overflow: hidden;
+  }
 }
 
 @media (max-width: 1024px) {
   .hero-content {
     grid-template-columns: 1fr;
     gap: 3rem;
+  }
+
+  .hero-right {
+    order: -1; /* Show benchmarks first on tablet */
   }
 }
 
@@ -82,6 +114,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  min-width: 0; /* Prevent flex overflow */
+  width: 100%;
 }
 
 .version-pill {
@@ -133,7 +167,9 @@ body {
   font-size: 1.125rem;
   line-height: 1.7;
   color: var(--joel-text-muted);
-  max-width: 600px;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 /* Installation section */
@@ -189,6 +225,9 @@ body {
   justify-content: space-between;
   gap: 1rem;
   overflow-x: auto;
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 .install-command code {
@@ -261,6 +300,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  min-width: 0; /* Prevent flex overflow */
+  width: 100%;
 }
 
 .benchmark-tabs {
@@ -321,6 +362,8 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
+  min-width: 0;
+  width: 100%;
 }
 
 .benchmark-bar-container {
@@ -330,6 +373,7 @@ body {
   border-radius: 4px;
   position: relative;
   overflow: hidden;
+  min-width: 0;
 }
 
 .benchmark-bar {
@@ -371,6 +415,8 @@ body {
   padding: 0 2rem;
   position: relative;
   z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .features-section h2 {
@@ -425,6 +471,8 @@ body {
   padding: 0 2rem;
   position: relative;
   z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .stats-section h2 {
