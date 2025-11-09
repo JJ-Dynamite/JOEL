@@ -217,7 +217,7 @@ body {
   border: 1px solid var(--joel-pink);
   color: var(--joel-pink);
   padding: clamp(0.35rem, 0.8vw, 0.5rem) clamp(0.75rem, 1.5vw, 1rem);
-  border-radius: 20px;
+  border-radius: 30px;
   font-size: clamp(0.7rem, 1vw, 0.875rem);
   width: fit-content;
   margin-bottom: clamp(0.5rem, 1vw, 1rem);
@@ -356,7 +356,7 @@ body {
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--joel-text-muted);
-  border-radius: 6px;
+  border-radius: 12px;
   cursor: pointer;
   font-size: clamp(0.75rem, 1vw, 0.875rem);
   transition: all 0.2s;
@@ -378,7 +378,7 @@ body {
   border: 1px solid var(--joel-pink);
   color: var(--joel-text);
   padding: clamp(0.75rem, 1.2vw, 1rem) clamp(1rem, 1.8vw, 1.5rem);
-  border-radius: 8px;
+  border-radius: 16px;
   font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
   font-size: clamp(0.8rem, 0.95vw, 0.95rem);
   display: flex;
@@ -400,7 +400,7 @@ body {
 
 .install-command::-webkit-scrollbar-thumb {
   background: var(--joel-pink);
-  border-radius: 2px;
+  border-radius: 6px;
 }
 
 .install-command code {
@@ -421,7 +421,7 @@ body {
   border: 1px solid var(--joel-pink);
   color: var(--joel-pink);
   padding: clamp(0.4rem, 0.8vw, 0.5rem) clamp(0.75rem, 1.2vw, 1rem);
-  border-radius: 6px;
+  border-radius: 12px;
   cursor: pointer;
   font-size: clamp(0.75rem, 0.95vw, 0.875rem);
   transition: all 0.2s;
@@ -514,7 +514,7 @@ body {
 .benchmark-card {
   background: var(--joel-dark-card);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  border-radius: 20px;
   padding: clamp(1.25rem, 2.5vw, 1.75rem);
 }
 
@@ -575,7 +575,7 @@ body {
   flex: 1;
   height: clamp(28px, 3vw, 32px);
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 4px;
+  border-radius: 8px;
   position: relative;
   overflow: hidden;
   min-width: 0;
@@ -584,7 +584,7 @@ body {
 .benchmark-bar {
   height: 100%;
   background: linear-gradient(90deg, var(--joel-pink) 0%, var(--joel-purple) 100%);
-  border-radius: 4px;
+  border-radius: 8px;
   transition: width 0.5s ease;
   display: flex;
   align-items: center;
@@ -689,7 +689,7 @@ body {
 .feature-card {
   background: var(--joel-dark-card);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  border-radius: 20px;
   padding: clamp(1.25rem, 2.5vw, 1.75rem);
   transition: all 0.2s;
 }
@@ -783,7 +783,7 @@ body {
   padding: clamp(1.25rem, 2.5vw, 1.75rem);
   background: var(--joel-dark-card);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  border-radius: 20px;
 }
 
 .stat-value {
