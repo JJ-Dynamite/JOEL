@@ -44,7 +44,7 @@ if ! command -v rustc &> /dev/null; then
     echo -e "\${YELLOW}⚠️  Rust is not installed.\${NC}"
     echo "Installing Rust..."
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-    source "$HOME/.cargo/env"
+    source "\$HOME/.cargo/env"
     echo -e "\${GREEN}✅ Rust installed\${NC}"
     echo ""
 fi
@@ -56,11 +56,11 @@ if ! command -v cargo &> /dev/null; then
 fi
 
 # Create temporary directory
-TEMP_DIR=$(mktemp -d)
-trap "rm -rf $TEMP_DIR" EXIT
+TEMP_DIR=\$(mktemp -d)
+trap "rm -rf \$TEMP_DIR" EXIT
 
 echo -e "\${BLUE}📦 Cloning JOEL repository...\${NC}"
-cd "$TEMP_DIR"
+cd "\$TEMP_DIR"
 git clone --depth 1 https://github.com/JJ-Dynamite/JOEL.git joel-lang
 cd joel-lang
 
@@ -68,7 +68,7 @@ echo ""
 echo -e "\${BLUE}🔨 Building JOEL Language...\${NC}"
 cargo build --release
 
-if [ $? -ne 0 ]; then
+if [ \$? -ne 0 ]; then
     echo -e "\${RED}❌ Build failed.\${NC}"
     exit 1
 fi
@@ -77,24 +77,24 @@ echo ""
 echo -e "\${BLUE}📦 Installing joel command...\${NC}"
 
 # Detect OS and install location
-if [[ "$OSTYPE" == "darwin"* ]]; then
+if [[ "\$OSTYPE" == "darwin"* ]]; then
     INSTALL_DIR="/usr/local/bin"
-elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+elif [[ "\$OSTYPE" == "linux-gnu"* ]]; then
     INSTALL_DIR="/usr/local/bin"
 else
     echo -e "\${YELLOW}⚠️  Unknown OS. Installing to ~/.local/bin\${NC}"
-    INSTALL_DIR="$HOME/.local/bin"
-    mkdir -p "$INSTALL_DIR"
+    INSTALL_DIR="\$HOME/.local/bin"
+    mkdir -p "\$INSTALL_DIR"
 fi
 
 # Check if we need sudo
-if [ -w "$INSTALL_DIR" ]; then
-    cp target/release/joel "$INSTALL_DIR/joel"
-    chmod +x "$INSTALL_DIR/joel"
+if [ -w "\$INSTALL_DIR" ]; then
+    cp target/release/joel "\$INSTALL_DIR/joel"
+    chmod +x "\$INSTALL_DIR/joel"
     SUDO_USED=false
 else
-    sudo cp target/release/joel "$INSTALL_DIR/joel"
-    sudo chmod +x "$INSTALL_DIR/joel"
+    sudo cp target/release/joel "\$INSTALL_DIR/joel"
+    sudo chmod +x "\$INSTALL_DIR/joel"
     SUDO_USED=true
 fi
 
@@ -111,9 +111,9 @@ if command -v joel &> /dev/null; then
     joel version
 else
     echo -e "\${YELLOW}⚠️  Installation complete, but joel command not found in PATH.\${NC}"
-    if [ "$SUDO_USED" = false ] && [ "$INSTALL_DIR" != "/usr/local/bin" ]; then
+    if [ "\$SUDO_USED" = false ] && [ "\$INSTALL_DIR" != "/usr/local/bin" ]; then
         echo "Add to your PATH:"
-        echo "  export PATH="\\$PATH:$INSTALL_DIR""
+        echo "  export PATH=\\"\\\$PATH:\$INSTALL_DIR\\""
         echo "  # Add to ~/.bashrc or ~/.zshrc for persistence"
     fi
 fi
