@@ -47,7 +47,7 @@ export default function InstallSection() {
           Windows
         </button>
         <a
-          href="/install.ps1"
+          href="/install-script"
           className="platform-tab"
           style={{ textDecoration: 'none', display: 'inline-block' }}
         >
