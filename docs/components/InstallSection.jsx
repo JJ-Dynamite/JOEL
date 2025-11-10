@@ -134,7 +134,7 @@ echo -e "\${GREEN}🚀 JOEL is ready to use!\${NC}"`
       case 'windows':
         return (
           <div className="install-command">
-            <code>PS> {windowsCommand}</code>
+            <code>PS{'>'} {windowsCommand}</code>
             <CopyButton text={windowsCommand} />
           </div>
         )
