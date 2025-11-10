@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import CopyButton from './CopyButton'
 
 export default function InstallSection() {
@@ -138,28 +138,6 @@ echo -e "\${GREEN}🚀 JOEL is ready to use!\${NC}"`
             <CopyButton text={windowsCommand} />
           </div>
         )
-      case 'script':
-        const currentScript = scriptType === 'bash' ? installScript : (powershellScript || 'Loading PowerShell script...')
-        return (
-          <div className="install-command">
-            <div className="script-tabs">
-              <button
-                className={`script-tab ${scriptType === 'bash' ? 'active' : ''}`}
-                onClick={() => setScriptType('bash')}
-              >
-                Bash Script
-              </button>
-              <button
-                className={`script-tab ${scriptType === 'powershell' ? 'active' : ''}`}
-                onClick={() => setScriptType('powershell')}
-              >
-                PowerShell Script
-              </button>
-            </div>
-            <pre className="install-script-content">{currentScript}</pre>
-            <CopyButton text={currentScript} />
-          </div>
-        )
       default:
         return null
     }
@@ -181,12 +159,13 @@ echo -e "\${GREEN}🚀 JOEL is ready to use!\${NC}"`
         >
           Windows
         </button>
-        <button
-          className={`platform-tab ${activeTab === 'script' ? 'active' : ''}`}
-          onClick={() => setActiveTab('script')}
+        <a
+          href="/install.ps1"
+          className="platform-tab"
+          style={{ textDecoration: 'none', display: 'inline-block' }}
         >
           View install script
-        </button>
+        </a>
       </div>
       {renderContent()}
     </div>

@@ -1,0 +1,82 @@
+import { promises as fs } from 'fs'
+import path from 'path'
+
+export async function getServerSideProps() {
+  try {
+    const filePath = path.join(process.cwd(), 'docs', 'public', 'install.ps1')
+    const scriptContent = await fs.readFile(filePath, 'utf8')
+    return {
+      props: {
+        script: scriptContent
+      }
+    }
+  } catch (error) {
+    console.error('Error reading install script:', error)
+    return {
+      props: {
+        script: '# Error loading install script'
+      }
+    }
+  }
+}
+
+export default function InstallScriptPage({ script }) {
+  return (
+    <div style={{
+      maxWidth: '1200px',
+      margin: '0 auto',
+      padding: '2rem',
+      background: '#0a0a0a',
+      color: '#ffffff',
+      minHeight: '100vh'
+    }}>
+      <h1 style={{
+        fontSize: '2rem',
+        marginBottom: '1.5rem',
+        background: 'linear-gradient(135deg, #ffffff 0%, #ff6ec7 100%)',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        backgroundClip: 'text'
+      }}>
+        JOEL Install Script
+      </h1>
+      <p style={{ marginBottom: '2rem', color: '#a0a0a0' }}>
+        PowerShell installation script for Windows. Copy and run this script to install JOEL.
+      </p>
+      <div style={{
+        background: '#1a1a1a',
+        border: '1px solid #ff6ec7',
+        borderRadius: '16px',
+        padding: '1.5rem',
+        overflow: 'auto',
+        position: 'relative'
+      }}>
+        <pre style={{
+          margin: 0,
+          fontFamily: 'Monaco, Menlo, "Courier New", monospace',
+          fontSize: '0.875rem',
+          lineHeight: '1.6',
+          color: '#ffffff',
+          whiteSpace: 'pre-wrap',
+          wordBreak: 'break-word',
+          overflowWrap: 'break-word'
+        }}>
+          <code>{script}</code>
+        </pre>
+      </div>
+      <div style={{ marginTop: '2rem' }}>
+        <a 
+          href="/"
+          style={{
+            color: '#ff6ec7',
+            textDecoration: 'none',
+            fontSize: '1rem'
+          }}
+        >
+          ← Back to Home
+        </a>
+      </div>
+    </div>
+  )
+}
+
