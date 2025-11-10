@@ -1,4 +1,4 @@
-import CopyButton from '../components/CopyButton'
+import InstallSection from '../components/InstallSection'
 
 export const metadata = {
   title: 'JOEL - A polymodal programming language',
@@ -23,18 +23,7 @@ export const metadata = {
           JOEL is a fast, incrementally adoptable all-in-one programming language. Use it for systems programming, AI/ML, Web3, UI development, workflows, and more. Choose <code>[Interpreted]</code> for fast development or <code>[Compiled]</code> for maximum performance — all from a simple file header.
         </p>
         
-        <div className="install-section">
-          <div className="install-title">Install JOEL</div>
-          <div className="platform-tabs">
-            <button className="platform-tab active">Linux & macOS</button>
-            <button className="platform-tab">Windows</button>
-            <button className="platform-tab">View install script</button>
-          </div>
-          <div className="install-command">
-            <code>$ curl -fsSL https://joel.val-x.com/api/install | bash</code>
-            <CopyButton text="curl -fsSL https://joel.val-x.com/api/install | bash" />
-          </div>
-        </div>
+        <InstallSection />
         
         <div className="used-by">
           <div className="used-by-title">USED BY</div>
