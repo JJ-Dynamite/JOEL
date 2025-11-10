@@ -416,6 +416,24 @@ body {
   white-space: pre-wrap;
 }
 
+.install-script-content {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+  border: none;
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: break-all;
+  white-space: pre-wrap;
+  font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+  margin: 0;
+  overflow-x: auto;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
 .copy-btn {
   background: rgba(255, 110, 199, 0.1);
   border: 1px solid var(--joel-pink);
