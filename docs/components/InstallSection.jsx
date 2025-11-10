@@ -5,8 +5,6 @@ import CopyButton from './CopyButton'
 
 export default function InstallSection() {
   const [activeTab, setActiveTab] = useState('linux-macos')
-  const [powershellScript, setPowershellScript] = useState('')
-  const [scriptType, setScriptType] = useState('bash') // 'bash' or 'powershell'
 
   const linuxMacosCommand = 'curl -fsSL https://joel.val-x.com/api/install | bash'
   const windowsCommand = 'powershell -c "irm https://joel.val-x.com/install.ps1 | iex"'
