@@ -5,9 +5,24 @@ import CopyButton from './CopyButton'
 
 export default function InstallSection() {
   const [activeTab, setActiveTab] = useState('linux-macos')
+  const [powershellScript, setPowershellScript] = useState('')
+  const [scriptType, setScriptType] = useState('bash') // 'bash' or 'powershell'
 
   const linuxMacosCommand = 'curl -fsSL https://joel.val-x.com/api/install | bash'
   const windowsCommand = 'powershell -c "irm https://joel.val-x.com/install.ps1 | iex"'
+
+  // Load PowerShell script content when script tab is active
+  useEffect(() => {
+    if (activeTab === 'script' && !powershellScript) {
+      fetch('/api/install.ps1')
+        .then(res => res.text())
+        .then(text => setPowershellScript(text))
+        .catch(err => {
+          console.error('Failed to load PowerShell script:', err)
+          setPowershellScript('# Failed to load install script. Please visit https://joel.val-x.com/install.ps1')
+        })
+    }
+  }, [activeTab, powershellScript])
 
   const installScript = `#!/bin/bash
 
