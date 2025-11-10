@@ -7,20 +7,27 @@ export default function InstallSection() {
   const [activeTab, setActiveTab] = useState('linux-macos')
 
   const linuxMacosCommand = 'curl -fsSL https://joel.val-x.com/api/install | bash'
-  const windowsInstructions = `# Install Rust (if not already installed)
-# Download and run: https://rustup.rs/
+  const windowsInstructions = `# Download JOEL for Windows
+# Visit: https://github.com/JJ-Dynamite/JOEL/releases/latest
+# Download joel-windows-x64.exe (or appropriate version)
 
-# Open PowerShell or Command Prompt and run:
-git clone https://github.com/JJ-Dynamite/JOEL.git
-cd JOEL
-cargo build --release
+# Option 1: Direct download and install
+# 1. Download the latest release from GitHub
+# 2. Rename to joel.exe
+# 3. Move to a directory in your PATH (e.g., C:\\Users\\YourName\\bin)
+# 4. Add that directory to your PATH in System Environment Variables
 
-# Add to PATH (PowerShell):
-$env:Path += ";$PWD\\target\\release"
+# Option 2: Using PowerShell
+# Download and add to PATH:
+$url = "https://github.com/JJ-Dynamite/JOEL/releases/latest/download/joel-windows-x64.exe"
+$output = "$env:USERPROFILE\\bin\\joel.exe"
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\\bin"
+Invoke-WebRequest -Uri $url -OutFile $output
+$env:Path += ";$env:USERPROFILE\\bin"
+[Environment]::SetEnvironmentVariable("Path", $env:Path, [EnvironmentVariableTarget]::User)
 
-# Or copy to a directory in your PATH:
-# Copy target\\release\\joel.exe to C:\\Users\\YourName\\bin (or similar)
-# Then add that directory to your PATH in System Environment Variables`
+# Verify installation:
+joel version`
 
   const installScript = `#!/bin/bash
 
@@ -39,19 +46,9 @@ NC='\\033[0m' # No Color
 echo -e "\${BLUE}🧠 JOEL Language Installer\${NC}"
 echo ""
 
-# Check if Rust is installed
-if ! command -v rustc &> /dev/null; then
-    echo -e "\${YELLOW}⚠️  Rust is not installed.\${NC}"
-    echo "Installing Rust..."
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-    source "\$HOME/.cargo/env"
-    echo -e "\${GREEN}✅ Rust installed\${NC}"
-    echo ""
-fi
-
-# Check if cargo is available
-if ! command -v cargo &> /dev/null; then
-    echo -e "\${RED}❌ Cargo not found. Please install Rust: https://rustup.rs/\${NC}"
+# Check if git is available
+if ! command -v git &> /dev/null; then
+    echo -e "\${RED}❌ Git is not installed. Please install Git first.\${NC}"
     exit 1
 fi
 
@@ -59,17 +56,26 @@ fi
 TEMP_DIR=\$(mktemp -d)
 trap "rm -rf \$TEMP_DIR" EXIT
 
-echo -e "\${BLUE}📦 Cloning JOEL repository...\${NC}"
-cd "\$TEMP_DIR"
-git clone --depth 1 https://github.com/JJ-Dynamite/JOEL.git joel-lang
-cd joel-lang
+echo -e "\${BLUE}📦 Downloading JOEL Language...\${NC}"
 
-echo ""
-echo -e "\${BLUE}🔨 Building JOEL Language...\${NC}"
-cargo build --release
+# Detect architecture
+ARCH=\$(uname -m)
+OS=\$(uname -s | tr '[:upper:]' '[:lower:]')
 
-if [ \$? -ne 0 ]; then
-    echo -e "\${RED}❌ Build failed.\${NC}"
+if [ "\$OS" = "darwin" ]; then
+    OS="macos"
+fi
+
+# Download pre-built binary
+BINARY_URL="https://github.com/JJ-Dynamite/JOEL/releases/latest/download/joel-\${OS}-\${ARCH}"
+
+if curl -fsSL "\$BINARY_URL" -o "\$TEMP_DIR/joel" 2>/dev/null; then
+    echo -e "\${GREEN}✅ Downloaded JOEL\${NC}"
+    chmod +x "\$TEMP_DIR/joel"
+    BINARY_PATH="\$TEMP_DIR/joel"
+else
+    echo -e "\${YELLOW}⚠️  Pre-built binary not available.\${NC}"
+    echo -e "\${YELLOW}   Please visit https://joel.val-x.com/getting-started/installation for manual installation.\${NC}"
     exit 1
 fi
 
@@ -89,11 +95,11 @@ fi
 
 # Check if we need sudo
 if [ -w "\$INSTALL_DIR" ]; then
-    cp target/release/joel "\$INSTALL_DIR/joel"
+    cp "\$BINARY_PATH" "\$INSTALL_DIR/joel"
     chmod +x "\$INSTALL_DIR/joel"
     SUDO_USED=false
 else
-    sudo cp target/release/joel "\$INSTALL_DIR/joel"
+    sudo cp "\$BINARY_PATH" "\$INSTALL_DIR/joel"
     sudo chmod +x "\$INSTALL_DIR/joel"
     SUDO_USED=true
 fi

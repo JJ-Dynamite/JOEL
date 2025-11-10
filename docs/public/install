@@ -15,19 +15,9 @@ NC='\033[0m' # No Color
 echo -e "${BLUE}🧠 JOEL Language Installer${NC}"
 echo ""
 
-# Check if Rust is installed
-if ! command -v rustc &> /dev/null; then
-    echo -e "${YELLOW}⚠️  Rust is not installed.${NC}"
-    echo "Installing Rust..."
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-    source "$HOME/.cargo/env"
-    echo -e "${GREEN}✅ Rust installed${NC}"
-    echo ""
-fi
-
-# Check if cargo is available
-if ! command -v cargo &> /dev/null; then
-    echo -e "${RED}❌ Cargo not found. Please install Rust: https://rustup.rs/${NC}"
+# Check if git is available
+if ! command -v git &> /dev/null; then
+    echo -e "${RED}❌ Git is not installed. Please install Git first.${NC}"
     exit 1
 fi
 
@@ -41,11 +31,32 @@ git clone --depth 1 https://github.com/JJ-Dynamite/JOEL.git joel-lang
 cd joel-lang
 
 echo ""
-echo -e "${BLUE}🔨 Building JOEL Language...${NC}"
-cargo build --release
+echo -e "${BLUE}📦 Installing JOEL Language...${NC}"
 
-if [ $? -ne 0 ]; then
-    echo -e "${RED}❌ Build failed.${NC}"
+# Download pre-built binary (if available) or build from source
+if command -v curl &> /dev/null; then
+    # Try to download pre-built binary first
+    ARCH=$(uname -m)
+    OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+    
+    if [ "$OS" = "darwin" ]; then
+        OS="macos"
+    fi
+    
+    BINARY_URL="https://github.com/JJ-Dynamite/JOEL/releases/latest/download/joel-${OS}-${ARCH}"
+    
+    if curl -fsSL "$BINARY_URL" -o "$TEMP_DIR/joel" 2>/dev/null; then
+        echo -e "${GREEN}✅ Downloaded pre-built binary${NC}"
+        chmod +x "$TEMP_DIR/joel"
+        BINARY_PATH="$TEMP_DIR/joel"
+    else
+        echo -e "${YELLOW}⚠️  Pre-built binary not available. Building from source...${NC}"
+        echo -e "${YELLOW}   This requires a build environment.${NC}"
+        echo -e "${YELLOW}   Please visit https://joel.val-x.com/getting-started/installation for manual installation.${NC}"
+        exit 1
+    fi
+else
+    echo -e "${RED}❌ curl is not installed.${NC}"
     exit 1
 fi
 
@@ -65,11 +76,11 @@ fi
 
 # Check if we need sudo
 if [ -w "$INSTALL_DIR" ]; then
-    cp target/release/joel "$INSTALL_DIR/joel"
+    cp "$BINARY_PATH" "$INSTALL_DIR/joel"
     chmod +x "$INSTALL_DIR/joel"
     SUDO_USED=false
 else
-    sudo cp target/release/joel "$INSTALL_DIR/joel"
+    sudo cp "$BINARY_PATH" "$INSTALL_DIR/joel"
     sudo chmod +x "$INSTALL_DIR/joel"
     SUDO_USED=true
 fi
