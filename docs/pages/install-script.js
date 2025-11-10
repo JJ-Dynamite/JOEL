@@ -37,7 +37,7 @@ export default function InstallScriptPage({ script }) {
       <h1 style={{
         fontSize: '2rem',
         marginBottom: '1.5rem',
-        background: 'linear-gradient(135deg, #ffffff 0%, #ff6ec7 100%)',
+        background: 'linear-gradient(135deg, var(--joel-text) 0%, var(--joel-pink) 100%)',
         WebkitBackgroundClip: 'text',
         WebkitTextFillColor: 'transparent',
         backgroundClip: 'text'
