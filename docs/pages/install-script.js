@@ -3,7 +3,9 @@ import path from 'path'
 
 export async function getServerSideProps() {
   try {
-    const filePath = path.join(process.cwd(), 'docs', 'public', 'install.ps1')
+    // In Next.js, when running from the docs directory, process.cwd() is the docs directory
+    // The public folder is at the same level as pages
+    const filePath = path.join(process.cwd(), 'public', 'install.ps1')
     const scriptContent = await fs.readFile(filePath, 'utf8')
     return {
       props: {
@@ -12,9 +14,11 @@ export async function getServerSideProps() {
     }
   } catch (error) {
     console.error('Error reading install script:', error)
+    console.error('Current working directory:', process.cwd())
+    console.error('Attempted path:', path.join(process.cwd(), 'public', 'install.ps1'))
     return {
       props: {
-        script: '# Error loading install script'
+        script: `# Error loading install script\n# Error: ${error.message}\n# CWD: ${process.cwd()}\n# Path: ${path.join(process.cwd(), 'public', 'install.ps1')}`
       }
     }
   }
