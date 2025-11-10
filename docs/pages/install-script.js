@@ -30,9 +30,10 @@ export default function InstallScriptPage({ script }) {
       maxWidth: '1200px',
       margin: '0 auto',
       padding: '2rem',
-      background: '#0a0a0a',
-      color: '#ffffff',
-      minHeight: '100vh'
+      background: 'var(--joel-bg)',
+      color: 'var(--joel-text)',
+      minHeight: '100vh',
+      transition: 'background-color 0.3s ease, color 0.3s ease'
     }}>
       <h1 style={{
         fontSize: '2rem',
