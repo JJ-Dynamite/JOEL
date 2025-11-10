@@ -44,23 +44,24 @@ export default function InstallScriptPage({ script }) {
       }}>
         JOEL Install Script
       </h1>
-      <p style={{ marginBottom: '2rem', color: '#a0a0a0' }}>
+      <p style={{ marginBottom: '2rem', color: 'var(--joel-text-muted)' }}>
         PowerShell installation script for Windows. Copy and run this script to install JOEL.
       </p>
       <div style={{
-        background: '#1a1a1a',
-        border: '1px solid #ff6ec7',
+        background: 'var(--joel-card)',
+        border: '1px solid var(--joel-pink)',
         borderRadius: '16px',
         padding: '1.5rem',
         overflow: 'auto',
-        position: 'relative'
+        position: 'relative',
+        transition: 'background-color 0.3s ease, border-color 0.3s ease'
       }}>
         <pre style={{
           margin: 0,
           fontFamily: 'Monaco, Menlo, "Courier New", monospace',
           fontSize: '0.875rem',
           lineHeight: '1.6',
-          color: '#ffffff',
+          color: 'var(--joel-text)',
           whiteSpace: 'pre-wrap',
           wordBreak: 'break-word',
           overflowWrap: 'break-word'

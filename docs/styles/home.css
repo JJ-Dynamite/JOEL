@@ -1,27 +1,53 @@
-/* Dark theme with starry background */
+/* Theme variables - shared colors */
 :root {
   --joel-pink: #ff6ec7;
   --joel-purple: #a855f7;
-  --joel-dark: #0a0a0a;
-  --joel-dark-card: #1a1a1a;
-  --joel-text: #ffffff;
-  --joel-text-muted: #a0a0a0;
 }
 
-/* Global dark theme for home page */
+/* Dark theme variables */
+[data-theme="dark"],
+:root:not([data-theme]) {
+  --joel-bg: #0a0a0a;
+  --joel-card: #1a1a1a;
+  --joel-text: #ffffff;
+  --joel-text-muted: #a0a0a0;
+  --joel-border: rgba(255, 255, 255, 0.1);
+  --joel-border-hover: rgba(255, 255, 255, 0.3);
+  --joel-bar-bg: rgba(255, 255, 255, 0.05);
+  --joel-bar-other: rgba(255, 255, 255, 0.1);
+  --joel-star-color: white;
+  --joel-star-opacity: 0.3;
+}
+
+/* Light theme variables */
+[data-theme="light"] {
+  --joel-bg: #ffffff;
+  --joel-card: #f8f9fa;
+  --joel-text: #1a1a1a;
+  --joel-text-muted: #6b7280;
+  --joel-border: rgba(0, 0, 0, 0.1);
+  --joel-border-hover: rgba(0, 0, 0, 0.2);
+  --joel-bar-bg: rgba(0, 0, 0, 0.05);
+  --joel-bar-other: rgba(0, 0, 0, 0.1);
+  --joel-star-color: #1a1a1a;
+  --joel-star-opacity: 0.1;
+}
+
+/* Global theme for home page */
 body {
-  background: var(--joel-dark);
+  background: var(--joel-bg);
   color: var(--joel-text);
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Override Nextra theme for home page */
 .home-container ~ * {
-  background: var(--joel-dark);
+  background: var(--joel-bg);
 }
 
 .home-container {
-  background: var(--joel-dark);
+  background: var(--joel-bg);
   color: var(--joel-text);
   min-height: 100vh;
   position: relative;
@@ -31,6 +57,7 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Starry background effect */
@@ -42,16 +69,16 @@ body {
   right: 0;
   bottom: 0;
   background-image: 
-    radial-gradient(2px 2px at 20% 30%, white, transparent),
-    radial-gradient(2px 2px at 60% 70%, white, transparent),
-    radial-gradient(1px 1px at 50% 50%, white, transparent),
-    radial-gradient(1px 1px at 80% 10%, white, transparent),
-    radial-gradient(2px 2px at 90% 40%, white, transparent),
-    radial-gradient(1px 1px at 33% 60%, white, transparent),
-    radial-gradient(1px 1px at 55% 80%, white, transparent);
+    radial-gradient(2px 2px at 20% 30%, var(--joel-star-color), transparent),
+    radial-gradient(2px 2px at 60% 70%, var(--joel-star-color), transparent),
+    radial-gradient(1px 1px at 50% 50%, var(--joel-star-color), transparent),
+    radial-gradient(1px 1px at 80% 10%, var(--joel-star-color), transparent),
+    radial-gradient(2px 2px at 90% 40%, var(--joel-star-color), transparent),
+    radial-gradient(1px 1px at 33% 60%, var(--joel-star-color), transparent),
+    radial-gradient(1px 1px at 55% 80%, var(--joel-star-color), transparent);
   background-size: 200% 200%;
   animation: stars 20s linear infinite;
-  opacity: 0.3;
+  opacity: var(--joel-star-opacity);
   pointer-events: none;
 }
 
@@ -356,7 +383,7 @@ body {
 .script-tab {
   padding: clamp(0.4rem, 0.8vw, 0.5rem) clamp(0.75rem, 1.5vw, 1rem);
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--joel-border);
   color: var(--joel-text-muted);
   border-radius: 12px;
   cursor: pointer;
@@ -373,12 +400,12 @@ body {
 
 .platform-tab:hover:not(.active),
 .script-tab:hover:not(.active) {
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: var(--joel-border-hover);
   color: var(--joel-text);
 }
 
 .install-command {
-  background: var(--joel-dark-card);
+  background: var(--joel-card);
   border: 1px solid var(--joel-pink);
   color: var(--joel-text);
   padding: clamp(0.75rem, 1.2vw, 1rem) clamp(1rem, 1.8vw, 1.5rem);
@@ -508,7 +535,7 @@ body {
 .benchmark-tabs {
   display: flex;
   gap: clamp(0.4rem, 0.8vw, 0.5rem);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--joel-border);
   padding-bottom: clamp(0.4rem, 0.8vw, 0.5rem);
 }
 
@@ -534,10 +561,11 @@ body {
 }
 
 .benchmark-card {
-  background: var(--joel-dark-card);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--joel-card);
+  border: 1px solid var(--joel-border);
   border-radius: 20px;
   padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .benchmark-title {
@@ -596,7 +624,7 @@ body {
 .benchmark-bar-container {
   flex: 1;
   height: clamp(28px, 3vw, 32px);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--joel-bar-bg);
   border-radius: 8px;
   position: relative;
   overflow: hidden;
@@ -618,7 +646,7 @@ body {
 }
 
 .benchmark-bar.other {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--joel-bar-other);
 }
 
 .benchmark-label {
@@ -709,8 +737,8 @@ body {
 }
 
 .feature-card {
-  background: var(--joel-dark-card);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--joel-card);
+  border: 1px solid var(--joel-border);
   border-radius: 20px;
   padding: clamp(1.25rem, 2.5vw, 1.75rem);
   transition: all 0.2s;
@@ -803,9 +831,10 @@ body {
 
 .stat-item {
   padding: clamp(1.25rem, 2.5vw, 1.75rem);
-  background: var(--joel-dark-card);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--joel-card);
+  border: 1px solid var(--joel-border);
   border-radius: 20px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .stat-value {
