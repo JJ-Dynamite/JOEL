@@ -1,33 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import CopyButton from './CopyButton'
 
 export default function InstallSection() {
   const [activeTab, setActiveTab] = useState('linux-macos')
 
   const linuxMacosCommand = 'curl -fsSL https://joel.val-x.com/api/install | bash'
-  const windowsInstructions = `# Download JOEL for Windows
-# Visit: https://github.com/JJ-Dynamite/JOEL/releases/latest
-# Download joel-windows-x64.exe (or appropriate version)
-
-# Option 1: Direct download and install
-# 1. Download the latest release from GitHub
-# 2. Rename to joel.exe
-# 3. Move to a directory in your PATH (e.g., C:\\Users\\YourName\\bin)
-# 4. Add that directory to your PATH in System Environment Variables
-
-# Option 2: Using PowerShell
-# Download and add to PATH:
-$url = "https://github.com/JJ-Dynamite/JOEL/releases/latest/download/joel-windows-x64.exe"
-$output = "$env:USERPROFILE\\bin\\joel.exe"
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\\bin"
-Invoke-WebRequest -Uri $url -OutFile $output
-$env:Path += ";$env:USERPROFILE\\bin"
-[Environment]::SetEnvironmentVariable("Path", $env:Path, [EnvironmentVariableTarget]::User)
-
-# Verify installation:
-joel version`
+  const windowsCommand = 'powershell -c "irm https://joel.val-x.com/install.ps1 | iex"'
 
   const installScript = `#!/bin/bash
 
@@ -139,15 +119,30 @@ echo -e "\${GREEN}🚀 JOEL is ready to use!\${NC}"`
       case 'windows':
         return (
           <div className="install-command">
-            <pre className="install-script-content">{windowsInstructions}</pre>
-            <CopyButton text={windowsInstructions} />
+            <code>PS> {windowsCommand}</code>
+            <CopyButton text={windowsCommand} />
           </div>
         )
       case 'script':
+        const currentScript = scriptType === 'bash' ? installScript : (powershellScript || 'Loading PowerShell script...')
         return (
           <div className="install-command">
-            <pre className="install-script-content">{installScript}</pre>
-            <CopyButton text={installScript} />
+            <div className="script-tabs">
+              <button
+                className={`script-tab ${scriptType === 'bash' ? 'active' : ''}`}
+                onClick={() => setScriptType('bash')}
+              >
+                Bash Script
+              </button>
+              <button
+                className={`script-tab ${scriptType === 'powershell' ? 'active' : ''}`}
+                onClick={() => setScriptType('powershell')}
+              >
+                PowerShell Script
+              </button>
+            </div>
+            <pre className="install-script-content">{currentScript}</pre>
+            <CopyButton text={currentScript} />
           </div>
         )
       default:
