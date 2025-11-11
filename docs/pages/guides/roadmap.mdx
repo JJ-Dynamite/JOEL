@@ -1,0 +1,231 @@
+# Roadmap
+
+JOEL's development roadmap outlines the planned features and improvements across multiple phases.
+
+## Current Status
+
+**Version**: 0.1.0  
+**Current Phase**: Phase 2 (Compilation & Types) ✅
+
+## Phase 1: Core Language ✅
+
+**Status**: Complete
+
+- ✅ Lexer - Tokenizes JOEL source code
+- ✅ Parser - Builds AST from tokens
+- ✅ VM/Interpreter - Executes `[Interpreted]` mode
+- ✅ Basic syntax support (variables, functions, control flow)
+- ✅ Built-in functions (`print`, `range`)
+- ✅ Documentation site with Nextra
+- ✅ CLI tool (`joel` command)
+- ✅ Example programs
+
+## Phase 2: Compilation & Types ✅
+
+**Status**: Complete
+
+- ✅ LLVM backend infrastructure for `[Compiled]` mode
+- ✅ WASM target compilation infrastructure
+- ✅ Static type checking
+- ✅ Type inference improvements
+- ✅ Ownership system (Rust-like borrow checker)
+- ✅ Error messages and diagnostics
+- ✅ Standard library core modules
+
+**Documentation**: 
+- [Type System Guide](/guides/type-system)
+- [Ownership System](/guides/ownership)
+
+## Phase 3: Specialized Targets ✅
+
+**Status**: Complete
+
+### Blockchain Targets
+- [x] EVM bytecode generation for smart contracts
+- [x] Solana WASM target (BPF generation)
+- [x] Cosmos SDK target (WASM contracts)
+- [x] Polkadot/Substrate target (WASM runtime modules)
+
+### Native & Web Targets
+- [x] LLVM IR generation
+- [x] WASM binary generation
+- [x] Native optimization support (--optimize flag)
+- [x] Dead code elimination
+- [x] Constant folding
+- [x] Inlining hints
+- [x] Cross-compilation support (--arch flag)
+- [x] Debug symbols and source maps (--debug flag)
+
+**Documentation**: [CLI Reference](/toolchain/cli)
+
+### Mobile Targets
+- [x] iOS target (LLVM IR for iOS frameworks)
+- [x] Android target (LLVM IR for Android libraries)
+- [ ] React Native integration
+
+## Phase 4: Advanced Features
+
+**Status**: Planned
+
+- [ ] UI compiler (`joelui`) - React/React Native output
+- [ ] Container ops (`joelctl`) - Docker/K8s integration
+- [ ] Flow runtime (`flow`) - Workflow execution
+- [ ] Actor system implementation
+- [ ] Async/await runtime
+- [ ] Pattern matching improvements
+
+**Documentation**: 
+- [joelui Toolchain](/toolchain/joelui)
+- [joelctl Toolchain](/toolchain/joelctl)
+- [flow Toolchain](/toolchain/flow)
+
+## Phase 5: Ecosystem & Tooling
+
+**Status**: Planned
+
+- [ ] Package manager (`joelpkg`)
+- [ ] Language Server Protocol (LSP)
+- [ ] IDE plugins (VSCode, etc.)
+- [ ] Debugger and profiler
+- [ ] Testing framework
+
+**Documentation**: 
+- [joelpkg Toolchain](/toolchain/joelpkg)
+
+## Phase 6: Database Programming
+
+**Status**: Planned
+
+- [ ] SQL as first-class datatype
+- [ ] Embedded SQL engine (DuckDB-like)
+- [ ] Type-safe SQL queries
+- [ ] Database connectivity
+- [ ] Advanced SQL features
+- [ ] SQL toolchain (`joelsql`) - CLI for SQL operations
+
+**Documentation**: 
+- [SQL Guide](/guides/sql)
+- [joelsql Toolchain](/toolchain/joelsql)
+
+## Phase 7: Quantum Programming
+
+**Status**: Planned
+
+- [ ] Quantum circuit compilation
+- [ ] Quantum backends (Qiskit, Cirq, Q#)
+- [ ] Hybrid classical-quantum algorithms
+
+**Documentation**: [Quantum Programming Guide](/advanced/quantum) (coming soon)
+
+## Phase 7: Quantum Programming
+
+**Status**: Planned
+
+- [ ] Quantum circuit compilation
+- [ ] Quantum backends (Qiskit, Cirq, Q#)
+- [ ] Hybrid classical-quantum algorithms
+
+**Documentation**: 
+- [joelquantum Toolchain](/toolchain/joelquantum)
+- [Quantum Programming Guide](/advanced/quantum) (coming soon)
+
+## Phase 8: Performance & Optimization
+
+**Status**: Planned
+
+- [ ] Advanced compiler optimizations
+- [ ] JIT compilation
+- [ ] SIMD support
+- [ ] GPU acceleration
+
+**Documentation**: 
+- [joelperf Toolchain](/toolchain/joelperf)
+
+## Phase 9: Security & Safety
+
+**Status**: Planned
+
+- [ ] Static analysis
+- [ ] Sandboxing
+- [ ] Capability system
+- [ ] Cryptographic primitives
+
+**Documentation**: 
+- [joelsec Toolchain](/toolchain/joelsec)
+
+## Phase 10: Interoperability
+
+**Status**: Planned
+
+- [ ] C FFI
+- [ ] Rust FFI
+- [ ] Python interop
+- [ ] JavaScript interop
+
+**Documentation**: 
+- [joelffi Toolchain](/toolchain/joelffi)
+
+## Phase 11: Distributed Systems
+
+**Status**: Planned
+
+- [ ] Distributed actors
+- [ ] Consensus algorithms
+- [ ] Distributed storage
+- [ ] Service mesh
+
+**Documentation**: 
+- [dstore Toolchain](/toolchain/dstore)
+
+## Phase 12: AI/ML Integration
+
+**Status**: Planned
+
+- [ ] AI/ML module
+- [ ] Model formats
+- [ ] GPU acceleration
+- [ ] LLM integration
+
+**Documentation**: 
+- [ai Toolchain](/toolchain/ai)
+
+## Phase 13: Real-time & Streaming
+
+**Status**: Planned
+
+- [ ] Event streams
+- [ ] Time-series processing
+- [ ] Complex event processing
+- [ ] WebSocket support
+- [ ] Message queues
+
+**Documentation**: 
+- [joelstream Toolchain](/toolchain/joelstream)
+
+## Phase 14: Quantum Programming (Qubit-Level)
+
+**Status**: Planned
+
+- [ ] Qubit datatype and operations
+- [ ] Quantum circuit construction
+- [ ] Quantum measurement and observables
+- [ ] Quantum algorithms (QFT, Grover's, Shor's)
+- [ ] Quantum error correction
+- [ ] Quantum simulation and emulation
+- [ ] Quantum hardware integration
+- [ ] Hybrid quantum-classical programming
+
+**Documentation**: 
+- [Quantum Qubit Guide](/guides/quantum-qubit)
+- [Quantum Examples](/examples/quantum)
+
+## Contributing
+
+Want to help? Check out our [contributing guide](https://github.com/JJ-Dynamite/JOEL) and pick a phase to work on!
+
+## Next Steps
+
+- [Getting Started](/getting-started/quick-start)
+- [Language Reference](/language/syntax-overview)
+- [Examples](/examples/basic)
+

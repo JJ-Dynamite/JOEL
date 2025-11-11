@@ -1,0 +1,182 @@
+# ai - AI/ML Toolchain
+
+`ai` is the command-line tool for working with AI/ML models, training, and inference in JOEL.
+
+## Installation
+
+`ai` is included with JOEL:
+
+```bash
+ai --version
+```
+
+## Quick Start
+
+```bash
+# Train model
+ai train model.joel --data dataset.csv
+
+# Run inference
+ai infer model.joel --input data.json
+
+# Convert model format
+ai convert model.pth --format onnx
+```
+
+## Model Training
+
+Train machine learning models:
+
+```bash
+# Train model
+ai train model.joel --data dataset.csv
+
+# Train with GPU
+ai train model.joel --gpu
+
+# Train with specific epochs
+ai train model.joel --epochs 100
+
+# Resume training
+ai train model.joel --resume checkpoint.pth
+
+# Train with validation split
+ai train model.joel --validation-split 0.2
+```
+
+## Model Inference
+
+Run model inference:
+
+```bash
+# Run inference
+ai infer model.joel --input data.json
+
+# Batch inference
+ai infer model.joel --input-dir data/ --output-dir results/
+
+# Inference with GPU
+ai infer model.joel --gpu --input data.json
+
+# Show inference time
+ai infer model.joel --input data.json --timing
+```
+
+## Model Management
+
+Manage ML models:
+
+```bash
+# List models
+ai models list
+
+# Show model info
+ai models info model.joel
+
+# Export model
+ai models export model.joel --format onnx
+
+# Import model
+ai models import model.onnx --name mymodel
+
+# Delete model
+ai models delete mymodel
+```
+
+## Model Conversion
+
+Convert between model formats:
+
+```bash
+# Convert to ONNX
+ai convert model.pth --format onnx --output model.onnx
+
+# Convert to TensorFlow
+ai convert model.pth --format tensorflow --output model.pb
+
+# Convert to PyTorch
+ai convert model.onnx --format pytorch --output model.pth
+```
+
+## LLM Integration
+
+Work with Large Language Models:
+
+```bash
+# Generate text with LLM
+ai llm generate "Write a story" --model gpt-4
+
+# Chat with LLM
+ai llm chat --model claude-3
+
+# Embed text
+ai llm embed "Hello world" --model text-embedding-ada-002
+
+# Fine-tune LLM
+ai llm finetune --base-model gpt-3.5 --data training.jsonl
+```
+
+## Examples
+
+### Train Model
+
+```bash
+ai train neural_network.joel --data train.csv --epochs 50
+```
+
+**Input (neural_network.joel):**
+```joel
+[Compiled]
+
+ai model NeuralNetwork {
+  layers: [
+    Dense(784, 128),
+    ReLU(),
+    Dense(128, 10),
+    Softmax()
+  ]
+  
+  fn train(data: Dataset) {
+    # Training logic
+  }
+}
+```
+
+### Run Inference
+
+```bash
+ai infer model.joel --input image.jpg --output prediction.json
+```
+
+## Command Reference
+
+### Training Commands
+
+- `ai train <file>` - Train model
+- `ai infer <file>` - Run inference
+- `ai evaluate <file>` - Evaluate model
+
+### Model Commands
+
+- `ai models list` - List models
+- `ai models info <model>` - Show model info
+- `ai models export <model>` - Export model
+- `ai models import <file>` - Import model
+
+### Conversion Commands
+
+- `ai convert <file>` - Convert model format
+
+### LLM Commands
+
+- `ai llm generate <prompt>` - Generate text
+- `ai llm chat` - Interactive chat
+- `ai llm embed <text>` - Generate embeddings
+- `ai llm finetune` - Fine-tune model
+
+## Next Steps
+
+- [AI/ML Guide](/guides/ai-ml)
+- [CLI Reference](/toolchain/cli)
+- [Examples](/examples)
+

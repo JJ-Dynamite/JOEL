@@ -1,0 +1,279 @@
+# SQL Programming
+
+JOEL features SQL as a first-class datatype, allowing you to write SQL queries directly in your code with full type safety.
+
+## SQL as a Datatype
+
+SQL is a native datatype in JOEL, not a string:
+
+```joel
+[Compiled]
+
+# SQL query as a variable
+sql result = 
+  SELECT name, age, salary 
+  FROM employees 
+  WHERE age > 30 
+  ORDER BY salary DESC
+```
+
+## Type-Safe SQL
+
+SQL queries are type-checked at compile time:
+
+```joel
+[Compiled]
+
+# Explicit type annotation
+sql employees: sql<{name: str, age: i32, salary: f64}> = 
+  SELECT name, age, salary FROM employees
+
+# Access results with type safety
+for emp in employees {
+  print(emp.name, emp.age, emp.salary)
+}
+```
+
+## SQL Schema Definition
+
+Define tables directly in JOEL:
+
+```joel
+[Compiled]
+
+table employees {
+  id: i64 PRIMARY KEY AUTO_INCREMENT,
+  name: str NOT NULL,
+  age: i32 CHECK (age >= 18),
+  salary: f64 DEFAULT 0.0,
+  department_id: i64 FOREIGN KEY REFERENCES departments(id),
+  created_at: timestamp DEFAULT NOW()
+}
+
+# Indexes
+index idx_employees_age ON employees(age)
+index idx_employees_dept ON employees(department_id)
+```
+
+## SQL in Functions
+
+SQL can be used in function parameters and return types:
+
+```joel
+[Compiled]
+
+fn get_employees(min_age: i32) -> sql<{name: str, age: i32}> {
+  sql result = 
+    SELECT name, age 
+    FROM employees 
+    WHERE age > min_age
+  return result
+}
+
+# Use the function
+let employees = get_employees(25)
+for emp in employees {
+  print(emp.name)
+}
+```
+
+## Parameterized Queries
+
+Safe SQL with type-checked parameters:
+
+```joel
+[Compiled]
+
+fn find_users(min_age: i32, city: str) -> sql<{id: i64, name: str}> {
+  sql results = 
+    SELECT id, name 
+    FROM users 
+    WHERE age > min_age AND city = city
+  return results
+}
+```
+
+## Mixing SQL and JOEL
+
+SQL and JOEL code work seamlessly together:
+
+```joel
+[Compiled]
+
+fn calculate_stats() {
+  sql avg_salary: sql<{avg: f64}> = 
+    SELECT AVG(salary) as avg FROM employees
+  
+  let avg = avg_salary.first().avg
+  
+  sql top_earners: sql<{name: str, salary: f64}> = 
+    SELECT name, salary 
+    FROM employees 
+    WHERE salary > avg
+    ORDER BY salary DESC
+    LIMIT 10
+  
+  for emp in top_earners {
+    print(emp.name, emp.salary)
+  }
+}
+```
+
+## Database Connections
+
+Connect to external databases:
+
+```joel
+[Compiled]
+
+# Connection as a type
+db postgres = connect("postgresql://localhost/mydb")
+
+# Use connection in SQL
+sql users: sql<{id: i64, name: str}> = 
+  SELECT id, name FROM users
+USING postgres
+```
+
+## Querying Files
+
+Query CSV, Parquet, and JSON files directly:
+
+```joel
+[Compiled]
+
+# Query CSV files
+sql csv_data: sql<{name: str, value: f64}> = 
+  SELECT name, value FROM 'data.csv'
+
+# Query Parquet files
+sql parquet_data: sql<{id: i64, metric: f64}> = 
+  SELECT id, metric 
+  FROM 'analytics.parquet' 
+  WHERE date > '2024-01-01'
+
+# Query JSON files
+sql json_data: sql<{id: i64, name: str}> = 
+  SELECT id, name FROM 'users.json'
+```
+
+## Advanced SQL Features
+
+### Recursive CTEs
+
+```joel
+[Compiled]
+
+sql org_tree: sql<{id: i64, name: str, level: i32}> = 
+  WITH RECURSIVE org AS (
+    SELECT id, name, 0 as level FROM departments WHERE parent_id IS NULL
+    UNION ALL
+    SELECT d.id, d.name, o.level + 1
+    FROM departments d
+    JOIN org o ON d.parent_id = o.id
+  )
+  SELECT * FROM org
+```
+
+### Window Functions
+
+```joel
+[Compiled]
+
+sql ranked: sql<{name: str, salary: f64, rank: i64}> = 
+  SELECT 
+    name,
+    salary,
+    RANK() OVER (ORDER BY salary DESC) as rank
+  FROM employees
+```
+
+### Views
+
+```joel
+[Compiled]
+
+view high_earners: sql<{name: str, salary: f64, department: str}> = 
+  SELECT e.name, e.salary, d.name as department
+  FROM employees e
+  JOIN departments d ON e.department_id = d.id
+  WHERE e.salary > 100000
+
+# Use view like any SQL query
+sql top_10: sql<{name: str, salary: f64}> = 
+  SELECT name, salary FROM high_earners
+  ORDER BY salary DESC
+  LIMIT 10
+```
+
+## Transactions
+
+ACID transactions with SQL syntax:
+
+```joel
+[Compiled]
+
+transaction {
+  sql INSERT INTO accounts (id, balance) VALUES (1, 1000)
+  sql INSERT INTO accounts (id, balance) VALUES (2, 500)
+  commit
+}
+```
+
+## Performance Optimization
+
+### Query Caching
+
+```joel
+[Compiled]
+
+sql cached_result: sql<{id: i64, name: str}> = 
+  SELECT id, name FROM users
+CACHE FOR 5 MINUTES
+```
+
+### Parallel Execution
+
+```joel
+[Compiled]
+
+sql parallel_result = 
+  SELECT * FROM large_table
+  PARALLEL 4  # Use 4 threads
+```
+
+### Query Profiling
+
+```joel
+[Compiled]
+
+sql result = SELECT * FROM employees WHERE age > 30
+let profile = result.profile()
+print("Execution time:", profile.execution_time)
+print("Rows scanned:", profile.rows_scanned)
+```
+
+## SQL Toolchain
+
+JOEL includes `joelsql`, a command-line tool for SQL operations:
+
+```bash
+# Interactive SQL shell
+joelsql
+
+# Execute SQL file
+joelsql run query.joel
+
+# Query CSV files
+joelsql query "SELECT * FROM 'data.csv'"
+```
+
+See the [joelsql Toolchain Guide](/toolchain/joelsql) for complete documentation.
+
+## Next Steps
+
+- [joelsql Toolchain](/toolchain/joelsql) - SQL command-line tool
+- [Type System](/guides/type-system)
+- [Performance Guide](/guides/performance)
+- [Examples](/examples)
+

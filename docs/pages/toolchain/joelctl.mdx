@@ -1,0 +1,258 @@
+# joelctl - Container & Infrastructure Toolchain
+
+`joelctl` is the command-line tool for managing containers, Kubernetes, and infrastructure deployments from JOEL code.
+
+## Installation
+
+`joelctl` is included with JOEL:
+
+```bash
+joelctl --version
+```
+
+## Quick Start
+
+```bash
+# Generate Dockerfile from deployment block
+joelctl dockerfile generate app.joel
+
+# Generate Kubernetes manifests
+joelctl k8s generate app.joel
+
+# Deploy to Kubernetes
+joelctl deploy app.joel --cluster production
+```
+
+## Docker Operations
+
+Generate and manage Dockerfiles:
+
+```bash
+# Generate Dockerfile from deployment block
+joelctl dockerfile generate app.joel --output Dockerfile
+
+# Build Docker image
+joelctl dockerfile build app.joel --tag myapp:latest
+
+# Generate multi-stage Dockerfile
+joelctl dockerfile generate app.joel --multi-stage
+
+# Optimize Dockerfile
+joelctl dockerfile optimize Dockerfile
+```
+
+## Kubernetes Operations
+
+Generate and manage Kubernetes resources:
+
+```bash
+# Generate Kubernetes manifests
+joelctl k8s generate app.joel --output k8s/
+
+# Generate deployment manifest
+joelctl k8s deployment app.joel --output deployment.yaml
+
+# Generate service manifest
+joelctl k8s service app.joel --output service.yaml
+
+# Generate ConfigMap
+joelctl k8s configmap app.joel --output configmap.yaml
+
+# Generate all resources
+joelctl k8s generate-all app.joel --output k8s/
+```
+
+## Helm Charts
+
+Generate Helm charts:
+
+```bash
+# Generate Helm chart
+joelctl helm generate app.joel --output helm/myapp
+
+# Package Helm chart
+joelctl helm package helm/myapp
+
+# Install Helm chart
+joelctl helm install myapp helm/myapp
+
+# Upgrade Helm release
+joelctl helm upgrade myapp helm/myapp
+```
+
+## Deployment
+
+Deploy applications:
+
+```bash
+# Deploy to Kubernetes
+joelctl deploy app.joel --cluster production
+
+# Deploy with specific namespace
+joelctl deploy app.joel --namespace staging
+
+# Rollback deployment
+joelctl rollback app.joel --revision 2
+
+# Show deployment status
+joelctl status app.joel
+```
+
+## Serverless Deployment
+
+Deploy to serverless platforms:
+
+```bash
+# Deploy to AWS Lambda
+joelctl deploy-lambda app.joel --function-name myfunction
+
+# Deploy to Vercel
+joelctl deploy-vercel app.joel --project myproject
+
+# Deploy to Cloudflare Workers
+joelctl deploy-workers app.joel --name myworker
+```
+
+## Container Registry
+
+Manage container images:
+
+```bash
+# Push image to registry
+joelctl push app.joel --registry docker.io --tag myapp:latest
+
+# Pull image from registry
+joelctl pull myapp:latest
+
+# List images
+joelctl images list
+
+# Tag image
+joelctl tag myapp:latest myapp:v1.0.0
+```
+
+## Infrastructure as Code
+
+Generate infrastructure definitions:
+
+```bash
+# Generate Terraform
+joelctl terraform generate app.joel --output terraform/
+
+# Generate Pulumi
+joelctl pulumi generate app.joel --output pulumi/
+
+# Generate CloudFormation
+joelctl cloudformation generate app.joel --output cloudformation/
+```
+
+## CI/CD Integration
+
+Generate CI/CD pipelines:
+
+```bash
+# Generate GitHub Actions workflow
+joelctl ci github-actions app.joel --output .github/workflows/
+
+# Generate GitLab CI config
+joelctl ci gitlab app.joel --output .gitlab-ci.yml
+
+# Generate Jenkins pipeline
+joelctl ci jenkins app.joel --output Jenkinsfile
+```
+
+## Examples
+
+### Generate Dockerfile
+
+```bash
+joelctl dockerfile generate app.joel
+```
+
+**Input (app.joel):**
+```joel
+[Compiled]
+
+deployment "myapp" {
+  image: "node:18",
+  workdir: "/app",
+  copy: ["src", "package.json"],
+  run: "npm install",
+  expose: 3000,
+  cmd: ["node", "src/index.js"]
+}
+```
+
+**Output (Dockerfile):**
+```dockerfile
+FROM node:18
+WORKDIR /app
+COPY src ./src
+COPY package.json ./
+RUN npm install
+EXPOSE 3000
+CMD ["node", "src/index.js"]
+```
+
+### Generate Kubernetes Deployment
+
+```bash
+joelctl k8s generate app.joel
+```
+
+**Output (deployment.yaml):**
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: myapp
+        image: myapp:latest
+        ports:
+        - containerPort: 3000
+```
+
+## Command Reference
+
+### Docker Commands
+
+- `joelctl dockerfile generate <file>` - Generate Dockerfile
+- `joelctl dockerfile build <file>` - Build Docker image
+- `joelctl dockerfile optimize <file>` - Optimize Dockerfile
+
+### Kubernetes Commands
+
+- `joelctl k8s generate <file>` - Generate K8s manifests
+- `joelctl k8s deployment <file>` - Generate deployment
+- `joelctl k8s service <file>` - Generate service
+- `joelctl deploy <file>` - Deploy to K8s
+
+### Helm Commands
+
+- `joelctl helm generate <file>` - Generate Helm chart
+- `joelctl helm package <chart>` - Package chart
+- `joelctl helm install <name> <chart>` - Install chart
+
+### Deployment Commands
+
+- `joelctl deploy <file>` - Deploy application
+- `joelctl rollback <file>` - Rollback deployment
+- `joelctl status <file>` - Show deployment status
+
+## Next Steps
+
+- [Deployments Guide](/advanced/deployments)
+- [CLI Reference](/toolchain/cli)
+- [Examples](/examples)
+

@@ -1,0 +1,191 @@
+# Type System
+
+JOEL features a comprehensive type system that provides type safety in compiled mode while maintaining flexibility in interpreted mode.
+
+## Type Checking Modes
+
+### Interpreted Mode
+
+In `[Interpreted]` mode, types are checked at runtime:
+
+```joel
+[Interpreted]
+
+let x = 10
+let y = "hello"
+let z = x + y  # Runtime error: type mismatch
+```
+
+### Compiled Mode
+
+In `[Compiled]` mode, types are checked at compile time:
+
+```joel
+[Compiled]
+
+let x: i32 = 10
+let y: str = "hello"
+let z = x + y  # Compile error: type mismatch
+```
+
+## Primitive Types
+
+### Integers
+
+```joel
+[Compiled]
+
+let small: i8 = 42        # 8-bit signed integer
+let medium: i32 = 1000    # 32-bit signed integer (default)
+let large: i64 = 1000000   # 64-bit signed integer
+
+let unsigned: u32 = 100   # 32-bit unsigned integer
+let big: u64 = 999999     # 64-bit unsigned integer
+```
+
+### Floating Point
+
+```joel
+[Compiled]
+
+let single: f32 = 3.14    # 32-bit float
+let double: f64 = 3.14159 # 64-bit float (default)
+```
+
+### Boolean
+
+```joel
+[Compiled]
+
+let active: bool = true
+let disabled: bool = false
+```
+
+### String
+
+```joel
+[Compiled]
+
+let name: str = "JOEL"
+let greeting = "Hello, World"  # Type inferred as str
+```
+
+## Collection Types
+
+### Lists
+
+```joel
+[Compiled]
+
+let numbers: list[i32] = [1, 2, 3, 4, 5]
+let names: list[str] = ["Alice", "Bob"]
+let mixed = [1, "hello", true]  # Type inferred as list[any]
+```
+
+### Maps
+
+```joel
+[Compiled]
+
+let person: map[str, str] = {
+  "name": "JOEL",
+  "age": "24"
+}
+
+let scores: map[str, i32] = {
+  "Alice": 95,
+  "Bob": 87
+}
+```
+
+## Type Inference
+
+JOEL can infer types automatically:
+
+```joel
+[Compiled]
+
+let x = 10           # Inferred as i32
+let y = 3.14         # Inferred as f64
+let z = "hello"      # Inferred as str
+let flag = true      # Inferred as bool
+```
+
+## Type Annotations
+
+Explicit type annotations provide clarity and catch errors early:
+
+```joel
+[Compiled]
+
+let x: i32 = 10
+let y: f64 = 3.14
+let name: str = "JOEL"
+```
+
+## Type Coercion
+
+JOEL supports safe type coercion:
+
+```joel
+[Compiled]
+
+let x: i32 = 10
+let y: f64 = x as f64  # Cast to float
+
+let num: f64 = 3.14
+let int: i32 = num as i32  # Cast to integer
+```
+
+## Function Types
+
+Functions have explicit type signatures:
+
+```joel
+[Compiled]
+
+fn add(a: i32, b: i32) -> i32 {
+  return a + b
+}
+
+fn greet(name: str) -> str {
+  return "Hello " + name
+}
+```
+
+## Generic Types
+
+Generic types allow code reuse:
+
+```joel
+[Compiled]
+
+# Generic list operations (coming soon)
+fn first<T>(list: list[T]) -> Option[T] {
+  if list.len() > 0 {
+    return Some(list[0])
+  }
+  return None
+}
+```
+
+## Type Safety
+
+Type checking catches errors at compile time:
+
+```joel
+[Compiled]
+
+fn calculate(x: i32, y: i32) -> i32 {
+  return x + y
+}
+
+let result = calculate(10, "hello")  # Error: type mismatch
+```
+
+## Next Steps
+
+- [Ownership System](ownership.md)
+- [Error Handling](error-handling.md)
+- [Best Practices](best-practices.md)
+

@@ -1,0 +1,14 @@
+[Compiled]
+[target android]
+
+fn process_data(value: i32) -> i32 {
+  return value * 2
+}
+
+fn main() {
+  let result = process_data(42)
+  print(result)
+}
+
+main()
+

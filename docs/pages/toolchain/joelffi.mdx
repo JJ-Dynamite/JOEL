@@ -1,0 +1,183 @@
+# joelffi - Foreign Function Interface Toolchain
+
+`joelffi` is the command-line tool for managing foreign function interfaces, bindings, and interoperability with other languages.
+
+## Installation
+
+`joelffi` is included with JOEL:
+
+```bash
+joelffi --version
+```
+
+## Quick Start
+
+```bash
+# Generate C bindings
+joelffi bind library.h --lang c
+
+# Generate Python bindings
+joelffi bind module.py --lang python
+
+# Generate Rust bindings
+joelffi bind crate.rs --lang rust
+```
+
+## Binding Generation
+
+Generate bindings for foreign functions:
+
+```bash
+# Generate C bindings
+joelffi bind library.h --lang c --output bindings.joel
+
+# Generate Python bindings
+joelffi bind module.py --lang python
+
+# Generate Rust bindings
+joelffi bind crate.rs --lang rust
+
+# Generate JavaScript bindings
+joelffi bind module.js --lang javascript
+
+# Generate from header file
+joelffi bind header.h --output bindings.joel
+```
+
+## C Interoperability
+
+Work with C libraries:
+
+```bash
+# Generate C bindings
+joelffi c bind library.h
+
+# Link C library
+joelffi c link libmylib.a
+
+# Compile with C
+joelffi c compile app.joel --link libmylib.a
+
+# Generate C header
+joelffi c header app.joel --output app.h
+```
+
+## Python Interoperability
+
+Interact with Python:
+
+```bash
+# Generate Python bindings
+joelffi python bind module.py
+
+# Call Python function
+joelffi python call "math.sqrt" --args 16
+
+# Embed Python
+joelffi python embed app.joel
+
+# Generate Python module
+joelffi python module app.joel --output app.py
+```
+
+## Rust Interoperability
+
+Work with Rust crates:
+
+```bash
+# Generate Rust bindings
+joelffi rust bind crate.rs
+
+# Link Rust crate
+joelffi rust link my_crate
+
+# Generate Rust FFI
+joelffi rust ffi app.joel --output lib.rs
+```
+
+## JavaScript Interoperability
+
+Interact with JavaScript:
+
+```bash
+# Generate JS bindings
+joelffi js bind module.js
+
+# Call JS function
+joelffi js call "Math.max" --args 1,2,3
+
+# Generate Node.js module
+joelffi js module app.joel --output app.js
+```
+
+## Protocol Support
+
+Generate protocol bindings:
+
+```bash
+# Generate gRPC bindings
+joelffi grpc service.proto
+
+# Generate GraphQL bindings
+joelffi graphql schema.graphql
+
+# Generate REST API bindings
+joelffi rest api.json
+```
+
+## Examples
+
+### C Library Binding
+
+```bash
+# Generate bindings from C header
+joelffi bind math.h --lang c --output math_bindings.joel
+```
+
+**Output (math_bindings.joel):**
+```joel
+[Compiled]
+
+extern "C" {
+  fn sqrt(x: f64) -> f64
+  fn sin(x: f64) -> f64
+  fn cos(x: f64) -> f64
+}
+```
+
+### Python Integration
+
+```bash
+# Generate Python bindings
+joelffi python bind calculator.py
+
+# Use in JOEL
+joelffi python call "calculator.add" --args 1,2
+```
+
+## Command Reference
+
+### Binding Commands
+
+- `joelffi bind <file>` - Generate bindings
+- `joelffi bind <file> --lang <lang>` - Language-specific bindings
+
+### Language Commands
+
+- `joelffi c <command>` - C interoperability
+- `joelffi python <command>` - Python interoperability
+- `joelffi rust <command>` - Rust interoperability
+- `joelffi js <command>` - JavaScript interoperability
+
+### Protocol Commands
+
+- `joelffi grpc <file>` - gRPC bindings
+- `joelffi graphql <file>` - GraphQL bindings
+- `joelffi rest <file>` - REST API bindings
+
+## Next Steps
+
+- [FFI Guide](/guides/ffi)
+- [CLI Reference](/toolchain/cli)
+- [Examples](/examples)
+

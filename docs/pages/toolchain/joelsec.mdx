@@ -1,0 +1,175 @@
+# joelsec - Security Analysis Toolchain
+
+`joelsec` is the command-line tool for security analysis, vulnerability detection, and code safety verification.
+
+## Installation
+
+`joelsec` is included with JOEL:
+
+```bash
+joelsec --version
+```
+
+## Quick Start
+
+```bash
+# Security scan
+joelsec scan app.joel
+
+# Vulnerability check
+joelsec check app.joel
+
+# Security audit
+joelsec audit app.joel
+```
+
+## Security Scanning
+
+Scan code for security issues:
+
+```bash
+# Full security scan
+joelsec scan app.joel
+
+# Scan with specific rules
+joelsec scan app.joel --rules sql-injection,xss
+
+# Scan directory
+joelsec scan src/ --recursive
+
+# Scan with output
+joelsec scan app.joel --output report.json
+
+# Scan with severity filter
+joelsec scan app.joel --severity high,critical
+```
+
+## Vulnerability Detection
+
+Detect security vulnerabilities:
+
+```bash
+# Check for vulnerabilities
+joelsec check app.joel
+
+# Check dependencies
+joelsec check app.joel --dependencies
+
+# Check for known CVEs
+joelsec check app.joel --cve
+
+# Check smart contracts
+joelsec check contract.joel --contract
+
+# Generate vulnerability report
+joelsec check app.joel --output vulns.json
+```
+
+## Static Analysis
+
+Perform static security analysis:
+
+```bash
+# Static analysis
+joelsec analyze app.joel
+
+# Analyze with taint tracking
+joelsec analyze app.joel --taint
+
+# Analyze data flow
+joelsec analyze app.joel --data-flow
+
+# Analyze control flow
+joelsec analyze app.joel --control-flow
+```
+
+## Code Auditing
+
+Audit code for security compliance:
+
+```bash
+# Security audit
+joelsec audit app.joel
+
+# Audit with standards
+joelsec audit app.joel --standard OWASP
+
+# Audit smart contracts
+joelsec audit contract.joel --standard smart-contract
+
+# Generate audit report
+joelsec audit app.joel --output audit.html
+```
+
+## Sandbox Testing
+
+Test code in sandboxed environment:
+
+```bash
+# Run in sandbox
+joelsec sandbox app.joel
+
+# Sandbox with restrictions
+joelsec sandbox app.joel --restrict network,file
+
+# Sandbox with timeout
+joelsec sandbox app.joel --timeout 30
+```
+
+## Cryptographic Verification
+
+Verify cryptographic implementations:
+
+```bash
+# Verify crypto usage
+joelsec crypto app.joel
+
+# Verify key management
+joelsec crypto app.joel --keys
+
+# Check encryption
+joelsec crypto app.joel --encryption
+```
+
+## Examples
+
+### Security Scan
+
+```bash
+# Scan for vulnerabilities
+joelsec scan app.joel --output scan.json
+
+# Review results
+joelsec report scan.json
+```
+
+### Smart Contract Audit
+
+```bash
+# Audit smart contract
+joelsec audit contract.joel --standard smart-contract
+
+# Check for common vulnerabilities
+joelsec check contract.joel --contract
+```
+
+## Command Reference
+
+### Scanning Commands
+
+- `joelsec scan <file>` - Security scan
+- `joelsec check <file>` - Vulnerability check
+- `joelsec analyze <file>` - Static analysis
+
+### Auditing Commands
+
+- `joelsec audit <file>` - Security audit
+- `joelsec sandbox <file>` - Sandbox testing
+- `joelsec crypto <file>` - Cryptographic verification
+
+## Next Steps
+
+- [Security Guide](/guides/security)
+- [CLI Reference](/toolchain/cli)
+- [Examples](/examples)
+

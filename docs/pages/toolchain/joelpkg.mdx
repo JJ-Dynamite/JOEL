@@ -1,0 +1,250 @@
+# joelpkg - Package Manager
+
+`joelpkg` is the package manager for JOEL, handling dependency management, versioning, and package distribution.
+
+## Installation
+
+`joelpkg` is included with JOEL:
+
+```bash
+joelpkg --version
+```
+
+## Quick Start
+
+```bash
+# Initialize new package
+joelpkg init
+
+# Install dependencies
+joelpkg install
+
+# Add dependency
+joelpkg add math
+
+# Build package
+joelpkg build
+```
+
+## Package Management
+
+### Initialize Package
+
+```bash
+# Initialize new package
+joelpkg init
+
+# Initialize with name
+joelpkg init --name mypackage
+
+# Initialize workspace
+joelpkg init --workspace
+```
+
+### Install Dependencies
+
+```bash
+# Install all dependencies
+joelpkg install
+
+# Install specific package
+joelpkg install math
+
+# Install from registry
+joelpkg install @joel/stdlib/math
+
+# Install from Git
+joelpkg install https://github.com/user/repo.git
+
+# Install from local path
+joelpkg install ../local-package
+
+# Install dev dependencies
+joelpkg install --dev test-framework
+```
+
+### Add Dependencies
+
+```bash
+# Add dependency
+joelpkg add math
+
+# Add with version
+joelpkg add math@1.2.0
+
+# Add dev dependency
+joelpkg add --dev test-framework
+
+# Add from registry
+joelpkg add @joel/stdlib/http
+```
+
+### Remove Dependencies
+
+```bash
+# Remove package
+joelpkg remove math
+
+# Remove dev dependency
+joelpkg remove --dev test-framework
+```
+
+## Version Management
+
+```bash
+# Show package version
+joelpkg version
+
+# Bump version
+joelpkg version patch  # 1.0.0 -> 1.0.1
+joelpkg version minor  # 1.0.0 -> 1.1.0
+joelpkg version major  # 1.0.0 -> 2.0.0
+
+# Set version
+joelpkg version set 1.2.3
+```
+
+## Publishing
+
+```bash
+# Publish package
+joelpkg publish
+
+# Publish to registry
+joelpkg publish --registry https://registry.joel-lang.org
+
+# Publish with tag
+joelpkg publish --tag beta
+
+# Dry run (test publish)
+joelpkg publish --dry-run
+```
+
+## Workspaces
+
+Manage multi-package workspaces:
+
+```bash
+# Create workspace
+joelpkg workspace create monorepo
+
+# Add package to workspace
+joelpkg workspace add packages/utils
+
+# List workspace packages
+joelpkg workspace list
+
+# Run command in all packages
+joelpkg workspace run build
+
+# Install all workspace dependencies
+joelpkg workspace install
+```
+
+## Lock Files
+
+Manage dependency lock files:
+
+```bash
+# Generate lock file
+joelpkg lock
+
+# Update lock file
+joelpkg lock --update
+
+# Verify lock file
+joelpkg lock --verify
+```
+
+## Package Registry
+
+Interact with package registry:
+
+```bash
+# Search packages
+joelpkg search math
+
+# Show package info
+joelpkg info math
+
+# Show package versions
+joelpkg versions math
+
+# Login to registry
+joelpkg login
+
+# Logout from registry
+joelpkg logout
+```
+
+## Examples
+
+### Create New Package
+
+```bash
+# Initialize package
+joelpkg init --name mymath
+
+# Add dependencies
+joelpkg add @joel/stdlib/core
+
+# Build package
+joelpkg build
+
+# Publish package
+joelpkg publish
+```
+
+### Package Configuration
+
+**package.joel:**
+```joel
+package {
+  name: "mymath",
+  version: "1.0.0",
+  description: "Math utilities for JOEL",
+  author: "Your Name",
+  license: "MIT",
+  dependencies: {
+    "@joel/stdlib/core": "^1.0.0"
+  },
+  devDependencies: {
+    "@joel/test": "^1.0.0"
+  }
+}
+```
+
+## Command Reference
+
+### Package Commands
+
+- `joelpkg init` - Initialize package
+- `joelpkg install` - Install dependencies
+- `joelpkg add <package>` - Add dependency
+- `joelpkg remove <package>` - Remove dependency
+- `joelpkg update` - Update dependencies
+
+### Version Commands
+
+- `joelpkg version` - Show version
+- `joelpkg version patch|minor|major` - Bump version
+- `joelpkg version set <version>` - Set version
+
+### Publish Commands
+
+- `joelpkg publish` - Publish package
+- `joelpkg unpublish` - Unpublish package
+
+### Workspace Commands
+
+- `joelpkg workspace create <name>` - Create workspace
+- `joelpkg workspace add <path>` - Add package
+- `joelpkg workspace list` - List packages
+- `joelpkg workspace run <command>` - Run in all packages
+
+## Next Steps
+
+- [Package Management Guide](/guides/package-management)
+- [CLI Reference](/toolchain/cli)
+- [Examples](/examples)
+

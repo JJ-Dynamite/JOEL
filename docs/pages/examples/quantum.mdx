@@ -1,0 +1,215 @@
+# Quantum Programming Examples
+
+Examples of quantum programming in JOEL using qubit-level operations.
+
+## Bell State
+
+Create an entangled Bell state:
+
+```joel
+[Compiled]
+
+quantum_circuit bell_state() -> qubit[2] {
+  qubit[2] q = [|0⟩, |0⟩]
+  
+  # Apply Hadamard to first qubit
+  q[0] = H(q[0])
+  
+  # Apply CNOT to create entanglement
+  q[1] = CNOT(q[0], q[1])
+  
+  return q
+}
+
+fn main() {
+  let bell = bell_state()
+  let result = measure_all(bell)
+  print("Bell state measurement:", result)
+}
+```
+
+## Quantum Teleportation
+
+Implement quantum teleportation protocol:
+
+```joel
+[Compiled]
+
+quantum_circuit teleport(qubit message) -> qubit {
+  # Create Bell pair
+  qubit[2] bell = bell_state()
+  
+  # Alice's operations
+  qubit alice_qubit = bell[0]
+  qubit bob_qubit = bell[1]
+  
+  # Entangle message with Alice's qubit
+  alice_qubit = CNOT(message, alice_qubit)
+  message = H(message)
+  
+  # Measure Alice's qubits
+  let m1 = measure(message)
+  let m2 = measure(alice_qubit)
+  
+  # Bob's corrections
+  if m2 {
+    bob_qubit = X(bob_qubit)
+  }
+  if m1 {
+    bob_qubit = Z(bob_qubit)
+  }
+  
+  return bob_qubit
+}
+```
+
+## Grover's Search Algorithm
+
+Search for a marked item in an unsorted database:
+
+```joel
+[Compiled]
+
+quantum_circuit grover_search(
+  qubit[n] database,
+  fn oracle: qubit[n] -> qubit[n]
+) -> qubit[n] {
+  # Initialize superposition
+  for i in 0..n {
+    database[i] = H(database[i])
+  }
+  
+  # Grover iterations
+  let iterations = floor(π/4 * sqrt(2^n))
+  for _ in 0..iterations {
+    database = oracle(database)
+    database = grover_diffuser(database)
+  }
+  
+  return database
+}
+
+# Oracle function (marks the solution)
+fn mark_solution(qubit[n] q) -> qubit[n] {
+  # Flip the phase of the target state
+  # Implementation depends on the problem
+  return q
+}
+```
+
+## Quantum Fourier Transform
+
+Implement QFT for quantum phase estimation:
+
+```joel
+[Compiled]
+
+quantum_circuit qft(qubit[n] q) -> qubit[n] {
+  for i in 0..n {
+    q[i] = H(q[i])
+    for j in (i+1)..n {
+      let phase = 2 * π / (2^(j - i + 1))
+      q[j] = controlled_phase(phase, q[i], q[j])
+    }
+  }
+  return reverse(q)
+}
+```
+
+## Variational Quantum Eigensolver
+
+Find ground state energy using VQE:
+
+```joel
+[Compiled]
+
+fn variational_quantum_eigensolver(
+  hamiltonian: matrix,
+  ansatz: quantum_circuit
+) -> f64 {
+  let optimizer = Adam(learning_rate: 0.01)
+  let params = initialize_parameters()
+  
+  for iteration in 0..100 {
+    # Prepare quantum state
+    qubit[n] q = ansatz(params)
+    
+    # Measure expectation value
+    let energy: f64 = expectation(hamiltonian, q)
+    
+    # Update parameters classically
+    let gradient = calculate_gradient(energy, params)
+    params = optimizer.update(params, gradient)
+    
+    print("Iteration", iteration, "Energy:", energy)
+  }
+  
+  return energy
+}
+```
+
+## Quantum Error Correction
+
+Implement three-qubit bit-flip code:
+
+```joel
+[Compiled]
+
+# Encoding
+quantum_circuit encode_bit_flip(qubit logical) -> qubit[3] {
+  qubit[3] physical = [|0⟩, |0⟩, |0⟩]
+  physical[0] = logical
+  physical[1] = CNOT(logical, physical[1])
+  physical[2] = CNOT(logical, physical[2])
+  return physical
+}
+
+# Error correction
+quantum_circuit correct_bit_flip(qubit[3] encoded) -> qubit[3] {
+  # Measure stabilizers
+  let syndrome1 = measure(CNOT(encoded[0], encoded[1]))
+  let syndrome2 = measure(CNOT(encoded[0], encoded[2]))
+  
+  # Apply correction based on syndrome
+  if syndrome1 && !syndrome2 {
+    encoded[1] = X(encoded[1])  # Flip second qubit
+  } else if !syndrome1 && syndrome2 {
+    encoded[2] = X(encoded[2])  # Flip third qubit
+  } else if syndrome1 && syndrome2 {
+    encoded[0] = X(encoded[0])  # Flip first qubit
+  }
+  
+  return encoded
+}
+```
+
+## Quantum Hardware Execution
+
+Execute on real quantum hardware:
+
+```joel
+[Compiled]
+
+fn run_on_hardware() {
+  # Connect to IBM Quantum
+  quantum_backend ibm = connect("ibm_quantum", api_key: "...")
+  
+  # Prepare circuit
+  qubit[5] q = prepare_circuit()
+  
+  # Execute with multiple shots
+  let result = execute(q, ibm, shots: 1024)
+  
+  # Analyze results
+  for (state, count) in result.counts() {
+    print("State:", state, "Count:", count)
+  }
+}
+```
+
+## Next Steps
+
+- [Quantum Qubit Guide](/guides/quantum-qubit)
+- [Advanced Features](/advanced)
+- [More Examples](/examples)
+

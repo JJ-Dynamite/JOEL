@@ -1,0 +1,32 @@
+[Compiled]
+
+# Example demonstrating type checking in compiled mode
+
+fn add(a: i32, b: i32) -> i32 {
+  return a + b
+}
+
+fn greet(name: str) -> str {
+  return "Hello " + name
+}
+
+fn main() {
+  let x: i32 = 10
+  let y: i32 = 20
+  let result = add(x, y)
+  print("Result:", result)
+  
+  let message = greet("JOEL")
+  print(message)
+  
+  # Type inference example
+  let inferred = 42  # Will be inferred as i32
+  let name = "JOEL"  # Will be inferred as str
+  
+  # List with type inference
+  let numbers = [1, 2, 3, 4, 5]
+  print("Numbers:", numbers)
+}
+
+main()
+

@@ -1,0 +1,218 @@
+# joelui - UI Compiler Toolchain
+
+`joelui` is the command-line tool for compiling JOEL UI components to React, React Native, and other frontend frameworks.
+
+## Installation
+
+`joelui` is included with JOEL:
+
+```bash
+joelui --version
+```
+
+## Quick Start
+
+```bash
+# Compile UI component to React
+joelui compile Button.joel --target react
+
+# Start development server
+joelui dev
+
+# Build for production
+joelui build
+```
+
+## Compile Components
+
+Compile JOEL UI components to various targets:
+
+```bash
+# Compile to React (JSX)
+joelui compile Button.joel --target react --output Button.jsx
+
+# Compile to React Native
+joelui compile Button.joel --target react-native --output Button.tsx
+
+# Compile to Vue
+joelui compile Button.joel --target vue --output Button.vue
+
+# Compile to Web Components
+joelui compile Button.joel --target web-components --output button.js
+
+# Compile multiple components
+joelui compile components/*.joel --target react --output-dir dist/
+```
+
+## Development Server
+
+Start a development server with hot reload:
+
+```bash
+# Start dev server
+joelui dev
+
+# Start on specific port
+joelui dev --port 3000
+
+# Start with specific target
+joelui dev --target react-native
+
+# Watch mode
+joelui dev --watch
+```
+
+## Build for Production
+
+Build optimized production bundles:
+
+```bash
+# Build all components
+joelui build
+
+# Build with specific target
+joelui build --target react --optimize
+
+# Build with tree-shaking
+joelui build --tree-shake
+
+# Build with minification
+joelui build --minify
+```
+
+## Component Analysis
+
+Analyze and inspect components:
+
+```bash
+# Show component dependencies
+joelui analyze Button.joel
+
+# Show component tree
+joelui tree App.joel
+
+# Check component props
+joelui props Button.joel
+
+# Validate component
+joelui validate Button.joel
+```
+
+## Styling
+
+Handle component styling:
+
+```bash
+# Extract styles to CSS
+joelui extract-styles Button.joel --output styles.css
+
+# Compile Tailwind classes
+joelui compile Button.joel --tailwind
+
+# Generate CSS-in-JS
+joelui compile Button.joel --css-in-js styled-components
+```
+
+## State Management
+
+Generate state management code:
+
+```bash
+# Generate Redux actions/reducers
+joelui generate-state Button.joel --redux
+
+# Generate Zustand store
+joelui generate-state Button.joel --zustand
+
+# Generate Jotai atoms
+joelui generate-state Button.joel --jotai
+```
+
+## Examples
+
+### Compile React Component
+
+```bash
+joelui compile Button.joel --target react --output Button.jsx
+```
+
+**Input (Button.joel):**
+```joel
+[Compiled]
+[target react]
+
+component Button {
+  label: str
+  onClick: fn()
+  
+  fn render() -> Element {
+    return <button onClick={self.onClick}>
+      {self.label}
+    </button>
+  }
+}
+```
+
+**Output (Button.jsx):**
+```jsx
+import React from 'react';
+
+export function Button({ label, onClick }) {
+  return (
+    <button onClick={onClick}>
+      {label}
+    </button>
+  );
+}
+```
+
+### Development Workflow
+
+```bash
+# Start dev server
+joelui dev
+
+# In another terminal, edit components
+# Changes hot-reload automatically
+```
+
+## Configuration
+
+Configure `joelui` behavior:
+
+```bash
+# Show configuration
+joelui config show
+
+# Set default target
+joelui config set default_target react
+
+# Set output directory
+joelui config set output_dir dist/
+
+# Configure styling
+joelui config set style_engine tailwind
+```
+
+## Command Reference
+
+### Core Commands
+
+- `joelui compile <file>` - Compile component
+- `joelui dev` - Start development server
+- `joelui build` - Build for production
+- `joelui analyze <file>` - Analyze component
+
+### Utility Commands
+
+- `joelui extract-styles <file>` - Extract styles
+- `joelui generate-state <file>` - Generate state management
+- `joelui validate <file>` - Validate component
+- `joelui tree <file>` - Show component tree
+
+## Next Steps
+
+- [UI Components Guide](/advanced/ui-components)
+- [CLI Reference](/toolchain/cli)
+- [Examples](/examples/ui)
+

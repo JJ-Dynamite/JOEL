@@ -1,0 +1,196 @@
+# joelstream - Real-time & Streaming Toolchain
+
+`joelstream` is the command-line tool for managing real-time data streams, event processing, and streaming analytics.
+
+## Installation
+
+`joelstream` is included with JOEL:
+
+```bash
+joelstream --version
+```
+
+## Quick Start
+
+```bash
+# Start stream processor
+joelstream process stream.joel
+
+# Connect to stream
+joelstream connect kafka://localhost:9092
+
+# Monitor stream
+joelstream monitor stream-name
+```
+
+## Stream Processing
+
+Process data streams:
+
+```bash
+# Process stream
+joelstream process stream.joel
+
+# Process with window
+joelstream process stream.joel --window 1m
+
+# Process with parallelism
+joelstream process stream.joel --parallel 4
+
+# Process with checkpointing
+joelstream process stream.joel --checkpoint
+```
+
+## Stream Connections
+
+Connect to streaming sources:
+
+```bash
+# Connect to Kafka
+joelstream connect kafka://localhost:9092
+
+# Connect to NATS
+joelstream connect nats://localhost:4222
+
+# Connect to Redis Streams
+joelstream connect redis://localhost:6379
+
+# Connect to WebSocket
+joelstream connect ws://localhost:8080
+
+# List connections
+joelstream connections list
+```
+
+## Event Processing
+
+Process events:
+
+```bash
+# Process events
+joelstream events process event.joel
+
+# Filter events
+joelstream events filter event.joel --filter "type == 'error'"
+
+# Transform events
+joelstream events transform event.joel --transform transform.joel
+
+# Aggregate events
+joelstream events aggregate event.joel --window 5m
+```
+
+## Time-Series Processing
+
+Work with time-series data:
+
+```bash
+# Process time-series
+joelstream timeseries process data.joel
+
+# Downsample time-series
+joelstream timeseries downsample data.joel --interval 1h
+
+# Aggregate time-series
+joelstream timeseries aggregate data.joel --window 1d
+
+# Query time-series
+joelstream timeseries query data.joel --range "1h"
+```
+
+## Stream Monitoring
+
+Monitor stream health:
+
+```bash
+# Monitor stream
+joelstream monitor stream-name
+
+# Show stream metrics
+joelstream metrics stream-name
+
+# Show stream lag
+joelstream lag stream-name
+
+# Show stream throughput
+joelstream throughput stream-name
+```
+
+## WebSocket Server
+
+Manage WebSocket connections:
+
+```bash
+# Start WebSocket server
+joelstream websocket server app.joel --port 8080
+
+# Connect WebSocket client
+joelstream websocket connect ws://localhost:8080
+
+# Broadcast message
+joelstream websocket broadcast "message" --channel general
+```
+
+## Message Queues
+
+Work with message queues:
+
+```bash
+# Publish to queue
+joelstream queue publish queue-name --message "data"
+
+# Consume from queue
+joelstream queue consume queue-name
+
+# List queues
+joelstream queue list
+
+# Show queue stats
+joelstream queue stats queue-name
+```
+
+## Examples
+
+### Process Kafka Stream
+
+```bash
+# Connect to Kafka
+joelstream connect kafka://localhost:9092
+
+# Process stream
+joelstream process stream.joel --topic events
+```
+
+### WebSocket Server
+
+```bash
+# Start WebSocket server
+joelstream websocket server app.joel --port 8080
+```
+
+## Command Reference
+
+### Processing Commands
+
+- `joelstream process <file>` - Process stream
+- `joelstream events <command>` - Event processing
+- `joelstream timeseries <command>` - Time-series processing
+
+### Connection Commands
+
+- `joelstream connect <url>` - Connect to stream
+- `joelstream monitor <name>` - Monitor stream
+- `joelstream websocket <command>` - WebSocket operations
+
+### Queue Commands
+
+- `joelstream queue publish <name>` - Publish to queue
+- `joelstream queue consume <name>` - Consume from queue
+- `joelstream queue list` - List queues
+
+## Next Steps
+
+- [Streaming Guide](/guides/streaming)
+- [CLI Reference](/toolchain/cli)
+- [Examples](/examples)
+

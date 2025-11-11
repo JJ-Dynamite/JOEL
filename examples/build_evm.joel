@@ -1,0 +1,15 @@
+[Compiled]
+[target evm]
+
+contract SimpleStorage {
+  state let value: uint256 = 0
+  
+  fn set(new_value: uint256) {
+    value = new_value
+  }
+  
+  fn get() -> uint256 {
+    return value
+  }
+}
+

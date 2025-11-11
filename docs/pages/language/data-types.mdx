@@ -141,15 +141,23 @@ let int: i32 = num as i32  # Cast to integer
 
 ### Compiled Mode
 
-In `[Compiled]` mode, types are checked at compile time:
+In `[Compiled]` mode, types are checked at compile time with full static analysis:
 
 ```joel
 [Compiled]
 
 let x: i32 = 10
 let y: str = "hello"
-let z = x + y  # Error: type mismatch
+let z = x + y  # Compile error: type mismatch
 ```
+
+**Features:**
+- ✅ Static type checking
+- ✅ Type inference
+- ✅ Ownership checking
+- ✅ Compile-time error detection
+
+See the [Type System Guide](/guides/type-system) for more details.
 
 ### Interpreted Mode
 
@@ -163,8 +171,42 @@ let y = "hello"
 let z = x + y  # Runtime error
 ```
 
+**Features:**
+- ✅ Dynamic type checking
+- ✅ Fast development cycle
+- ✅ Flexible type system
+
+## SQL Type
+
+SQL is a first-class datatype in JOEL (Phase 6):
+
+```joel
+[Compiled]
+
+sql result: sql<{name: str, age: i32}> = 
+  SELECT name, age FROM users
+```
+
+See the [SQL Programming Guide](/guides/sql) for more details.
+
+## Qubit Type
+
+Qubits are first-class datatypes in JOEL (Phase 14):
+
+```joel
+[Compiled]
+
+qubit q0 = |0⟩
+qubit q1 = |1⟩
+qubit[3] register = [|0⟩, |0⟩, |0⟩]
+```
+
+See the [Quantum Qubit Guide](/guides/quantum-qubit) for more details.
+
 ## Next Steps
 
 - [Variables](variables.md)
 - [Functions](functions.md)
 - [Operators](operators.md)
+- [Type System Guide](/guides/type-system)
+- [SQL Programming](/guides/sql)

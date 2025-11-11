@@ -44,16 +44,23 @@ joel run /path/to/program.joel
 Build a JOEL file for a specific target.
 
 ```bash
-joel build <file.joel> [--target <target>]
+joel build <file.joel> [--target <target>] [--optimize] [--debug] [--arch <arch>]
 ```
 
 **Options:**
 
 - `--target, -t` - Target platform (default: `native`)
-  - `native` - Native binary
+  - `native` - Native binary (LLVM IR)
   - `wasm32` - WebAssembly
   - `evm` - Ethereum Virtual Machine
   - `wasm-solana` - Solana WASM
+  - `ios` - iOS framework
+  - `android` - Android library
+  - `cosmos` - Cosmos SDK contract
+  - `polkadot` - Polkadot/Substrate runtime
+- `--optimize, -O` - Enable optimizations
+- `--debug, -g` - Enable debug symbols and source maps
+- `--arch <arch>` - Target architecture (x86_64, arm64, riscv64)
 
 **Examples:**
 
@@ -61,14 +68,36 @@ joel build <file.joel> [--target <target>]
 # Build for native
 joel build app.joel --target native
 
-# Build for WebAssembly
-joel build app.joel --target wasm32
+# Build with optimizations
+joel build app.joel --target native --optimize
+
+# Build with debug symbols
+joel build app.joel --target native --debug
+
+# Build for specific architecture
+joel build app.joel --target native --arch arm64
+
+# Build for WebAssembly with source maps
+joel build app.joel --target wasm32 --debug
 
 # Build smart contract
 joel build contract.joel --target evm
-```
 
-**Note:** Compilation backends are currently in development.
+# Build optimized and debug-enabled
+joel build app.joel --target native --optimize --debug
+
+# Build for iOS
+joel build app.joel --target ios --arch arm64
+
+# Build for Android
+joel build app.joel --target android --arch aarch64
+
+# Build Cosmos contract
+joel build contract.joel --target cosmos
+
+# Build Polkadot runtime
+joel build runtime.joel --target polkadot
+```
 
 ### version
 
@@ -151,15 +180,17 @@ joel build app.joel --target wasm32
 
 **Solution:** Check the error message and fix the issue in your code.
 
-## Future Commands
+## Toolchain Commands
 
-Coming soon:
+JOEL includes specialized toolchains for different domains. See the [Toolchain Overview](/toolchain) for complete documentation:
 
-- `joel ui dev` - Start UI development server
-- `joel chain build` - Build smart contracts
-- `joel store put` - Upload to decentralized storage
-- `joel ctl apply` - Apply Kubernetes deployments
-- `joel pkg install` - Install packages
+- **joelsql** - SQL operations and database management
+- **joelui** - UI component compilation
+- **joelctl** - Container and infrastructure management
+- **joelpkg** - Package and dependency management
+- **flow** - Workflow execution and management
+- **dstore** - Decentralized storage operations
+- **ai** - AI/ML model training and inference
 
 ## Getting Help
 

@@ -1,0 +1,364 @@
+# Quantum Programming (Qubit-Level)
+
+JOEL provides native support for qubit-level quantum programming, allowing direct manipulation of quantum states and circuits.
+
+## Qubit Datatype
+
+Qubits are first-class citizens in JOEL:
+
+```joel
+[Compiled]
+
+# Single qubit
+qubit q0 = |0⟩
+qubit q1 = |1⟩
+qubit q2 = |+⟩  # Superposition state
+
+# Qubit registers
+qubit[3] register = [|0⟩, |0⟩, |0⟩]
+qubit[5] entangled_pair = create_bell_pair()
+```
+
+## Quantum Gates
+
+Apply quantum gates directly to qubits:
+
+```joel
+[Compiled]
+
+qubit q = |0⟩
+
+# Single-qubit gates
+q = H(q)        # Hadamard gate
+q = X(q)        # Pauli-X (NOT gate)
+q = Y(q)        # Pauli-Y gate
+q = Z(q)        # Pauli-Z gate
+
+# Rotation gates
+q = RX(π/2, q)  # Rotation around X-axis
+q = RY(π/4, q)  # Rotation around Y-axis
+q = RZ(π/8, q)  # Rotation around Z-axis
+
+# Controlled operations
+qubit control = |1⟩
+qubit target = |0⟩
+target = CNOT(control, target)  # Controlled-NOT
+target = CZ(control, target)     # Controlled-Z
+```
+
+## Quantum Circuits
+
+Build quantum circuits with qubit-level control:
+
+```joel
+[Compiled]
+
+# Define quantum circuit
+quantum_circuit bell_state() -> qubit[2] {
+  qubit[2] q = [|0⟩, |0⟩]
+  
+  # Apply Hadamard to first qubit
+  q[0] = H(q[0])
+  
+  # Apply CNOT
+  q[1] = CNOT(q[0], q[1])
+  
+  return q
+}
+
+# Execute circuit
+let result = bell_state()
+```
+
+## Circuit Composition
+
+Compose circuits from smaller sub-circuits:
+
+```joel
+[Compiled]
+
+quantum_circuit sub_circuit(qubit q) -> qubit {
+  q = H(q)
+  q = T(q)
+  return q
+}
+
+quantum_circuit main_circuit() -> qubit[3] {
+  qubit[3] q = [|0⟩, |0⟩, |0⟩]
+  
+  # Apply sub-circuit to each qubit
+  for i in 0..3 {
+    q[i] = sub_circuit(q[i])
+  }
+  
+  # Entangle qubits
+  q[1] = CNOT(q[0], q[1])
+  q[2] = CNOT(q[1], q[2])
+  
+  return q
+}
+```
+
+## Quantum Measurement
+
+Measure qubits in different bases:
+
+```joel
+[Compiled]
+
+qubit q = |+⟩
+
+# Measure in computational basis
+let result_z: bool = measure(q)  # Returns 0 or 1
+
+# Measure in different bases
+let result_x: bool = measure_x(q)  # X-basis measurement
+let result_y: bool = measure_y(q)  # Y-basis measurement
+
+# Partial measurement
+qubit[3] register = [|0⟩, |+⟩, |1⟩]
+let first_qubit: bool = measure(register[0])
+# Other qubits remain in superposition
+```
+
+## Observables and Expectation Values
+
+Calculate expectation values of quantum observables:
+
+```joel
+[Compiled]
+
+qubit q = |+⟩
+
+# Define observables
+observable PauliX = X
+observable PauliY = Y
+observable PauliZ = Z
+
+# Calculate expectation values
+let exp_x: f64 = expectation(PauliX, q)
+let exp_y: f64 = expectation(PauliY, q)
+let exp_z: f64 = expectation(PauliZ, q)
+
+# Multi-qubit observables
+observable ZZ = Z ⊗ Z
+let correlation: f64 = expectation(ZZ, [q0, q1])
+```
+
+## Quantum Algorithms
+
+### Quantum Fourier Transform
+
+```joel
+[Compiled]
+
+quantum_circuit qft(qubit[n] q) -> qubit[n] {
+  for i in 0..n {
+    q[i] = H(q[i])
+    for j in (i+1)..n {
+      q[j] = controlled_phase(2π/2^(j-i+1), q[i], q[j])
+    }
+  }
+  return reverse(q)
+}
+```
+
+### Grover's Algorithm
+
+```joel
+[Compiled]
+
+quantum_circuit grover_search(
+  qubit[n] database,
+  fn oracle: qubit[n] -> qubit[n]
+) -> qubit[n] {
+  # Initialize superposition
+  for i in 0..n {
+    database[i] = H(database[i])
+  }
+  
+  # Grover iterations
+  let iterations = floor(π/4 * sqrt(2^n))
+  for _ in 0..iterations {
+    database = oracle(database)
+    database = grover_diffuser(database)
+  }
+  
+  return database
+}
+```
+
+## Quantum Error Correction
+
+Implement error correction codes:
+
+```joel
+[Compiled]
+
+# Three-qubit bit-flip code
+quantum_circuit encode_bit_flip(qubit logical) -> qubit[3] {
+  qubit[3] physical = [|0⟩, |0⟩, |0⟩]
+  physical[0] = logical
+  physical[1] = CNOT(logical, physical[1])
+  physical[2] = CNOT(logical, physical[2])
+  return physical
+}
+
+# Error correction
+quantum_circuit error_correction(qubit[n] encoded) -> qubit[n] {
+  # Measure stabilizers
+  let syndrome = measure_stabilizers(encoded)
+  
+  # Decode syndrome to error location
+  let error_location = decode_syndrome(syndrome)
+  
+  # Apply correction
+  encoded = apply_correction(encoded, error_location)
+  
+  return encoded
+}
+```
+
+## Quantum Simulation
+
+Simulate quantum circuits:
+
+```joel
+[Compiled]
+
+# Simulate quantum circuit
+qubit[3] q = initialize_state([|0⟩, |0⟩, |0⟩])
+q = apply_circuit(q, my_circuit)
+
+# Get state vector
+let state: complex[8] = get_state_vector(q)
+
+# Calculate probabilities
+let probabilities: f64[8] = |state|^2
+```
+
+## Noise Models
+
+Simulate realistic quantum noise:
+
+```joel
+[Compiled]
+
+# Define noise model
+noise_model model = {
+  gate_error: 0.001,      # 0.1% gate error
+  measurement_error: 0.01, # 1% measurement error
+  decoherence: {
+    T1: 100e-6,  # 100 microseconds
+    T2: 50e-6    # 50 microseconds
+  }
+}
+
+# Simulate with noise
+qubit q = |+⟩
+q = simulate_with_noise(q, my_circuit, model)
+```
+
+## Quantum Hardware Integration
+
+Connect to quantum hardware:
+
+```joel
+[Compiled]
+
+# Connect to quantum hardware
+quantum_backend ibm = connect("ibm_quantum", api_key: "...")
+quantum_backend google = connect("cirq", processor: "sycamore")
+quantum_backend ionq = connect("ionq", api_key: "...")
+
+# Execute on hardware
+qubit[5] q = prepare_circuit()
+let result = execute(q, ibm, shots: 1024)
+```
+
+## Pulse-Level Control
+
+Direct hardware control with pulses:
+
+```joel
+[Compiled]
+
+# Define pulse sequences
+pulse drive_pulse = gaussian_pulse(
+  duration: 100e-9,  # 100 nanoseconds
+  amplitude: 0.5,
+  frequency: 5.0e9   # 5 GHz
+)
+
+pulse readout_pulse = square_pulse(
+  duration: 1e-6,
+  amplitude: 0.3
+)
+
+# Schedule pulses
+schedule pulses = {
+  t=0ns: drive_pulse(channel: "q0_drive"),
+  t=100ns: readout_pulse(channel: "q0_readout")
+}
+
+# Execute pulse sequence
+let result = execute_pulses(pulses, hardware: ibm)
+```
+
+## Hybrid Quantum-Classical Programming
+
+Combine quantum and classical computation:
+
+```joel
+[Compiled]
+
+fn variational_quantum_eigensolver(
+  hamiltonian: matrix,
+  ansatz: quantum_circuit
+) -> f64 {
+  # Classical optimizer
+  let optimizer = Adam(learning_rate: 0.01)
+  let params = initialize_parameters()
+  
+  for iteration in 0..100 {
+    # Quantum part: measure expectation value
+    qubit[n] q = ansatz(params)
+    let energy: f64 = expectation(hamiltonian, q)
+    
+    # Classical part: update parameters
+    let gradient = calculate_gradient(energy, params)
+    params = optimizer.update(params, gradient)
+  }
+  
+  return energy
+}
+```
+
+## Parameterized Quantum Circuits
+
+Create trainable quantum circuits:
+
+```joel
+[Compiled]
+
+quantum_circuit parameterized_ansatz(
+  params: f64[n],
+  qubit[n] q
+) -> qubit[n] {
+  for i in 0..n {
+    q[i] = RY(params[i], q[i])
+    if i < n-1 {
+      q[i+1] = CNOT(q[i], q[i+1])
+    }
+  }
+  return q
+}
+```
+
+## Next Steps
+
+- [Quantum Programming (High-Level)](/advanced/quantum) - Higher-level quantum features
+- [Type System](/guides/type-system)
+- [Performance Guide](/guides/performance)
+- [Examples](/examples)
+

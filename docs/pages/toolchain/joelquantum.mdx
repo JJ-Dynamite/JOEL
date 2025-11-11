@@ -1,0 +1,198 @@
+# joelquantum - Quantum Programming Toolchain
+
+`joelquantum` is the command-line tool for quantum circuit compilation, simulation, and hardware execution.
+
+## Installation
+
+`joelquantum` is included with JOEL:
+
+```bash
+joelquantum --version
+```
+
+## Quick Start
+
+```bash
+# Compile quantum circuit
+joelquantum compile circuit.joel
+
+# Simulate quantum circuit
+joelquantum simulate circuit.joel --shots 1000
+
+# Execute on quantum hardware
+joelquantum execute circuit.joel --backend ibm
+```
+
+## Circuit Compilation
+
+Compile quantum circuits:
+
+```bash
+# Compile quantum circuit
+joelquantum compile circuit.joel
+
+# Compile to Qiskit
+joelquantum compile circuit.joel --target qiskit
+
+# Compile to Cirq
+joelquantum compile circuit.joel --target cirq
+
+# Compile to Q#
+joelquantum compile circuit.joel --target qsharp
+
+# Compile with optimization
+joelquantum compile circuit.joel --optimize
+```
+
+## Quantum Simulation
+
+Simulate quantum circuits:
+
+```bash
+# Simulate circuit
+joelquantum simulate circuit.joel
+
+# Simulate with shots
+joelquantum simulate circuit.joel --shots 1000
+
+# State vector simulation
+joelquantum simulate circuit.joel --mode statevector
+
+# Density matrix simulation
+joelquantum simulate circuit.joel --mode density
+
+# Simulate with noise
+joelquantum simulate circuit.joel --noise noise_model.json
+```
+
+## Hardware Execution
+
+Execute on quantum hardware:
+
+```bash
+# Execute on IBM Quantum
+joelquantum execute circuit.joel --backend ibm
+
+# Execute on Google Quantum AI
+joelquantum execute circuit.joel --backend cirq
+
+# Execute on IonQ
+joelquantum execute circuit.joel --backend ionq
+
+# Execute with specific device
+joelquantum execute circuit.joel --backend ibm --device ibmq_lima
+
+# Execute with shots
+joelquantum execute circuit.joel --backend ibm --shots 1024
+```
+
+## Backend Management
+
+Manage quantum backends:
+
+```bash
+# List available backends
+joelquantum backends list
+
+# Show backend info
+joelquantum backends info ibm
+
+# Test backend connection
+joelquantum backends test ibm
+
+# Configure backend
+joelquantum backends configure ibm --api-key <key>
+```
+
+## Circuit Analysis
+
+Analyze quantum circuits:
+
+```bash
+# Show circuit depth
+joelquantum analyze circuit.joel --depth
+
+# Count gates
+joelquantum analyze circuit.joel --gates
+
+# Show circuit diagram
+joelquantum visualize circuit.joel
+
+# Export circuit diagram
+joelquantum visualize circuit.joel --output circuit.png
+```
+
+## Quantum Algorithms
+
+Run quantum algorithms:
+
+```bash
+# Run Grover's algorithm
+joelquantum algorithm grover --n-qubits 3
+
+# Run Shor's algorithm
+joelquantum algorithm shor --n 15
+
+# Run QFT
+joelquantum algorithm qft --n-qubits 4
+```
+
+## Examples
+
+### Compile and Simulate
+
+```bash
+# Compile circuit
+joelquantum compile bell_state.joel
+
+# Simulate
+joelquantum simulate bell_state.joel --shots 1000
+```
+
+**Input (bell_state.joel):**
+```joel
+[Compiled]
+
+quantum_circuit bell_state() -> qubit[2] {
+  qubit[2] q = [|0⟩, |0⟩]
+  q[0] = H(q[0])
+  q[1] = CNOT(q[0], q[1])
+  return q
+}
+```
+
+### Execute on Hardware
+
+```bash
+joelquantum execute circuit.joel --backend ibm --shots 1024
+```
+
+## Command Reference
+
+### Compilation Commands
+
+- `joelquantum compile <file>` - Compile quantum circuit
+- `joelquantum compile <file> --target <target>` - Compile to specific target
+
+### Simulation Commands
+
+- `joelquantum simulate <file>` - Simulate circuit
+- `joelquantum simulate <file> --shots <n>` - Simulate with shots
+- `joelquantum simulate <file> --mode <mode>` - Simulation mode
+
+### Execution Commands
+
+- `joelquantum execute <file> --backend <backend>` - Execute on hardware
+- `joelquantum execute <file> --device <device>` - Execute on specific device
+
+### Analysis Commands
+
+- `joelquantum analyze <file>` - Analyze circuit
+- `joelquantum visualize <file>` - Visualize circuit
+
+## Next Steps
+
+- [Quantum Qubit Guide](/guides/quantum-qubit)
+- [CLI Reference](/toolchain/cli)
+- [Examples](/examples/quantum)
+

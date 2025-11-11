@@ -1,0 +1,156 @@
+# Ownership System
+
+JOEL features a Rust-inspired ownership system that provides memory safety without garbage collection in compiled mode.
+
+## Ownership Basics
+
+In `[Compiled]` mode, JOEL uses ownership semantics to manage memory:
+
+```joel
+[Compiled]
+
+let x = 10        # x owns the value 10
+let y = x         # y gets a copy (for primitive types)
+```
+
+## Move Semantics
+
+Complex types use move semantics:
+
+```joel
+[Compiled]
+
+let list1 = [1, 2, 3]
+let list2 = list1  # list1 is moved to list2
+# list1 is no longer accessible
+```
+
+## Borrowing
+
+Borrowing allows temporary access without taking ownership:
+
+```joel
+[Compiled]
+
+fn process(data: &list[i32]) {
+  # data is borrowed, not moved
+  print(data.len())
+}
+
+let my_list = [1, 2, 3]
+process(&my_list)  # my_list is still accessible
+```
+
+## Mutable Borrows
+
+Mutable borrows allow modification:
+
+```joel
+[Compiled]
+
+fn modify(data: &mut list[i32]) {
+  data.push(4)
+}
+
+let mut my_list = [1, 2, 3]
+modify(&mut my_list)
+print(my_list)  # [1, 2, 3, 4]
+```
+
+## Ownership Rules
+
+1. **Each value has one owner**
+2. **Only one mutable borrow at a time**
+3. **Multiple immutable borrows are allowed**
+4. **Borrows cannot outlive the owner**
+
+## Examples
+
+### Valid Ownership
+
+```joel
+[Compiled]
+
+let x = 10
+let y = x        # Copy for primitives
+print(x, y)      # Both accessible
+```
+
+### Invalid Ownership
+
+```joel
+[Compiled]
+
+let list1 = [1, 2, 3]
+let list2 = list1  # Move
+print(list1)       # Error: list1 was moved
+```
+
+### Borrowing Example
+
+```joel
+[Compiled]
+
+fn sum(numbers: &list[i32]) -> i32 {
+  let mut total = 0
+  for n in numbers {
+    total += n
+  }
+  return total
+}
+
+let data = [1, 2, 3, 4, 5]
+let result = sum(&data)  # data is borrowed
+print(data)              # data is still accessible
+```
+
+## Ownership in Functions
+
+Functions can take ownership or borrow:
+
+```joel
+[Compiled]
+
+# Takes ownership
+fn consume(data: list[i32]) {
+  # data is moved here
+}
+
+# Borrows
+fn inspect(data: &list[i32]) {
+  # data is borrowed
+}
+
+# Mutable borrow
+fn mutate(data: &mut list[i32]) {
+  # data can be modified
+}
+```
+
+## Ownership and Scopes
+
+Ownership is tied to scope:
+
+```joel
+[Compiled]
+
+{
+  let x = 10
+  # x is owned in this scope
+}
+# x is dropped here
+```
+
+## Best Practices
+
+1. **Use borrowing when possible** - Avoid unnecessary moves
+2. **Prefer immutable borrows** - Safer and more flexible
+3. **Use moves for ownership transfer** - When you need to take ownership
+4. **Keep scopes small** - Allows early cleanup
+
+## Next Steps
+
+- [Type System](type-system.md)
+- [Error Handling](error-handling.md)
+- [Performance](performance.md)
+

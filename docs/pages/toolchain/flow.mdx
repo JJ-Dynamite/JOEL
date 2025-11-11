@@ -1,0 +1,209 @@
+# flow - Workflow Runtime Toolchain
+
+`flow` is the command-line tool for executing, managing, and debugging JOEL workflows.
+
+## Installation
+
+`flow` is included with JOEL:
+
+```bash
+flow --version
+```
+
+## Quick Start
+
+```bash
+# Execute workflow
+flow run workflow.joel
+
+# Start workflow server
+flow server
+
+# Monitor workflow execution
+flow monitor workflow-id
+```
+
+## Execute Workflows
+
+Run workflow files:
+
+```bash
+# Execute workflow
+flow run workflow.joel
+
+# Execute with parameters
+flow run workflow.joel --param input=data.json
+
+# Execute with environment variables
+flow run workflow.joel --env
+
+# Execute in background
+flow run workflow.joel --background
+
+# Execute with timeout
+flow run workflow.joel --timeout 300
+```
+
+## Workflow Server
+
+Start workflow execution server:
+
+```bash
+# Start server
+flow server
+
+# Start on specific port
+flow server --port 8080
+
+# Start with specific backend
+flow server --backend redis
+
+# Start in cluster mode
+flow server --cluster
+```
+
+## Workflow Management
+
+Manage workflow executions:
+
+```bash
+# List running workflows
+flow list
+
+# Show workflow status
+flow status workflow-id
+
+# Stop workflow
+flow stop workflow-id
+
+# Resume workflow
+flow resume workflow-id
+
+# Cancel workflow
+flow cancel workflow-id
+```
+
+## Monitoring
+
+Monitor workflow execution:
+
+```bash
+# Monitor workflow
+flow monitor workflow-id
+
+# Show workflow logs
+flow logs workflow-id
+
+# Show workflow metrics
+flow metrics workflow-id
+
+# Show workflow graph
+flow graph workflow-id
+```
+
+## Workflow Debugging
+
+Debug workflow execution:
+
+```bash
+# Debug workflow
+flow debug workflow.joel
+
+# Step through workflow
+flow step workflow-id
+
+# Set breakpoints
+flow breakpoint workflow.joel --line 10
+
+# Inspect workflow state
+flow inspect workflow-id
+```
+
+## Workflow Scheduling
+
+Schedule workflow execution:
+
+```bash
+# Schedule workflow
+flow schedule workflow.joel --cron "0 0 * * *"
+
+# List scheduled workflows
+flow schedule list
+
+# Remove schedule
+flow schedule remove schedule-id
+```
+
+## Examples
+
+### Execute Workflow
+
+```bash
+flow run data-pipeline.joel
+```
+
+**Input (data-pipeline.joel):**
+```joel
+[Compiled]
+
+flow data_pipeline {
+  node fetch {
+    fn execute() {
+      # Fetch data
+    }
+  }
+  
+  node process {
+    depends: [fetch],
+    fn execute() {
+      # Process data
+    }
+  }
+  
+  node store {
+    depends: [process],
+    fn execute() {
+      # Store results
+    }
+  }
+}
+```
+
+### Monitor Execution
+
+```bash
+# Start workflow
+flow run workflow.joel --background
+
+# Monitor in real-time
+flow monitor <workflow-id>
+```
+
+## Command Reference
+
+### Execution Commands
+
+- `flow run <file>` - Execute workflow
+- `flow server` - Start workflow server
+- `flow list` - List workflows
+- `flow status <id>` - Show status
+
+### Management Commands
+
+- `flow stop <id>` - Stop workflow
+- `flow resume <id>` - Resume workflow
+- `flow cancel <id>` - Cancel workflow
+
+### Monitoring Commands
+
+- `flow monitor <id>` - Monitor workflow
+- `flow logs <id>` - Show logs
+- `flow metrics <id>` - Show metrics
+- `flow graph <id>` - Show graph
+
+## Next Steps
+
+- [Workflows Guide](/advanced/workflows)
+- [CLI Reference](/toolchain/cli)
+- [Examples](/examples)
+

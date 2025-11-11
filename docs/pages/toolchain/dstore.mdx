@@ -1,0 +1,163 @@
+# dstore - Decentralized Storage Toolchain
+
+`dstore` is the command-line tool for managing decentralized storage on IPFS, Arweave, and other decentralized storage networks.
+
+## Installation
+
+`dstore` is included with JOEL:
+
+```bash
+dstore --version
+```
+
+## Quick Start
+
+```bash
+# Upload file to IPFS
+dstore put file.txt --ipfs
+
+# Upload to Arweave
+dstore put file.txt --arweave
+
+# Download from IPFS
+dstore get <cid> --ipfs
+
+# List stored files
+dstore list
+```
+
+## IPFS Operations
+
+Interact with IPFS:
+
+```bash
+# Upload file to IPFS
+dstore put file.txt --ipfs
+
+# Upload directory
+dstore put ./data --ipfs --recursive
+
+# Download from IPFS
+dstore get <cid> --ipfs --output file.txt
+
+# Pin file
+dstore pin <cid> --ipfs
+
+# Unpin file
+dstore unpin <cid> --ipfs
+
+# List pinned files
+dstore pins --ipfs
+```
+
+## Arweave Operations
+
+Interact with Arweave:
+
+```bash
+# Upload file to Arweave
+dstore put file.txt --arweave
+
+# Upload with tags
+dstore put file.txt --arweave --tag "Content-Type:text/plain"
+
+# Download from Arweave
+dstore get <tx-id> --arweave
+
+# Check transaction status
+dstore status <tx-id> --arweave
+```
+
+## File Management
+
+Manage stored files:
+
+```bash
+# List all stored files
+dstore list
+
+# Show file info
+dstore info <cid>
+
+# Verify file integrity
+dstore verify <cid>
+
+# Remove file
+dstore remove <cid>
+```
+
+## Storage Providers
+
+Configure storage providers:
+
+```bash
+# Add IPFS node
+dstore provider add ipfs --url http://localhost:5001
+
+# Add Arweave wallet
+dstore provider add arweave --wallet wallet.json
+
+# List providers
+dstore provider list
+
+# Set default provider
+dstore provider set-default ipfs
+```
+
+## Examples
+
+### Upload to IPFS
+
+```bash
+# Upload single file
+dstore put document.pdf --ipfs
+
+# Output: QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco
+```
+
+### Upload Directory
+
+```bash
+# Upload entire directory
+dstore put ./website --ipfs --recursive
+
+# Output: QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG
+```
+
+### Download File
+
+```bash
+# Download from IPFS
+dstore get QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco \
+  --ipfs \
+  --output document.pdf
+```
+
+## Command Reference
+
+### IPFS Commands
+
+- `dstore put <file> --ipfs` - Upload to IPFS
+- `dstore get <cid> --ipfs` - Download from IPFS
+- `dstore pin <cid> --ipfs` - Pin file
+- `dstore unpin <cid> --ipfs` - Unpin file
+
+### Arweave Commands
+
+- `dstore put <file> --arweave` - Upload to Arweave
+- `dstore get <tx-id> --arweave` - Download from Arweave
+- `dstore status <tx-id> --arweave` - Check status
+
+### Management Commands
+
+- `dstore list` - List files
+- `dstore info <cid>` - Show file info
+- `dstore verify <cid>` - Verify file
+- `dstore remove <cid>` - Remove file
+
+## Next Steps
+
+- [Decentralized Storage Guide](/advanced/storage)
+- [CLI Reference](/toolchain/cli)
+- [Examples](/examples)
+

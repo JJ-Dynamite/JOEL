@@ -1,0 +1,341 @@
+# joelsql - SQL Toolchain
+
+`joelsql` is the command-line tool for working with SQL in JOEL. It provides a complete SQL development and execution environment.
+
+## Installation
+
+`joelsql` is included with JOEL:
+
+```bash
+joelsql --version
+```
+
+## Interactive SQL Shell
+
+Start an interactive SQL REPL:
+
+```bash
+joelsql
+```
+
+Example session:
+
+```bash
+$ joelsql
+JOEL SQL v0.1.0
+Type 'help' for help, 'exit' to quit.
+
+> SELECT * FROM users LIMIT 5;
+┌────┬──────────┬─────┐
+│ id │ name     │ age │
+├────┼──────────┼─────┤
+│ 1  │ Alice    │ 25  │
+│ 2  │ Bob      │ 30  │
+│ 3  │ Charlie  │ 35  │
+│ 4  │ Diana    │ 28  │
+│ 5  │ Eve      │ 32  │
+└────┴──────────┴─────┘
+
+> exit
+```
+
+## Execute SQL Files
+
+Run SQL queries from files:
+
+```bash
+# Execute single file
+joelsql run query.joel
+
+# Execute with parameters
+joelsql run analytics.joel --param min_age=25 --param city="NYC"
+
+# Execute multiple files
+joelsql run *.joel
+
+# Execute with output
+joelsql run query.joel --output results.json
+```
+
+## Query Execution
+
+Execute SQL queries directly from command line:
+
+```bash
+# Simple query
+joelsql query "SELECT * FROM users WHERE age > 30"
+
+# Query CSV file
+joelsql query "SELECT * FROM 'data.csv' WHERE age > 30"
+
+# Query with formatted output
+joelsql query "SELECT * FROM employees" --format table
+
+# Export results
+joelsql query "SELECT * FROM sales" --output sales.csv
+joelsql query "SELECT * FROM sales" --output sales.json
+joelsql query "SELECT * FROM sales" --output sales.parquet
+
+# Show query timing
+joelsql query "SELECT * FROM large_table" --timing
+```
+
+## Database Management
+
+Manage databases and tables:
+
+```bash
+# List databases
+joelsql databases
+
+# List tables
+joelsql tables
+
+# Describe table schema
+joelsql describe users
+
+# Show table data
+joelsql show users --limit 10
+
+# Create database
+joelsql create-db analytics
+
+# Drop database
+joelsql drop-db old_db
+```
+
+## Database Connections
+
+Connect to external databases:
+
+```bash
+# Connect to PostgreSQL
+joelsql connect postgresql://localhost/mydb
+
+# Add named connection
+joelsql connection add prod postgresql://prod-server/db
+
+# List connections
+joelsql connection list
+
+# Test connection
+joelsql connection test prod
+
+# Use specific connection
+joelsql query "SELECT * FROM users" --connection prod
+
+# Remove connection
+joelsql connection remove prod
+```
+
+## Query Analysis
+
+Analyze and optimize queries:
+
+```bash
+# Show query execution plan
+joelsql explain "SELECT * FROM employees WHERE age > 30"
+
+# Analyze query performance
+joelsql analyze "SELECT * FROM large_table WHERE id = 1"
+
+# Suggest indexes
+joelsql suggest-indexes query.joel
+
+# Optimize query
+joelsql optimize query.joel --output optimized.joel
+```
+
+## SQL Scripts
+
+Execute SQL scripts with variables:
+
+```bash
+# Execute script with variables
+joelsql script report.joel --vars year=2024 quarter=Q1
+
+# Execute with environment variables
+joelsql script query.joel --env
+
+# Batch execution
+joelsql batch queries.joel
+```
+
+## Data Import/Export
+
+Bulk data operations:
+
+```bash
+# Import CSV to table
+joelsql import users.csv --table users
+
+# Export table to CSV
+joelsql export users --output users.csv
+
+# Import from JSON
+joelsql import data.json --table products
+
+# Export to Parquet
+joelsql export sales --output sales.parquet --format parquet
+
+# Import with schema
+joelsql import data.csv --table users --schema schema.json
+```
+
+## Database Migrations
+
+Manage schema changes:
+
+```bash
+# Create migration
+joelsql migration create add_users_table
+
+# Run migrations
+joelsql migration up
+
+# Rollback migration
+joelsql migration down
+
+# Show migration status
+joelsql migration status
+
+# Create migration from SQL file
+joelsql migration create-from-file schema.joel
+```
+
+## SQL Linting and Formatting
+
+Code quality tools:
+
+```bash
+# Lint SQL file
+joelsql lint query.joel
+
+# Format SQL file
+joelsql format query.joel
+
+# Check SQL syntax
+joelsql check query.joel
+
+# Auto-fix common issues
+joelsql fix query.joel
+```
+
+## Configuration
+
+Configure `joelsql` behavior:
+
+```bash
+# Show configuration
+joelsql config show
+
+# Set default connection
+joelsql config set default_connection prod
+
+# Set output format
+joelsql config set output_format json
+
+# Set query timeout
+joelsql config set query_timeout 30
+```
+
+## Examples
+
+### Query CSV File
+
+```bash
+joelsql query "SELECT name, age FROM 'users.csv' WHERE age > 25"
+```
+
+### Export Query Results
+
+```bash
+joelsql query "SELECT * FROM sales WHERE date > '2024-01-01'" \
+  --output sales_2024.csv \
+  --format csv
+```
+
+### Execute SQL Script
+
+```bash
+# report.joel
+sql result = 
+  SELECT 
+    DATE(created_at) as date,
+    COUNT(*) as count,
+    SUM(amount) as total
+  FROM sales
+  WHERE created_at > '2024-01-01'
+  GROUP BY DATE(created_at)
+  ORDER BY date
+
+# Execute
+joelsql run report.joel --output report.json
+```
+
+### Database Migration
+
+```bash
+# Create migration
+joelsql migration create add_indexes
+
+# Edit migration file (migrations/001_add_indexes.joel)
+sql CREATE INDEX idx_users_email ON users(email)
+sql CREATE INDEX idx_users_age ON users(age)
+
+# Run migration
+joelsql migration up
+```
+
+## Command Reference
+
+### Core Commands
+
+- `joelsql` - Start interactive shell
+- `joelsql run <file>` - Execute SQL file
+- `joelsql query <sql>` - Execute SQL query
+- `joelsql explain <sql>` - Show query plan
+
+### Database Commands
+
+- `joelsql databases` - List databases
+- `joelsql tables` - List tables
+- `joelsql describe <table>` - Show table schema
+- `joelsql show <table>` - Show table data
+- `joelsql create-db <name>` - Create database
+- `joelsql drop-db <name>` - Drop database
+
+### Connection Commands
+
+- `joelsql connect <url>` - Connect to database
+- `joelsql connection add <name> <url>` - Add connection
+- `joelsql connection list` - List connections
+- `joelsql connection test <name>` - Test connection
+- `joelsql connection remove <name>` - Remove connection
+
+### Data Commands
+
+- `joelsql import <file> --table <table>` - Import data
+- `joelsql export <table> --output <file>` - Export data
+
+### Migration Commands
+
+- `joelsql migration create <name>` - Create migration
+- `joelsql migration up` - Run migrations
+- `joelsql migration down` - Rollback migration
+- `joelsql migration status` - Show status
+
+### Utility Commands
+
+- `joelsql lint <file>` - Lint SQL
+- `joelsql format <file>` - Format SQL
+- `joelsql check <file>` - Check syntax
+- `joelsql analyze <sql>` - Analyze query
+- `joelsql optimize <file>` - Optimize query
+
+## Next Steps
+
+- [SQL Programming Guide](/guides/sql)
+- [CLI Reference](/toolchain/cli)
+- [Examples](/examples)
+

@@ -1,0 +1,175 @@
+# joelperf - Performance Profiling Toolchain
+
+`joelperf` is the command-line tool for performance profiling, optimization, and benchmarking JOEL programs.
+
+## Installation
+
+`joelperf` is included with JOEL:
+
+```bash
+joelperf --version
+```
+
+## Quick Start
+
+```bash
+# Profile program
+joelperf profile app.joel
+
+# Benchmark function
+joelperf benchmark app.joel --function main
+
+# Generate flame graph
+joelperf flamegraph app.joel
+```
+
+## Profiling
+
+Profile program execution:
+
+```bash
+# CPU profiling
+joelperf profile app.joel
+
+# Memory profiling
+joelperf profile app.joel --memory
+
+# Profile with output
+joelperf profile app.joel --output profile.json
+
+# Profile specific function
+joelperf profile app.joel --function compute
+
+# Profile with sampling rate
+joelperf profile app.joel --sample-rate 1000
+```
+
+## Benchmarking
+
+Benchmark code performance:
+
+```bash
+# Benchmark program
+joelperf benchmark app.joel
+
+# Benchmark specific function
+joelperf benchmark app.joel --function sort
+
+# Benchmark with iterations
+joelperf benchmark app.joel --iterations 1000
+
+# Compare benchmarks
+joelperf benchmark compare baseline.json optimized.json
+
+# Generate benchmark report
+joelperf benchmark app.joel --output report.html
+```
+
+## Flame Graphs
+
+Generate performance visualizations:
+
+```bash
+# Generate flame graph
+joelperf flamegraph app.joel
+
+# Generate from profile
+joelperf flamegraph --input profile.json
+
+# Generate interactive flame graph
+joelperf flamegraph app.joel --interactive
+
+# Export flame graph
+joelperf flamegraph app.joel --output flamegraph.svg
+```
+
+## Memory Analysis
+
+Analyze memory usage:
+
+```bash
+# Memory profile
+joelperf memory app.joel
+
+# Memory leak detection
+joelperf memory app.joel --leak-check
+
+# Memory allocation tracking
+joelperf memory app.joel --track-allocations
+
+# Generate memory report
+joelperf memory app.joel --output memory.json
+```
+
+## Optimization Analysis
+
+Analyze optimization opportunities:
+
+```bash
+# Analyze hot paths
+joelperf analyze app.joel --hot-paths
+
+# Identify bottlenecks
+joelperf analyze app.joel --bottlenecks
+
+# Suggest optimizations
+joelperf optimize app.joel --suggest
+
+# Compare before/after
+joelperf compare before.json after.json
+```
+
+## Examples
+
+### Profile and Analyze
+
+```bash
+# Profile execution
+joelperf profile app.joel --output profile.json
+
+# Analyze results
+joelperf analyze profile.json
+
+# Generate flame graph
+joelperf flamegraph --input profile.json
+```
+
+### Benchmark Comparison
+
+```bash
+# Benchmark baseline
+joelperf benchmark baseline.joel --output baseline.json
+
+# Benchmark optimized
+joelperf benchmark optimized.joel --output optimized.json
+
+# Compare results
+joelperf compare baseline.json optimized.json
+```
+
+## Command Reference
+
+### Profiling Commands
+
+- `joelperf profile <file>` - Profile program
+- `joelperf profile <file> --memory` - Memory profiling
+- `joelperf profile <file> --cpu` - CPU profiling
+
+### Benchmarking Commands
+
+- `joelperf benchmark <file>` - Benchmark program
+- `joelperf benchmark <file> --function <name>` - Benchmark function
+- `joelperf benchmark compare <file1> <file2>` - Compare benchmarks
+
+### Analysis Commands
+
+- `joelperf analyze <file>` - Analyze performance
+- `joelperf flamegraph <file>` - Generate flame graph
+- `joelperf memory <file>` - Memory analysis
+
+## Next Steps
+
+- [Performance Guide](/guides/performance)
+- [CLI Reference](/toolchain/cli)
+- [Examples](/examples)
+

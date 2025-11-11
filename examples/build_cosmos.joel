@@ -1,0 +1,16 @@
+[Compiled]
+[target cosmos]
+
+contract Token {
+  state let total_supply: uint256 = 1000000
+  state let owner: address
+  
+  fn init(initial_owner: address) {
+    owner = initial_owner
+  }
+  
+  fn transfer(to: address, amount: uint256) {
+    # Transfer logic
+  }
+}
+

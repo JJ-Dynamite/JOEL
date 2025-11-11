@@ -1,0 +1,225 @@
+# Toolchain Overview
+
+JOEL provides a comprehensive set of command-line tools for different domains and use cases.
+
+## Core Toolchain
+
+### `joel` - Main Compiler & Runtime
+
+The primary JOEL compiler and runtime:
+
+- `joel run` - Execute JOEL programs
+- `joel build` - Compile for different targets
+- `joel version` - Show version information
+
+See [CLI Commands](/toolchain/cli) for details.
+
+## Domain-Specific Toolchains
+
+### `joelsql` - SQL Toolchain
+
+Command-line tool for SQL operations:
+
+- Interactive SQL shell
+- Query CSV/Parquet/JSON files
+- Database management
+- Query optimization
+- Data import/export
+
+See [joelsql Documentation](/toolchain/joelsql)
+
+### `joelui` - UI Compiler
+
+Compile JOEL UI components to frontend frameworks:
+
+- React/React Native compilation
+- Vue, Web Components support
+- Development server with hot reload
+- Component analysis and optimization
+
+See [joelui Documentation](/toolchain/joelui)
+
+### `joelctl` - Container & Infrastructure
+
+Manage containers and infrastructure:
+
+- Dockerfile generation
+- Kubernetes manifest generation
+- Helm chart generation
+- Deployment automation
+- Serverless deployment
+
+See [joelctl Documentation](/toolchain/joelctl)
+
+### `joelpkg` - Package Manager
+
+Dependency and package management:
+
+- Package installation
+- Version management
+- Package publishing
+- Workspace support
+- Registry interaction
+
+See [joelpkg Documentation](/toolchain/joelpkg)
+
+### `flow` - Workflow Runtime
+
+Execute and manage workflows:
+
+- Workflow execution
+- Workflow server
+- Monitoring and debugging
+- Scheduling
+- State management
+
+See [flow Documentation](/toolchain/flow)
+
+### `dstore` - Decentralized Storage
+
+Manage decentralized storage:
+
+- IPFS operations
+- Arweave integration
+- File management
+- Storage provider configuration
+
+See [dstore Documentation](/toolchain/dstore)
+
+### `ai` - AI/ML Toolchain
+
+Work with AI/ML models:
+
+- Model training
+- Inference execution
+- Model conversion
+- LLM integration
+- Embedding generation
+
+See [ai Documentation](/toolchain/ai)
+
+### `joelquantum` - Quantum Programming
+
+Compile and execute quantum circuits:
+
+- Quantum circuit compilation
+- Quantum simulation
+- Hardware execution
+- Backend management
+- Algorithm execution
+
+See [joelquantum Documentation](/toolchain/joelquantum)
+
+### `joelperf` - Performance Profiling
+
+Profile and optimize performance:
+
+- CPU and memory profiling
+- Benchmarking
+- Flame graphs
+- Performance analysis
+- Optimization suggestions
+
+See [joelperf Documentation](/toolchain/joelperf)
+
+### `joelsec` - Security Analysis
+
+Security analysis and verification:
+
+- Security scanning
+- Vulnerability detection
+- Static analysis
+- Code auditing
+- Sandbox testing
+
+See [joelsec Documentation](/toolchain/joelsec)
+
+### `joelffi` - Foreign Function Interface
+
+Interoperability with other languages:
+
+- C bindings
+- Python integration
+- Rust interoperability
+- JavaScript interop
+- Protocol bindings (gRPC, GraphQL, REST)
+
+See [joelffi Documentation](/toolchain/joelffi)
+
+### `joelstream` - Real-time & Streaming
+
+Real-time data processing:
+
+- Stream processing
+- Event processing
+- Time-series analysis
+- WebSocket server
+- Message queue integration
+
+See [joelstream Documentation](/toolchain/joelstream)
+
+## Quick Reference
+
+| Tool | Purpose | Phase |
+|------|---------|-------|
+| `joel` | Core compiler/runtime | Phase 1 ✅ |
+| `joelsql` | SQL operations | Phase 6 |
+| `joelui` | UI compilation | Phase 4 |
+| `joelctl` | Container/infrastructure | Phase 4 |
+| `joelpkg` | Package management | Phase 5 |
+| `flow` | Workflow execution | Phase 4 |
+| `dstore` | Decentralized storage | Phase 11 |
+| `ai` | AI/ML operations | Phase 12 |
+| `joelquantum` | Quantum programming | Phase 7, 14 |
+| `joelperf` | Performance profiling | Phase 8 |
+| `joelsec` | Security analysis | Phase 9 |
+| `joelffi` | Foreign function interface | Phase 10 |
+| `joelstream` | Real-time streaming | Phase 13 |
+
+## Installation
+
+All toolchains are included with JOEL:
+
+```bash
+# Verify installation
+joel --version
+joelsql --version
+joelui --version
+joelctl --version
+joelpkg --version
+flow --version
+dstore --version
+ai --version
+```
+
+## Getting Help
+
+Each toolchain provides help:
+
+```bash
+joel --help
+joelsql --help
+joelui --help
+joelctl --help
+joelpkg --help
+flow --help
+dstore --help
+ai --help
+```
+
+## Next Steps
+
+- [CLI Commands](/toolchain/cli) - Core compiler commands
+- [SQL Toolchain](/toolchain/joelsql) - Database operations
+- [UI Compiler](/toolchain/joelui) - Frontend compilation
+- [Container Toolchain](/toolchain/joelctl) - Infrastructure management
+- [Package Manager](/toolchain/joelpkg) - Dependency management
+- [Workflow Runtime](/toolchain/flow) - Workflow execution
+- [Storage Toolchain](/toolchain/dstore) - Decentralized storage
+- [AI/ML Toolchain](/toolchain/ai) - Machine learning
+- [Quantum Toolchain](/toolchain/joelquantum) - Quantum programming
+- [Performance Toolchain](/toolchain/joelperf) - Performance profiling
+- [Security Toolchain](/toolchain/joelsec) - Security analysis
+- [FFI Toolchain](/toolchain/joelffi) - Foreign function interface
+- [Streaming Toolchain](/toolchain/joelstream) - Real-time streaming
+

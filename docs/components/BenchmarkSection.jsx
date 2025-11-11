@@ -51,35 +51,41 @@ export default function BenchmarkSection() {
       <div className="benchmark-title">Key Features</div>
       <div className="benchmark-subtitle">What makes JOEL unique</div>
       
-      <div className="benchmark-list" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        <div className="benchmark-item" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '0.5rem' }}>
-          <div className="benchmark-label" style={{ fontSize: '1.1rem', fontWeight: '600' }}>⚡ Polymodal Execution</div>
-          <div style={{ color: '#a0a0a0', fontSize: '0.9rem' }}>Choose [Interpreted] or [Compiled] from a file header</div>
+      <div className="benchmark-grid">
+        <div className="benchmark-feature-item">
+          <div className="benchmark-feature-icon">⚡</div>
+          <div className="benchmark-feature-title">Polymodal Execution</div>
+          <div className="benchmark-feature-desc">Choose [Interpreted] or [Compiled] from a file header</div>
         </div>
         
-        <div className="benchmark-item" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '0.5rem' }}>
-          <div className="benchmark-label" style={{ fontSize: '1.1rem', fontWeight: '600' }}>🌐 Cross-Platform</div>
-          <div style={{ color: '#a0a0a0', fontSize: '0.9rem' }}>Native, WASM, EVM, Solana — one codebase</div>
+        <div className="benchmark-feature-item">
+          <div className="benchmark-feature-icon">🌐</div>
+          <div className="benchmark-feature-title">Cross-Platform</div>
+          <div className="benchmark-feature-desc">Native, WASM, EVM, Solana — one codebase</div>
         </div>
         
-        <div className="benchmark-item" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '0.5rem' }}>
-          <div className="benchmark-label" style={{ fontSize: '1.1rem', fontWeight: '600' }}>📦 Gradual Types</div>
-          <div style={{ color: '#a0a0a0', fontSize: '0.9rem' }}>Start dynamic, add types as needed</div>
+        <div className="benchmark-feature-item">
+          <div className="benchmark-feature-icon">📦</div>
+          <div className="benchmark-feature-title">Gradual Types</div>
+          <div className="benchmark-feature-desc">Start dynamic, add types as needed</div>
         </div>
         
-        <div className="benchmark-item" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '0.5rem' }}>
-          <div className="benchmark-label" style={{ fontSize: '1.1rem', fontWeight: '600' }}>🔒 Ownership-Lite</div>
-          <div style={{ color: '#a0a0a0', fontSize: '0.9rem' }}>Rust-inspired safety without complexity</div>
+        <div className="benchmark-feature-item">
+          <div className="benchmark-feature-icon">🔒</div>
+          <div className="benchmark-feature-title">Ownership-Lite</div>
+          <div className="benchmark-feature-desc">Rust-inspired safety without complexity</div>
         </div>
         
-        <div className="benchmark-item" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '0.5rem' }}>
-          <div className="benchmark-label" style={{ fontSize: '1.1rem', fontWeight: '600' }}>🚀 Async/Actor Model</div>
-          <div style={{ color: '#a0a0a0', fontSize: '0.9rem' }}>Built-in concurrency for distributed systems</div>
+        <div className="benchmark-feature-item">
+          <div className="benchmark-feature-icon">🚀</div>
+          <div className="benchmark-feature-title">Async/Actor Model</div>
+          <div className="benchmark-feature-desc">Built-in concurrency for distributed systems</div>
         </div>
         
-        <div className="benchmark-item" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '0.5rem' }}>
-          <div className="benchmark-label" style={{ fontSize: '1.1rem', fontWeight: '600' }}>💻 Modern Syntax</div>
-          <div style={{ color: '#a0a0a0', fontSize: '0.9rem' }}>Clean, readable syntax with pattern matching</div>
+        <div className="benchmark-feature-item">
+          <div className="benchmark-feature-icon">💻</div>
+          <div className="benchmark-feature-title">Modern Syntax</div>
+          <div className="benchmark-feature-desc">Clean, readable syntax with pattern matching</div>
         </div>
       </div>
     </>
@@ -90,25 +96,29 @@ export default function BenchmarkSection() {
       <div className="benchmark-title">Compilation Targets</div>
       <div className="benchmark-subtitle">One language, multiple platforms</div>
       
-      <div className="benchmark-list" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        <div className="benchmark-item" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '0.5rem' }}>
-          <div className="benchmark-label" style={{ fontSize: '1.1rem', fontWeight: '600' }}>🖥️ Native Binaries</div>
-          <div style={{ color: '#a0a0a0', fontSize: '0.9rem' }}>Linux, macOS, Windows — maximum performance</div>
+      <div className="benchmark-grid">
+        <div className="benchmark-feature-item">
+          <div className="benchmark-feature-icon">🖥️</div>
+          <div className="benchmark-feature-title">Native Binaries</div>
+          <div className="benchmark-feature-desc">Linux, macOS, Windows — maximum performance</div>
         </div>
         
-        <div className="benchmark-item" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '0.5rem' }}>
-          <div className="benchmark-label" style={{ fontSize: '1.1rem', fontWeight: '600' }}>🌐 WebAssembly (WASM)</div>
-          <div style={{ color: '#a0a0a0', fontSize: '0.9rem' }}>Run in browsers and edge environments</div>
+        <div className="benchmark-feature-item">
+          <div className="benchmark-feature-icon">🌐</div>
+          <div className="benchmark-feature-title">WebAssembly (WASM)</div>
+          <div className="benchmark-feature-desc">Run in browsers and edge environments</div>
         </div>
         
-        <div className="benchmark-item" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '0.5rem' }}>
-          <div className="benchmark-label" style={{ fontSize: '1.1rem', fontWeight: '600' }}>⛓️ EVM (Ethereum)</div>
-          <div style={{ color: '#a0a0a0', fontSize: '0.9rem' }}>Smart contracts on Ethereum and L2s</div>
+        <div className="benchmark-feature-item">
+          <div className="benchmark-feature-icon">⛓️</div>
+          <div className="benchmark-feature-title">EVM (Ethereum)</div>
+          <div className="benchmark-feature-desc">Smart contracts on Ethereum and L2s</div>
         </div>
         
-        <div className="benchmark-item" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '0.5rem' }}>
-          <div className="benchmark-label" style={{ fontSize: '1.1rem', fontWeight: '600' }}>🔷 Solana</div>
-          <div style={{ color: '#a0a0a0', fontSize: '0.9rem' }}>High-performance blockchain programs</div>
+        <div className="benchmark-feature-item">
+          <div className="benchmark-feature-icon">🔷</div>
+          <div className="benchmark-feature-title">Solana</div>
+          <div className="benchmark-feature-desc">High-performance blockchain programs</div>
         </div>
       </div>
     </>

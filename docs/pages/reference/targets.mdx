@@ -73,6 +73,74 @@ contract Counter {
 - Solana programs
 - High-throughput dApps
 
+## Cosmos SDK
+
+Compile to Cosmos SDK smart contracts (WASM).
+
+```joel
+[Compiled]
+[target cosmos]
+
+contract Token {
+  # Cosmos contract
+}
+```
+
+**Use Cases:**
+- Cosmos smart contracts
+- Inter-blockchain communication
+
+## Polkadot/Substrate
+
+Compile to Polkadot/Substrate runtime modules (WASM).
+
+```joel
+[Compiled]
+[target polkadot]
+
+contract Runtime {
+  # Substrate runtime module
+}
+```
+
+**Use Cases:**
+- Substrate runtime modules
+- Polkadot parachains
+
+## iOS
+
+Compile to native iOS frameworks.
+
+```joel
+[Compiled]
+[target ios]
+
+fn calculate() -> i32 {
+  return 42
+}
+```
+
+**Use Cases:**
+- iOS applications
+- Native iOS libraries
+
+## Android
+
+Compile to native Android libraries.
+
+```joel
+[Compiled]
+[target android]
+
+fn process() -> i32 {
+  return 100
+}
+```
+
+**Use Cases:**
+- Android applications
+- Native Android libraries
+
 ## Compilation Commands
 
 ```bash
@@ -87,6 +155,24 @@ joel build contract.joel --target evm
 
 # Solana
 joel build program.joel --target wasm-solana
+
+# Cosmos
+joel build contract.joel --target cosmos
+
+# Polkadot
+joel build runtime.joel --target polkadot
+
+# iOS
+joel build app.joel --target ios --arch arm64
+
+# Android
+joel build app.joel --target android --arch aarch64
+
+# With optimizations
+joel build app.joel --target native --optimize
+
+# With debug symbols
+joel build app.joel --target native --debug
 ```
 
 ## Next Steps
