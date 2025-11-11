@@ -509,7 +509,17 @@ pub mod llvm_backend {
                     let var = self.next_var();
                     Ok(format!("{} = call i64 @{}({})", var, callee, arg_list.join(", ")))
                 },
-                _ => Err("Unsupported expression type".to_string()),
+                Expr::String(s) => {
+                    // String literals (simplified)
+                    Ok(format!("\"{}\"", s))
+                },
+                Expr::List(_) | Expr::Map(_) | Expr::None | 
+                Expr::Match { .. } | Expr::Destructure { .. } | Expr::Async { .. } | 
+                Expr::Await { .. } | Expr::Yield(_) | Expr::Generator { .. } |
+                Expr::Coroutine { .. } | Expr::Suspend | Expr::Resume { .. } |
+                Expr::Unary { .. } | Expr::Member { .. } | Expr::Index { .. } => {
+                    Err("Unsupported expression type in LLVM backend".to_string())
+                },
             }
         }
         

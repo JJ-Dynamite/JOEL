@@ -155,7 +155,7 @@ pub mod collections {
         map.len()
     }
     
-    pub fn map_get(map: &HashMap<String, Value>, key: &str) -> Option<&Value> {
+    pub fn map_get<'a>(map: &'a HashMap<String, Value>, key: &str) -> Option<&'a Value> {
         map.get(key)
     }
     

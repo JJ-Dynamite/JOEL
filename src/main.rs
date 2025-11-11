@@ -8,6 +8,13 @@ mod type_checker;
 mod compiler;
 mod ownership;
 mod stdlib;
+mod actor_runtime;
+mod pattern_matcher;
+mod async_runtime;
+mod iterator;
+mod parallel;
+mod exhaustiveness_checker;
+mod coroutine;
 
 use clap::{Parser as ClapParser, Subcommand};
 use std::fs;

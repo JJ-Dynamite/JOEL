@@ -1,0 +1,31 @@
+[Interpreted]
+
+# Pattern matching example
+fn match_number(n: i32) {
+  match n {
+    0 => print("Zero"),
+    1 => print("One"),
+    2 => print("Two"),
+    _ => print("Other")
+  }
+}
+
+fn match_tuple(t: (i32, str)) {
+  match t {
+    (0, "hello") => print("Zero and hello"),
+    (x, "world") => print("Number", x, "and world"),
+    (x, y) => print("Number", x, "and", y)
+  }
+}
+
+fn main() {
+  match_number(0)
+  match_number(1)
+  match_number(5)
+  
+  match_tuple((0, "hello"))
+  match_tuple((42, "world"))
+}
+
+main()
+

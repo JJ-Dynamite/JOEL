@@ -28,6 +28,36 @@ pub enum Expr {
     List(Vec<Expr>),
     Map(Vec<(Expr, Expr)>),
     None,
+    // Pattern matching
+    Match {
+        expr: Box<Expr>,
+        arms: Vec<MatchArm>,
+    },
+    // Destructuring
+    Destructure {
+        pattern: Box<Pattern>,
+        value: Box<Expr>,
+    },
+    // Async/await
+    Async {
+        body: Box<Expr>,
+    },
+    Await {
+        expr: Box<Expr>,
+    },
+    // Generators
+    Yield(Option<Box<Expr>>),
+    Generator {
+        body: Vec<Stmt>,
+    },
+    // Coroutines
+    Coroutine {
+        body: Vec<Stmt>,
+    },
+    Suspend,
+    Resume {
+        coroutine: Box<Expr>,
+    },
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -122,6 +152,36 @@ pub enum Stmt {
         name: String,
         config: Vec<Stmt>,
     },
+    // Pattern matching statement
+    MatchStmt {
+        expr: Expr,
+        arms: Vec<MatchArm>,
+    },
+    // Async function
+    AsyncFn {
+        name: String,
+        params: Vec<(String, Option<String>)>,
+        return_type: Option<String>,
+        body: Vec<Stmt>,
+    },
+    // Parallel execution
+    ParallelFor {
+        var: String,
+        iterable: Expr,
+        body: Vec<Stmt>,
+    },
+    ParallelMap {
+        var: String,
+        iterable: Expr,
+        body: Vec<Stmt>,
+    },
+    // Coroutine
+    CoroutineFn {
+        name: String,
+        params: Vec<(String, Option<String>)>,
+        return_type: Option<String>,
+        body: Vec<Stmt>,
+    },
 }
 
 #[derive(Debug, Clone)]
@@ -136,5 +196,38 @@ pub enum ExecutionMode {
     Compiled,
     Interpreted,
     Unknown,
+}
+
+/// Pattern for pattern matching and destructuring
+#[derive(Debug, Clone)]
+pub enum Pattern {
+    Identifier(String),
+    Number(f64),
+    String(String),
+    Boolean(bool),
+    Tuple(Vec<Pattern>),
+    List(Vec<Pattern>),
+    Struct {
+        name: String,
+        fields: Vec<(String, Pattern)>,
+    },
+    Wildcard,
+    Binding {
+        name: String,
+        pattern: Box<Pattern>,
+    },
+    Or(Vec<Pattern>),
+    Guard {
+        pattern: Box<Pattern>,
+        condition: Box<Expr>,
+    },
+}
+
+/// Match arm for pattern matching
+#[derive(Debug, Clone)]
+pub struct MatchArm {
+    pub pattern: Pattern,
+    pub guard: Option<Expr>,
+    pub body: Vec<Stmt>,
 }
 

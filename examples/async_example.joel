@@ -1,0 +1,21 @@
+[Interpreted]
+
+# Async function example
+async fn fetch_data(url: str) -> str {
+  # Simulated async operation
+  return "Data from " + url
+}
+
+async fn process_data(data: str) -> str {
+  return "Processed: " + data
+}
+
+fn main() {
+  # Async/await syntax (simplified implementation)
+  let data = await fetch_data("https://example.com")
+  let processed = await process_data(data)
+  print(processed)
+}
+
+main()
+

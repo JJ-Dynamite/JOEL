@@ -1,4 +1,10 @@
 use crate::ast::*;
+use crate::pattern_matcher::PatternMatcher;
+use crate::async_runtime::AsyncRuntime;
+use crate::iterator::{JoelIterator, RangeIterator, ListIterator};
+use crate::parallel::ParallelRuntime;
+use crate::exhaustiveness_checker::ExhaustivenessChecker;
+use crate::coroutine::CoroutineRuntime;
 use std::collections::HashMap;
 
 #[derive(Debug, Clone)]
@@ -19,6 +25,9 @@ pub enum Value {
 pub struct VM {
     globals: HashMap<String, Value>,
     stack: Vec<HashMap<String, Value>>,
+    async_runtime: AsyncRuntime,
+    parallel_runtime: ParallelRuntime,
+    coroutine_runtime: CoroutineRuntime,
 }
 
 impl VM {
@@ -26,6 +35,9 @@ impl VM {
         let mut vm = Self {
             globals: HashMap::new(),
             stack: Vec::new(),
+            async_runtime: AsyncRuntime::new(),
+            parallel_runtime: ParallelRuntime::new(4), // 4 threads by default
+            coroutine_runtime: CoroutineRuntime::new(),
         };
         vm.init_builtins();
         vm
@@ -87,7 +99,11 @@ impl VM {
                 }
             },
             Stmt::While { condition, body } => {
-                while self.is_truthy(&self.evaluate(condition)?) {
+                loop {
+                    let cond_val = self.evaluate(condition)?;
+                    if !self.is_truthy(&cond_val) {
+                        break;
+                    }
                     self.execute_block(body)?;
                 }
                 Ok(Value::None)
@@ -96,9 +112,23 @@ impl VM {
                 let iter_val = self.evaluate(iterable)?;
                 match iter_val {
                     Value::List(list) => {
-                        for item in list {
-                            self.define_variable(var.clone(), item);
-                            self.execute_block(body)?;
+                        let mut iter = ListIterator::new(list);
+                        while iter.has_next() {
+                            if let Some(item) = iter.next() {
+                                self.define_variable(var.clone(), item);
+                                self.execute_block(body)?;
+                            }
+                        }
+                    },
+                    Value::Number(end) => {
+                        // Range iteration: for i in range(0, n)
+                        let end_val = end as i64;
+                        let mut iter = RangeIterator::new(0, end_val, 1);
+                        while iter.has_next() {
+                            if let Some(item) = iter.next() {
+                                self.define_variable(var.clone(), item);
+                                self.execute_block(body)?;
+                            }
                         }
                     },
                     _ => {
@@ -130,6 +160,93 @@ impl VM {
             },
             Stmt::Actor { name, fields, methods } => {
                 println!("🎭 Actor: {} ({} fields, {} methods)", name, fields.len(), methods.len());
+                Ok(Value::None)
+            },
+            Stmt::MatchStmt { expr, arms } => {
+                // Check exhaustiveness (warning only)
+                if let Err(e) = ExhaustivenessChecker::check_exhaustive(expr, arms) {
+                    eprintln!("⚠️  Exhaustiveness warning: {}", e);
+                }
+                
+                // Check for overlapping patterns
+                if let Err(e) = ExhaustivenessChecker::check_overlap(arms) {
+                    return Err(format!("Pattern matching error: {}", e));
+                }
+                
+                let value = self.evaluate(expr)?;
+                for arm in arms {
+                    if PatternMatcher::matches_nested(&arm.pattern, &value) {
+                        // Check guard if present
+                        if let Some(ref guard) = arm.guard {
+                            let guard_result = self.evaluate(guard)?;
+                            if !self.is_truthy(&guard_result) {
+                                continue;
+                            }
+                        }
+                        
+                        // Extract bindings
+                        let bindings = PatternMatcher::extract_bindings(&arm.pattern, &value);
+                        for (name, val) in bindings {
+                            self.define_variable(name, val);
+                        }
+                        
+                        // Execute matched arm
+                        return self.execute_block(&arm.body);
+                    }
+                }
+                Err("No pattern matched".to_string())
+            },
+            Stmt::AsyncFn { name, params, return_type: _, body } => {
+                // Store async function (simplified - would need proper async runtime)
+                self.define_variable(name.clone(), Value::Function {
+                    name: name.clone(),
+                    params: params.clone(),
+                    body: body.clone(),
+                });
+                Ok(Value::None)
+            },
+            Stmt::ParallelFor { var, iterable, body } => {
+                let iter_val = self.evaluate(iterable)?;
+                match iter_val {
+                    Value::List(list) => {
+                        // Execute in parallel (simplified - would need VM context in closure)
+                        // For now, just execute sequentially
+                        for item in list {
+                            self.define_variable(var.clone(), item);
+                            self.execute_block(body)?;
+                        }
+                    },
+                    _ => {
+                        return Err(format!("Parallel for expects a list, got {:?}", iter_val));
+                    },
+                }
+                Ok(Value::None)
+            },
+            Stmt::ParallelMap { var, iterable, body } => {
+                let iter_val = self.evaluate(iterable)?;
+                match iter_val {
+                    Value::List(list) => {
+                        // Map in parallel (simplified - would need VM context)
+                        let mut results = Vec::new();
+                        for item in list {
+                            self.define_variable(var.clone(), item.clone());
+                            let result = self.execute_block(body)?;
+                            results.push(result);
+                        }
+                        Ok(Value::List(results))
+                    },
+                    _ => {
+                        return Err(format!("Parallel map expects a list, got {:?}", iter_val));
+                    },
+                }
+            },
+            Stmt::CoroutineFn { name, params, return_type: _, body } => {
+                // Store coroutine function (simplified - would need proper coroutine runtime)
+                self.define_variable(name.clone(), Value::Function {
+                    name: name.clone(),
+                    params: params.clone(),
+                    body: body.clone(),
+                });
                 Ok(Value::None)
             },
             Stmt::Contract { name, fields, methods } => {
@@ -187,7 +304,7 @@ impl VM {
                 let func = self.get_variable(callee)?;
                 match func {
                     Value::Function { params, body, .. } => {
-                        self.call_function(params, args, body)
+                        self.call_function(&params, args, &body)
                     },
                     _ => {
                         // Built-in functions
@@ -239,6 +356,78 @@ impl VM {
                 Ok(Value::Map(map))
             },
             Expr::None => Ok(Value::None),
+            Expr::Match { expr, arms } => {
+                let value = self.evaluate(expr)?;
+                for arm in arms {
+                    if PatternMatcher::matches(&arm.pattern, &value) {
+                        if let Some(ref guard) = arm.guard {
+                            let guard_result = self.evaluate(guard)?;
+                            if !self.is_truthy(&guard_result) {
+                                continue;
+                            }
+                        }
+                        
+                        let bindings = PatternMatcher::extract_bindings(&arm.pattern, &value);
+                        for (name, val) in bindings {
+                            self.define_variable(name, val);
+                        }
+                        
+                        return self.execute_block(&arm.body);
+                    }
+                }
+                Err("No pattern matched".to_string())
+            },
+            Expr::Destructure { pattern, value } => {
+                let val = self.evaluate(value)?;
+                let bindings = PatternMatcher::extract_bindings(&pattern, &val);
+                for (name, val) in bindings {
+                    self.define_variable(name, val);
+                }
+                Ok(Value::None)
+            },
+            Expr::Async { body } => {
+                // Async expression (simplified - would need async runtime)
+                self.evaluate(body)
+            },
+            Expr::Await { expr } => {
+                // Await expression (simplified - would need async runtime)
+                self.evaluate(expr)
+            },
+            Expr::Yield(expr) => {
+                // Yield expression (simplified - would need generator runtime)
+                if let Some(expr) = expr {
+                    self.evaluate(expr)
+                } else {
+                    Ok(Value::None)
+                }
+            },
+            Expr::Generator { body } => {
+                // Create generator (simplified)
+                self.execute_block(body)?;
+                Ok(Value::None) // Generator would return iterator in full implementation
+            },
+            Expr::Coroutine { body } => {
+                // Create coroutine (simplified)
+                let coroutine_id = self.coroutine_runtime.create();
+                // Execute coroutine body (simplified - would need separate execution context)
+                self.execute_block(body)?;
+                Ok(Value::Number(coroutine_id as f64)) // Return coroutine ID
+            },
+            Expr::Suspend => {
+                // Suspend current coroutine (simplified)
+                Ok(Value::None)
+            },
+            Expr::Resume { coroutine } => {
+                // Resume coroutine
+                let coroutine_val = self.evaluate(coroutine)?;
+                if let Value::Number(id) = coroutine_val {
+                    let coroutine_id = id as usize;
+                    self.coroutine_runtime.resume(coroutine_id)
+                        .map_err(|e| format!("Failed to resume coroutine: {}", e))
+                } else {
+                    Err("Resume expects a coroutine ID".to_string())
+                }
+            },
         }
     }
     

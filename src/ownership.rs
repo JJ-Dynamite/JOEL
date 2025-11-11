@@ -2,7 +2,7 @@
 // Inspired by Rust's ownership system
 
 use crate::ast::*;
-use crate::diagnostics::{DiagnosticReporter, SourceLocation};
+use crate::diagnostics::DiagnosticReporter;
 use std::collections::HashMap;
 
 #[derive(Debug, Clone, PartialEq)]

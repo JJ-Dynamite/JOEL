@@ -1,0 +1,26 @@
+[Interpreted]
+
+# Coroutine example
+fn coroutine_task() {
+  print("Coroutine started")
+  suspend  # Suspend execution
+  print("Coroutine resumed")
+  suspend
+  print("Coroutine finished")
+}
+
+fn main() {
+  # Create coroutine
+  let co = coroutine {
+    coroutine_task()
+  }
+  
+  # Resume coroutine
+  resume co
+  resume co
+  
+  print("Main finished")
+}
+
+main()
+

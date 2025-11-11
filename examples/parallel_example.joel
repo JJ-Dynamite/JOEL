@@ -1,0 +1,22 @@
+[Interpreted]
+
+# Parallel execution example
+fn process_item(item: i32) -> i32 {
+  # Simulate some work
+  return item * 2
+}
+
+fn main() {
+  let items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  
+  # Process items in parallel (conceptual - would need parallel syntax)
+  # parallel for item in items {
+  #   let result = process_item(item)
+  #   print("Processed:", result)
+  # }
+  
+  print("Parallel processing example")
+}
+
+main()
+

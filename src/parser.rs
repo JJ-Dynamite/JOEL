@@ -94,6 +94,14 @@ impl Parser {
                 self.advance();
                 self.cluster()
             },
+            TokenKind::Match => {
+                self.advance();
+                self.match_statement()
+            },
+            TokenKind::Async => {
+                self.advance();
+                self.async_function()
+            },
             _ => self.statement(),
         }
     }
@@ -234,7 +242,7 @@ impl Parser {
             return None;
         };
         
-        let alias = if self.peek().kind == TokenKind::Identifier {
+        let alias = if matches!(self.peek().kind, TokenKind::Identifier(_)) {
             if let TokenKind::Identifier(a) = &self.peek().kind {
                 let a = a.clone();
                 self.advance();
@@ -473,7 +481,7 @@ impl Parser {
     
     fn statement(&mut self) -> Option<Stmt> {
         match self.peek().kind {
-            TokenKind::Print => {
+            TokenKind::Identifier(ref s) if s == "print" => {
                 self.advance();
                 if self.peek().kind == TokenKind::LParen {
                     self.advance();
@@ -814,20 +822,23 @@ impl Parser {
     }
     
     fn primary(&mut self) -> Option<Expr> {
-        match self.peek().kind {
+        match &self.peek().kind {
             TokenKind::Number(n) => {
+                let n = *n;
                 self.advance();
                 Some(Expr::Number(n))
             },
             TokenKind::String(s) => {
+                let s = s.clone();
                 self.advance();
                 Some(Expr::String(s))
             },
             TokenKind::Boolean(b) => {
+                let b = *b;
                 self.advance();
                 Some(Expr::Boolean(b))
             },
-            TokenKind::Identifier(ref name) => {
+            TokenKind::Identifier(name) => {
                 let name = name.clone();
                 self.advance();
                 Some(Expr::Identifier(name))
@@ -874,6 +885,217 @@ impl Parser {
     
     fn is_at_end(&self) -> bool {
         matches!(self.tokens[self.current].kind, TokenKind::EOF)
+    }
+    
+    fn match_statement(&mut self) -> Option<Stmt> {
+        let expr = self.expression()?;
+        
+        if self.peek().kind != TokenKind::LBrace {
+            return None;
+        }
+        self.advance();
+        
+        let mut arms = Vec::new();
+        
+        while self.peek().kind != TokenKind::RBrace && !self.is_at_end() {
+            let pattern = self.pattern()?;
+            
+            let guard = if self.peek().kind == TokenKind::If {
+                self.advance();
+                Some(self.expression()?)
+            } else {
+                None
+            };
+            
+            if self.peek().kind != TokenKind::Arrow {
+                return None;
+            }
+            self.advance();
+            
+            let body = if self.peek().kind == TokenKind::LBrace {
+                self.advance();
+                let mut stmts = Vec::new();
+                while self.peek().kind != TokenKind::RBrace && !self.is_at_end() {
+                    if let Some(stmt) = self.declaration() {
+                        stmts.push(stmt);
+                    } else {
+                        self.advance();
+                    }
+                }
+                if self.peek().kind == TokenKind::RBrace {
+                    self.advance();
+                }
+                stmts
+            } else {
+                // Single expression
+                vec![Stmt::Expr(self.expression()?)]
+            };
+            
+            arms.push(MatchArm {
+                pattern,
+                guard,
+                body,
+            });
+            
+            if self.peek().kind == TokenKind::Comma {
+                self.advance();
+            }
+        }
+        
+        if self.peek().kind == TokenKind::RBrace {
+            self.advance();
+        }
+        
+        Some(Stmt::MatchStmt {
+            expr,
+            arms,
+        })
+    }
+    
+    fn pattern(&mut self) -> Option<Pattern> {
+        match self.peek().kind {
+            TokenKind::Identifier(ref name) => {
+                let name = name.clone();
+                self.advance();
+                Some(Pattern::Identifier(name))
+            },
+            TokenKind::Number(n) => {
+                self.advance();
+                Some(Pattern::Number(n))
+            },
+            TokenKind::String(ref s) => {
+                let s = s.clone();
+                self.advance();
+                Some(Pattern::String(s))
+            },
+            TokenKind::Boolean(b) => {
+                self.advance();
+                Some(Pattern::Boolean(b))
+            },
+            TokenKind::LParen => {
+                self.advance();
+                let mut patterns = Vec::new();
+                while self.peek().kind != TokenKind::RParen && !self.is_at_end() {
+                    if let Some(pattern) = self.pattern() {
+                        patterns.push(pattern);
+                    }
+                    if self.peek().kind == TokenKind::Comma {
+                        self.advance();
+                    }
+                }
+                if self.peek().kind == TokenKind::RParen {
+                    self.advance();
+                }
+                Some(Pattern::Tuple(patterns))
+            },
+            TokenKind::LBracket => {
+                self.advance();
+                let mut patterns = Vec::new();
+                while self.peek().kind != TokenKind::RBracket && !self.is_at_end() {
+                    if let Some(pattern) = self.pattern() {
+                        patterns.push(pattern);
+                    }
+                    if self.peek().kind == TokenKind::Comma {
+                        self.advance();
+                    }
+                }
+                if self.peek().kind == TokenKind::RBracket {
+                    self.advance();
+                }
+                Some(Pattern::List(patterns))
+            },
+            TokenKind::Question => {
+                self.advance();
+                Some(Pattern::Wildcard)
+            },
+            _ => None,
+        }
+    }
+    
+    fn async_function(&mut self) -> Option<Stmt> {
+        if self.peek().kind != TokenKind::Fn {
+            return None;
+        }
+        self.advance();
+        
+        let name = if let TokenKind::Identifier(ref n) = self.peek().kind {
+            let n = n.clone();
+            self.advance();
+            n
+        } else {
+            return None;
+        };
+        
+        let params = if self.peek().kind == TokenKind::LParen {
+            self.advance();
+            let mut params = Vec::new();
+            while self.peek().kind != TokenKind::RParen && !self.is_at_end() {
+                if let TokenKind::Identifier(ref name) = self.peek().kind {
+                    let name = name.clone();
+                    self.advance();
+                    let type_annot = if self.peek().kind == TokenKind::Colon {
+                        self.advance();
+                        if let TokenKind::Identifier(ref t) = self.peek().kind {
+                            let t = t.clone();
+                            self.advance();
+                            Some(t)
+                        } else {
+                            None
+                        }
+                    } else {
+                        None
+                    };
+                    params.push((name, type_annot));
+                }
+                if self.peek().kind == TokenKind::Comma {
+                    self.advance();
+                }
+            }
+            if self.peek().kind == TokenKind::RParen {
+                self.advance();
+            }
+            params
+        } else {
+            Vec::new()
+        };
+        
+        let return_type = if self.peek().kind == TokenKind::Arrow {
+            self.advance();
+            if let TokenKind::Identifier(ref t) = self.peek().kind {
+                let t = t.clone();
+                self.advance();
+                Some(t)
+            } else {
+                None
+            }
+        } else {
+            None
+        };
+        
+        let body = if self.peek().kind == TokenKind::LBrace {
+            self.advance();
+            let mut stmts = Vec::new();
+            while self.peek().kind != TokenKind::RBrace && !self.is_at_end() {
+                if let Some(stmt) = self.declaration() {
+                    stmts.push(stmt);
+                } else {
+                    self.advance();
+                }
+            }
+            if self.peek().kind == TokenKind::RBrace {
+                self.advance();
+            }
+            stmts
+        } else {
+            Vec::new()
+        };
+        
+        Some(Stmt::AsyncFn {
+            name,
+            params,
+            return_type,
+            body,
+        })
     }
 }
 

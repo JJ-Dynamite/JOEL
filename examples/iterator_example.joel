@@ -1,0 +1,24 @@
+[Interpreted]
+
+# Iterator example
+fn iterate_list() {
+  let numbers = [1, 2, 3, 4, 5]
+  
+  for num in numbers {
+    print("Number:", num)
+  }
+}
+
+fn iterate_range() {
+  for i in range(0, 10) {
+    print("Index:", i)
+  }
+}
+
+fn main() {
+  iterate_list()
+  iterate_range()
+}
+
+main()
+

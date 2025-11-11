@@ -307,6 +307,48 @@ impl TypeChecker {
                     Type::Unknown
                 })
             },
+            Expr::Match { expr, arms } => {
+                let _expr_type = self.check_expression(expr);
+                // Check each arm's pattern and body
+                for arm in arms {
+                    self.begin_scope();
+                    // Pattern matching type checking (simplified)
+                    self.check_block(&arm.body);
+                    self.end_scope();
+                }
+                // Return type of first arm (simplified)
+                Type::Any
+            },
+            Expr::Destructure { pattern: _, value } => {
+                self.check_expression(value);
+                Type::None
+            },
+            Expr::Async { body } => {
+                self.check_expression(body)
+            },
+            Expr::Await { expr } => {
+                self.check_expression(expr)
+            },
+            Expr::Yield(expr) => {
+                if let Some(e) = expr {
+                    self.check_expression(e)
+                } else {
+                    Type::None
+                }
+            },
+            Expr::Generator { body } => {
+                self.check_block(body);
+                Type::Any // Generator type
+            },
+            Expr::Coroutine { body } => {
+                self.check_block(body);
+                Type::Any // Coroutine type
+            },
+            Expr::Suspend => Type::None,
+            Expr::Resume { coroutine } => {
+                self.check_expression(coroutine);
+                Type::Any
+            },
             Expr::Binary { left, op, right } => {
                 let left_type = self.check_expression(left);
                 let right_type = self.check_expression(right);
@@ -401,28 +443,8 @@ impl TypeChecker {
                 }
             },
             Expr::Call { callee, args } => {
-                if let Some((param_types, return_type)) = self.functions.get(callee) {
-                    if args.len() != param_types.len() {
-                        self.reporter.error(
-                            format!("Function '{}' expects {} arguments, got {}", 
-                                callee, param_types.len(), args.len()),
-                            None,
-                        );
-                        return Type::Unknown;
-                    }
-                    
-                    for (i, (arg, (_, param_type))) in args.iter().zip(param_types.iter()).enumerate() {
-                        let arg_type = self.check_expression(arg);
-                        if !arg_type.can_coerce_to(param_type) && arg_type != Type::Unknown {
-                            self.reporter.error(
-                                format!("Argument {} to '{}': expected {}, got {}", 
-                                    i + 1, callee, param_type.to_string(), arg_type.to_string()),
-                                None,
-                            );
-                        }
-                    }
-                    
-                    return_type.clone()
+                let (param_types, return_type) = if let Some(info) = self.functions.get(callee) {
+                    (info.0.clone(), info.1.clone())
                 } else {
                     // Built-in function - check based on name
                     match callee.as_str() {
@@ -430,7 +452,7 @@ impl TypeChecker {
                             for arg in args {
                                 self.check_expression(arg);
                             }
-                            Type::None
+                            return Type::None;
                         },
                         "range" => {
                             if args.len() == 1 || args.len() == 2 {
@@ -443,13 +465,13 @@ impl TypeChecker {
                                         );
                                     }
                                 }
-                                Type::List(Box::new(Type::I32))
+                                return Type::List(Box::new(Type::I32));
                             } else {
                                 self.reporter.error(
                                     format!("range() expects 1 or 2 arguments, got {}", args.len()),
                                     None,
                                 );
-                                Type::Unknown
+                                return Type::Unknown;
                             }
                         },
                         _ => {
@@ -457,10 +479,32 @@ impl TypeChecker {
                                 format!("Unknown function: {}", callee),
                                 None,
                             );
-                            Type::Unknown
+                            return Type::Unknown;
                         }
                     }
+                };
+                
+                if args.len() != param_types.len() {
+                    self.reporter.error(
+                        format!("Function '{}' expects {} arguments, got {}", 
+                            callee, param_types.len(), args.len()),
+                        None,
+                    );
+                    return Type::Unknown;
                 }
+                
+                for (i, (arg, (_, param_type))) in args.iter().zip(param_types.iter()).enumerate() {
+                    let arg_type = self.check_expression(arg);
+                    if !arg_type.can_coerce_to(param_type) && arg_type != Type::Unknown {
+                        self.reporter.error(
+                            format!("Argument {} to '{}': expected {}, got {}", 
+                                i + 1, callee, param_type.to_string(), arg_type.to_string()),
+                            None,
+                        );
+                    }
+                }
+                
+                return_type
             },
             Expr::Member { object, member: _ } => {
                 let obj_type = self.check_expression(object);
